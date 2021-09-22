@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ImagePathManager {
 	
-	private final String backgroundPath = "tankBackground.jpg";
+	private final String backgroundPath = "tankBackground.png";
 	private List<String> pathList = new ArrayList<>();
 	
 	

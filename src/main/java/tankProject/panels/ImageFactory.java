@@ -23,7 +23,7 @@ public class ImageFactory {
 			System.out.println(imagePathManager.getPathList().get(0));
 			
 			for(int i = 0; i < imageManager.returnImageManagerSize() ; i++) {
-				map.put(imageManager.getImageList().get(i), (BufferedImage) ImageIO.read(new File(imagePathManager.getPathList().get(i))));
+				map.put(imageManager.getImageList().get(i), ImageIO.read(new File(imagePathManager.getPathList().get(i))));
 			}	
 
         } catch (IOException e) {
