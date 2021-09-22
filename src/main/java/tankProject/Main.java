@@ -15,7 +15,7 @@ public class Main {
 				StartPanel startPanel = new StartPanel();
 				MyFrame myFrame = new MyFrame();
 				myFrame.add(startPanel);
-				myFrame.setTitle("Tanks");
+				myFrame.setTitle("Tank 2021");
 				myFrame.setVisible(true);
 				myFrame.setDefaultCloseOperation(myFrame.EXIT_ON_CLOSE);
 				myFrame.setResizable(false);

@@ -18,10 +18,7 @@ public class ImageFactory {
 	public ImageFactory() {
 		imagePathManager = new ImagePathManager();
 		imageManager = new ImageManager();
-		try {
-			
-			System.out.println(imagePathManager.getPathList().get(0));
-			
+		try {	
 			for(int i = 0; i < imageManager.returnImageManagerSize() ; i++) {
 				map.put(imageManager.getImageList().get(i), ImageIO.read(new File(imagePathManager.getPathList().get(i))));
 			}	

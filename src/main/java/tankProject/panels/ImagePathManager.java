@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ImagePathManager {
 	
-	private final String backgroundPath = "tankBackground.png";
+	private final String backgroundPath = "C:\\Users\\Jarcy\\Desktop\\SDA Eclipse\\TankProject\\TankGameProject\\src\\main\\resources\\tankBackground.png";
 	private List<String> pathList = new ArrayList<>();
 	
 	

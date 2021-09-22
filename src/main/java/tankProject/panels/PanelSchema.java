@@ -9,12 +9,12 @@ import javax.swing.JPanel;
 public abstract class PanelSchema extends JPanel {
 	private ImageFactory imageFactory = new ImageFactory();
 	
-	private int returnScreenWidth() {
+	protected int returnScreenWidth() {
 		Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
 		return (int) size.getWidth();
 	}
 	
-	private int returnScreenHeight() {
+	protected int returnScreenHeight() {
 		Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
 		return (int) size.getHeight();
 	}
@@ -25,12 +25,8 @@ public abstract class PanelSchema extends JPanel {
 		g.drawImage(imageFactory.getMap().get("background"), 0, 0, returnScreenWidth(), returnScreenHeight(), null);
 	}
 	
-	
-	
-	
 	@Override
 	public Dimension getPreferredSize() {
-		
 		return new Dimension(returnScreenWidth(),returnScreenHeight());
 	}
 }
