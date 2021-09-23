@@ -12,8 +12,8 @@ public class Main {
 			
 			@Override
 			public void run() {
-				StartPanel startPanel = new StartPanel();
 				MyFrame myFrame = new MyFrame();
+				StartPanel startPanel = new StartPanel(myFrame);
 				myFrame.add(startPanel);
 				myFrame.setTitle("Tank 2021");
 				myFrame.setVisible(true);
