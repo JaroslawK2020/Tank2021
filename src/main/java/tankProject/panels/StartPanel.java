@@ -11,6 +11,8 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 
 public class StartPanel extends PanelSchema {
@@ -29,6 +31,15 @@ public class StartPanel extends PanelSchema {
 		speakerSlider = new JSlider(JSlider.VERTICAL);
 		speakerSlider.setBounds((int)(returnScreenWidth()/1.04), (int)(returnScreenHeight()/1.19), 
 				(int)(returnScreenWidth()/51.2), (int)(returnScreenHeight()/8.64));
+		speakerSlider.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				
+				System.out.println(speakerSlider.getValue());
+			}
+		});
+		
 		add(speakerSlider);
 //		---------------quitButton
 		quitButton = new MyButton(500, 500);
@@ -36,6 +47,7 @@ public class StartPanel extends PanelSchema {
 				(int)(returnScreenWidth()/15.64), (int)(returnScreenHeight()/17.3));
 		quitButton.setText("QUIT");
 		quitButton.setFont(new Font("Arial", Font.BOLD, 25));
+		
 		quitButton.addActionListener(new ActionListener() {
 			
 			@Override
