@@ -11,7 +11,7 @@ public class GameTitle {
 
 	public GameTitle() {
 		try {
-			image = ImageIO.read(new File("gameName.png"));
+			image = ImageIO.read(new File("src//images//gameName.png"));
 		}catch(IOException e) {
 			e.getMessage();
 		}

@@ -29,6 +29,7 @@ public class StartPanel extends PanelSchema {
 		setLayout(null);
 		gameTitle = new GameTitle();
 		speakerImg =  new SpeakerImg();
+		backgroundImg = new Background();
 //		---------------speakerSlider
 		speakerSlider = new JSlider(JSlider.VERTICAL);
 		speakerSlider.setBounds((int)(returnScreenWidth()/1.04), (int)(returnScreenHeight()/1.19), 
@@ -92,14 +93,17 @@ public class StartPanel extends PanelSchema {
 		add(quitButton);
 //		--------------music play
 		soundPlayer = new SoundPlayer();
-		soundPlayer.play();
-		
+		try {
+			soundPlayer.audioPlayera();
+			soundPlayer.play();
+		}catch(Exception e) {
+			e.getMessage();
+		}
 	}
 		
 	@Override
 	protected void paintComponent(Graphics g) {
-		g.drawImage(backgroundImg.getImage(), 100, 100, 100, 100,null);
-		
+		g.drawImage(backgroundImg.getImage(), 0, 0, returnScreenWidth(), returnScreenHeight(),null);
 		g.drawImage(gameTitle.getImage(), (int)(returnScreenWidth()/6.5), (int)(returnScreenHeight()/11.5), 
 				(int)(returnScreenWidth()/1.5),(int)(returnScreenHeight()/6), null);
 		g.drawImage(speakerImg.getImage(), (int)(returnScreenWidth()/1.08), (int)(returnScreenHeight()/1.14), 

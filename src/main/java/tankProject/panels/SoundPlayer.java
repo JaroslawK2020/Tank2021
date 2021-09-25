@@ -7,7 +7,7 @@ import javax.sound.sampled.*;
 
 
 public class SoundPlayer {
-	private final String laucherMusic = "C:\\Users\\Jarcy\\Desktop\\SDA Eclipse\\TankProject\\TankGameProject\\startMusic.wav";
+	private final String laucherMusic = "src//sounds//startMusic.wav";
 	private Clip clip;
 	private AudioInputStream audioInputStream;
 	

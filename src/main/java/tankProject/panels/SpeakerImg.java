@@ -12,7 +12,7 @@ public class SpeakerImg {
 	
 	public SpeakerImg() {
 		try {
-			image = ImageIO.read(new File("speaker.png"));
+			image = ImageIO.read(new File("src//images//speaker.png"));
 		}catch(IOException e) {
 			e.getMessage();
 		}

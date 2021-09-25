@@ -11,7 +11,7 @@ public class Background {
 
 	public Background() {
 		try {
-			image = ImageIO.read(new File("tankBackground.png"));
+			image = ImageIO.read(new File("src//images//tankBackground.png"));
 		}catch(IOException e){
 			e.getMessage();
 		}
