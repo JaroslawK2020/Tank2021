@@ -6,14 +6,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+public class Background {
+	BufferedImage image;
 
-public class SpeakerImg {
-	private BufferedImage image;
-	
-	public SpeakerImg() {
+	public Background() {
 		try {
-			image = ImageIO.read(new File("speaker.png"));
-		}catch(IOException e) {
+			image = ImageIO.read(new File("tankBackground.png"));
+		}catch(IOException e){
 			e.getMessage();
 		}
 	}
@@ -21,6 +20,6 @@ public class SpeakerImg {
 	public BufferedImage getImage() {
 		return image;
 	}
-
+	
 	
 }

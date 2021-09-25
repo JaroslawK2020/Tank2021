@@ -11,7 +11,7 @@ public class GameTitle {
 
 	public GameTitle() {
 		try {
-			image = ImageIO.read(new File("C:\\Users\\Jarcy\\Desktop\\SDA Eclipse\\TankProject\\TankGameProject\\src\\main\\resources\\gameName.png"));
+			image = ImageIO.read(new File("gameName.png"));
 		}catch(IOException e) {
 			e.getMessage();
 		}

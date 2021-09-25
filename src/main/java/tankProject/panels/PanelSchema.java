@@ -7,7 +7,6 @@ import java.awt.Toolkit;
 import javax.swing.JPanel;
 
 public abstract class PanelSchema extends JPanel {
-	private ImageFactory imageFactory = new ImageFactory();
 	
 	protected int returnScreenWidth() {
 		Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
@@ -19,11 +18,6 @@ public abstract class PanelSchema extends JPanel {
 		return (int) size.getHeight();
 	}
 	
-	
-	@Override
-	protected void paintComponent(Graphics g) {
-		g.drawImage(imageFactory.getMap().get("background"), 0, 0, returnScreenWidth(), returnScreenHeight(), null);
-	}
 	
 	@Override
 	public Dimension getPreferredSize() {

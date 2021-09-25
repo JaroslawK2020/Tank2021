@@ -22,6 +22,8 @@ public class StartPanel extends PanelSchema {
 	private JSlider speakerSlider;
 	private MyButton quitButton;
 	private JDialog exitDialog;
+	private Background backgroundImg;
+	private SoundPlayer soundPlayer;
 	
 	public StartPanel(JFrame mainFrame) {
 		setLayout(null);
@@ -35,7 +37,6 @@ public class StartPanel extends PanelSchema {
 			
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				
 				System.out.println(speakerSlider.getValue());
 			}
 		});
@@ -89,11 +90,16 @@ public class StartPanel extends PanelSchema {
 			}
 		});
 		add(quitButton);
+//		--------------music play
+		soundPlayer = new SoundPlayer();
+		soundPlayer.play();
+		
 	}
 		
 	@Override
 	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
+		g.drawImage(backgroundImg.getImage(), 100, 100, 100, 100,null);
+		
 		g.drawImage(gameTitle.getImage(), (int)(returnScreenWidth()/6.5), (int)(returnScreenHeight()/11.5), 
 				(int)(returnScreenWidth()/1.5),(int)(returnScreenHeight()/6), null);
 		g.drawImage(speakerImg.getImage(), (int)(returnScreenWidth()/1.08), (int)(returnScreenHeight()/1.14), 
