@@ -23,10 +23,11 @@ public class StartPanel extends PanelSchema {
 	private MyButton quitButton;
 	private JDialog exitDialog;
 	private Background backgroundImg;
-	private SoundPlayer soundPlayer;
+	private SoundPlayer soundPlayer/* = new SoundPlayer() */;
 	
 	public StartPanel(JFrame mainFrame) {
 		setLayout(null);
+		soundPlayer = new SoundPlayer();
 		gameTitle = new GameTitle();
 		speakerImg =  new SpeakerImg();
 		backgroundImg = new Background();
@@ -34,11 +35,14 @@ public class StartPanel extends PanelSchema {
 		speakerSlider = new JSlider(JSlider.VERTICAL);
 		speakerSlider.setBounds((int)(returnScreenWidth()/1.04), (int)(returnScreenHeight()/1.19), 
 				(int)(returnScreenWidth()/51.2), (int)(returnScreenHeight()/8.64));
+		soundPlayer.startLaucherMusic();
 		speakerSlider.addChangeListener(new ChangeListener() {
 			
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				System.out.println(speakerSlider.getValue());
+			
+//				soundPlayer.setVolume((float)speakerSlider.getValue(),soundPlayer.getLaucherClip());
+//				System.out.println(speakerSlider.getValue());
 			}
 		});
 		
@@ -49,6 +53,7 @@ public class StartPanel extends PanelSchema {
 				(int)(returnScreenWidth()/15.64), (int)(returnScreenHeight()/17.3));
 		quitButton.setText("QUIT");
 		quitButton.setFont(new Font("Arial", Font.BOLD, 25));
+		
 		
 		quitButton.addActionListener(new ActionListener() {
 			
@@ -91,14 +96,9 @@ public class StartPanel extends PanelSchema {
 			}
 		});
 		add(quitButton);
-//		--------------music play
-		soundPlayer = new SoundPlayer();
-		try {
-			soundPlayer.audioPlayera();
-			soundPlayer.play();
-		}catch(Exception e) {
-			e.getMessage();
-		}
+//		--------------music player
+		
+		
 	}
 		
 	@Override
