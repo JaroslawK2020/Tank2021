@@ -17,7 +17,7 @@ public class ExitPanel extends BasicPanel {
 	MyButton yesButton = new MyButton(EStrings.YES.text);
 	MyButton noButton = new MyButton(EStrings.NO.text);
 
-	public ExitPanel(MyFrame myFrame, MyFrame mainFrame, MyButton button) {
+	public ExitPanel(MyFrame exitFrame, MyFrame mainFrame) {
 		setLayout(null);
 		title.setBounds(super.returnScreenWidth() / 8, super.returnScreenWidth() / 9, super.returnScreenWidth() / 2, super.returnScreenHeight() / 8);
 		add(title);
@@ -33,9 +33,8 @@ public class ExitPanel extends BasicPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				myFrame.dispose();
-				button.setEnabled(true);
+				mainFrame.setEnabled(true);
+				exitFrame.dispose();
 			}
 		});
 
@@ -43,7 +42,7 @@ public class ExitPanel extends BasicPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				myFrame.dispose();
+				exitFrame.dispose();
 				mainFrame.dispose();
 			}
 		});
