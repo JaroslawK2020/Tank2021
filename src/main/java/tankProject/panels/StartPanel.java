@@ -25,8 +25,8 @@ public class StartPanel extends PanelSchema {
 		backgroundImg = new Background();
 		speakerImg = new SpeakerImg();
 
-		add(new NewPlayerButton(EStrings.CREATE_PLAYER.text));
-		add(new ChoosePlayerButton(EStrings.CHOOSE_PLAYER.text));
+		add(new NewPlayerButton(EStrings.CREATE_PLAYER.text, mainFrame));
+		add(new ChoosePlayerButton(EStrings.CHOOSE_PLAYER.text, mainFrame));
 		add(new QuitButton(EStrings.QUITE.text, mainFrame, this));
 	}
 
@@ -46,17 +46,52 @@ public class StartPanel extends PanelSchema {
 
 	class NewPlayerButton extends MyButton {
 
-		public NewPlayerButton(String text) {
+		public NewPlayerButton(String text, MyFrame mainFrame) {
 			super(text);
 			setBounds(returnScreenWidth() / 10, returnScreenHeight() / 3, super.getWidth(), super.getHeight());
+
+			addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+
+					MyFrame createNewPlayerFrame = new MyFrame();
+					CreateNewPlayerPanel createNewPlayerPanel = new CreateNewPlayerPanel(mainFrame, createNewPlayerFrame);
+					mainFrame.setVisible(false);
+
+					createNewPlayerFrame.setUndecorated(true);
+					createNewPlayerFrame.add(createNewPlayerPanel);
+					createNewPlayerFrame.setVisible(true);
+					createNewPlayerFrame.pack();
+					createNewPlayerFrame.setLocationRelativeTo(null);
+
+				}
+			});
 		}
 	}
 
 	class ChoosePlayerButton extends MyButton {
 
-		public ChoosePlayerButton(String text) {
+		public ChoosePlayerButton(String text, MyFrame mainFrame) {
 			super(text);
 			setBounds((int) (returnScreenWidth() / 1.3), returnScreenHeight() / 3, super.getWidth(), super.getHeight());
+			addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+
+					MyFrame choosePlayerFrame = new MyFrame();
+					ChoosePlayerPanel choosePlayerPanel = new ChoosePlayerPanel(mainFrame, choosePlayerFrame);
+					mainFrame.setVisible(false);
+
+					choosePlayerFrame.setUndecorated(true);
+					choosePlayerFrame.add(choosePlayerPanel);
+					choosePlayerFrame.setVisible(true);
+					choosePlayerFrame.pack();
+					choosePlayerFrame.setLocationRelativeTo(null);
+
+				}
+			});
 		}
 	}
 
@@ -79,6 +114,7 @@ public class StartPanel extends PanelSchema {
 			MyFrame exitFrame = new MyFrame();
 			ExitPanel exitPanel = new ExitPanel(exitFrame, mainFrame);
 
+			exitFrame.setUndecorated(true);
 			exitFrame.add(exitPanel);
 			mainFrame.setEnabled(false);
 			exitFrame.setVisible(true);

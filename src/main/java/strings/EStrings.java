@@ -6,7 +6,8 @@ public enum EStrings {
 	NO("No"),
 	CREATE_PLAYER("Create player"),
 	CHOOSE_PLAYER("Choose player"),
-	QUITE("Quite");
+	QUITE("Quite"),
+	BACK("Back");
 	public String text;
 
 	private EStrings(String text) {
