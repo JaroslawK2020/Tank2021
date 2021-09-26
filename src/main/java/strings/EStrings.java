@@ -7,7 +7,10 @@ public enum EStrings {
 	CREATE_PLAYER("Create player"),
 	CHOOSE_PLAYER("Choose player"),
 	QUITE("Quite"),
-	BACK("Back");
+	BACK("Back"),
+	CREATE_NEW_PLAYER("Create new player"),
+	NICKNAME_LABEL("What is your player nickname?"),
+	NICKNAME_TEXTFIELD_HINT("NICKNAME");
 	public String text;
 
 	private EStrings(String text) {

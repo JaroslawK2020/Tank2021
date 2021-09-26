@@ -21,11 +21,10 @@ public class MyButton extends JButton {
 	private int width = 100;
 
 	public MyButton(String text) {
-
 		setText(text);
 		this.text = text;
 		setFont(fontFamily);
-		width += computeWidth();		
+		width += computeWidth();
 		setBackground(color);
 		setBorder(new LineBorder(Color.DARK_GRAY, 3));
 		addMouseListener(new MouseListener() {
@@ -43,14 +42,15 @@ public class MyButton extends JButton {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				setBackground(color);
-				// change size
+				setBounds(getBounds().x + 2, getBounds().y - 2, getWidth(), getHeight());
 
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				setBackground(overColor);
-				// change size
+				setBounds(getBounds().x - 2, getBounds().y + 2, getWidth(), getHeight());
+
 			}
 
 			@Override
