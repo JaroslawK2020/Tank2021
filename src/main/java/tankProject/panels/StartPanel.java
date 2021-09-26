@@ -107,8 +107,7 @@ public class StartPanel extends PanelSchema {
 		
 		public MySoundPlayer() {
 			try {
-				audioPlayera();
-				play();
+				startLaucherMusic();
 			} catch (Exception e) {
 				e.getMessage();
 			}
