@@ -5,7 +5,10 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import components.MyButton;
+import components.SoundPlayer;
 import images.Background;
+import images.GameTitle;
 import images.SpeakerImg;
 import strings.EStrings;
 import tankProject.Frame.MyFrame;

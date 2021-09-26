@@ -3,6 +3,8 @@ package tankProject.panels;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import components.MyButton;
 import strings.EStrings;
 import tankProject.Frame.MyFrame;
 

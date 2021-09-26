@@ -1,4 +1,4 @@
-package tankProject.panels;
+package components;
 
 import java.awt.Color;
 import java.awt.Font;

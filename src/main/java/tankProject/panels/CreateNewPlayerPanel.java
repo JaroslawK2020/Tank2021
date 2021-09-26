@@ -9,9 +9,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import components.MyButton;
 import images.TankImage_1;
 import strings.EStrings;
 import tankProject.Frame.MyFrame;
@@ -24,6 +27,7 @@ public class CreateNewPlayerPanel extends BasicPanel {
 		add(new ExitButton(mainFrame, createNewPlayerFrame, this));
 		add(new NickNameTextField(this));
 		add(new Tittle(this));
+		add(new JButton(new ImageIcon(getClass().getResource("src//images//arrowL.png"))
 	}
 
 	@Override
@@ -89,5 +93,16 @@ public class CreateNewPlayerPanel extends BasicPanel {
 			setFont(fontFamily);
 			setForeground(Color.WHITE);
 		}
+	}
+	
+	
+	class Arrow extends JButton{
+		
+		public Arrow() {
+			setBounds(300, 400, 300, 300);
+			 
+			 }
+		
+		
 	}
 }
