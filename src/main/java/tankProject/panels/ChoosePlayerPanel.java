@@ -1,9 +1,8 @@
 package tankProject.panels;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-
 import strings.EStrings;
 import tankProject.Frame.MyFrame;
 
@@ -14,14 +13,17 @@ public class ChoosePlayerPanel extends BasicPanel {
 
 		add(new ExitButton(mainFrame, ChoosePlayerFrame, this));
 	}
+	@Override
+	public Dimension getPreferredSize() {
+		return new Dimension(super.returnScreenWidth(), super.returnScreenHeight());
 
+	}
 	class ExitButton extends MyButton {
 
 		public ExitButton(MyFrame mainFrame, MyFrame ChoosePlayerFrame, ChoosePlayerPanel choosePlayerPanel) {
 			super(EStrings.BACK.text);
-			setBounds(choosePlayerPanel.returnScreenWidth() - getWidth() - choosePlayerPanel.returnScreenWidth() / 16,
-					choosePlayerPanel.returnScreenHeight() - getHeight() - choosePlayerPanel.returnScreenWidth() / 16,
-					getWidth(), getHeight());
+			setBounds(choosePlayerPanel.returnScreenWidth() / 16,
+					choosePlayerPanel.returnScreenHeight() - getHeight() * 2, getWidth(), getHeight());
 
 			addActionListener(new ActionListener() {
 				@Override

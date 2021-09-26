@@ -18,7 +18,9 @@ public class ExitPanel extends BasicPanel {
 	public ExitPanel(MyFrame exitFrame, MyFrame mainFrame) {
 		this.exitFrame = exitFrame;
 		this.mainFrame = mainFrame;
-		
+		width/=2;
+		height/=2;
+
 		setLayout(null);
 		add(new Tittle(this));
 		add(new YesButton(this));
@@ -27,7 +29,7 @@ public class ExitPanel extends BasicPanel {
 
 	@Override
 	public Dimension getPreferredSize() {
-		return new Dimension(super.returnScreenWidth() / 2, super.returnScreenHeight() / 2);
+		return new Dimension(width, height);
 
 	}
 
