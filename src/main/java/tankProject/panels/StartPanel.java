@@ -74,7 +74,7 @@ public class StartPanel extends PanelSchema {
 
 		public ChoosePlayerButton(String text, MyFrame mainFrame) {
 			super(text);
-			setBounds((int) (returnScreenWidth() / 1.3), returnScreenHeight() / 3, super.getWidth(), super.getHeight());
+			setBounds((int) (returnScreenWidth() / 1.5), returnScreenHeight() / 3, super.getWidth(), super.getHeight());
 			addActionListener(new ActionListener() {
 
 				@Override
@@ -126,11 +126,7 @@ public class StartPanel extends PanelSchema {
 	class MySoundPlayer extends SoundPlayer {
 
 		public MySoundPlayer() {
-			try {
 				startLaucherMusic();
-			} catch (Exception e) {
-				e.getMessage();
-			}
 		}
 	}
 }

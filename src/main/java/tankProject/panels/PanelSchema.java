@@ -22,5 +22,6 @@ public abstract class PanelSchema extends JPanel {
 	@Override
 	public Dimension getPreferredSize() {
 		return new Dimension(returnScreenWidth(),returnScreenHeight());
+
 	}
 }
