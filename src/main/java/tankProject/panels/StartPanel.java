@@ -70,16 +70,20 @@ public class StartPanel extends PanelSchema {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					MyFrame exitFrame = new MyFrame();
-					ExitPanel exitPanel = new ExitPanel(exitFrame, mainFrame);
-
-					exitFrame.add(exitPanel);
-					mainFrame.setEnabled(false);
-					exitFrame.setVisible(true);
-					exitFrame.pack();
-					exitFrame.setLocationRelativeTo(null);
+					launchExitPanel(mainFrame, startPanel);
 				};
 			});
+		}
+
+		private void launchExitPanel(MyFrame mainFrame, StartPanel startPanel) {
+			MyFrame exitFrame = new MyFrame();
+			ExitPanel exitPanel = new ExitPanel(exitFrame, mainFrame);
+
+			exitFrame.add(exitPanel);
+			mainFrame.setEnabled(false);
+			exitFrame.setVisible(true);
+			exitFrame.pack();
+			exitFrame.setLocationRelativeTo(null);
 		}
 	}
 
@@ -87,7 +91,7 @@ public class StartPanel extends PanelSchema {
 
 		public MySoundPlayer() {
 			try {
-				// startLaucherMusic();
+				startLaucherMusic();
 			} catch (Exception e) {
 				e.getMessage();
 			}

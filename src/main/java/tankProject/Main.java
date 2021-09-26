@@ -14,14 +14,13 @@ public class Main {
 			public void run() {
 				MyFrame myFrame = new MyFrame();
 				StartPanel startPanel = new StartPanel(myFrame);
+				
 				myFrame.add(startPanel);
-				//myFrame.setUndecorated(true);
+				myFrame.setUndecorated(true);
 				myFrame.setVisible(true);
 				myFrame.pack();
 				myFrame.setLocationRelativeTo(null);
 			}
 		});
-
 	}
-
 }
