@@ -11,7 +11,7 @@ public class TankImage_2 implements ITanks{
 
 	public TankImage_2() {
 		try {
-			image = ImageIO.read(new File("src//images//tank2.png"));
+			image = ImageIO.read(new File("src//images//tank2bigGreenTank.png"));
 		}catch(IOException e){
 			e.getMessage();
 		}
