@@ -34,10 +34,10 @@ public class StartPanel extends PanelSchema {
 	@Override
 	protected void paintComponent(Graphics g) {
 		g.drawImage(backgroundImg.getImage(), 0, 0, returnScreenWidth(), returnScreenHeight(), null);
-		g.drawImage(gameTitle.getImage(), (int) (returnScreenWidth() / 6.5), (int) (returnScreenHeight() / 11.5),
-				(int) (returnScreenWidth() / 1.5), (int) (returnScreenHeight() / 6), null);
-		g.drawImage(speakerImg.getImage(), (int) (returnScreenWidth() / 1.08), (int) (returnScreenHeight() / 1.14),
-				(int) (returnScreenWidth() / 30.7), (int) (returnScreenHeight() / 21.6), null);
+		g.drawImage(gameTitle.getImage(), (int) calculateWidth(15), (int) calculateHeight(15),
+				(int) calculateWidth(70), (int) calculateHeight(20), null);
+		g.drawImage(speakerImg.getImage(), (int) calculateWidth(95), (int) calculateHeight(95),
+				(int) calculateWidth(5), (int) calculateHeight(6), null);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class StartPanel extends PanelSchema {
 
 		public NewPlayerButton(String text, MyFrame mainFrame) {
 			super(text);
-			setBounds(returnScreenWidth() / 10, returnScreenHeight() / 3, super.getWidth(), super.getHeight());
+			setBounds((int) calculateWidth(10), (int)calculateHeight(55), super.getWidth(), super.getHeight());
 
 			addActionListener(new ActionListener() {
 
@@ -72,7 +72,7 @@ public class StartPanel extends PanelSchema {
 
 		public ChoosePlayerButton(String text, MyFrame mainFrame) {
 			super(text);
-			setBounds((int) (returnScreenWidth() / 1.5), returnScreenHeight() / 3, super.getWidth(), super.getHeight());
+			setBounds((int) calculateWidth(75), (int)calculateHeight(55), super.getWidth(), super.getHeight());
 			addActionListener(new ActionListener() {
 
 				@Override
@@ -94,7 +94,6 @@ public class StartPanel extends PanelSchema {
 
 		public QuitButton(String text, MyFrame mainFrame, StartPanel startPanel) {
 			super(text);
-		//	setBounds((int) (returnScreenWidth() / 30.7), (int) (returnScreenHeight() / 1.2), getWidth(), getHeight());
 			setBounds((int)calculateWidth(5), (int)calculateHeight(90), getWidth(), getHeight());
 			
 			addActionListener(new ActionListener() {
