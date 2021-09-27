@@ -28,6 +28,7 @@ public class DatabaseManager {
 
 			session.save(players);
 			session.getTransaction().commit();
+			//should session be closed?
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -43,17 +44,10 @@ public class DatabaseManager {
 			String hql = "FROM Players WHERE nickname ='" + nickname + "'";
 			Query query = session.createQuery(hql);
 			return query.getResultList().size();
+			//should session be closed?
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
-
-	public void closeSession() {
-		if (session != null) {
-			session.close();
-			System.out.println("session closed");
-		}
-	}
-
 }
