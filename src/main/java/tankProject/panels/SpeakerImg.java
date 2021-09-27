@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 
 public class SpeakerImg {
 	private BufferedImage image;
+	private String speakerPath = "src//images//speaker.png";
 	
 	public SpeakerImg() {
 		try {
@@ -21,6 +22,13 @@ public class SpeakerImg {
 	public BufferedImage getImage() {
 		return image;
 	}
+
+	public String getSpeakerPath() {
+		return speakerPath;
+	}
+	
+	
+	
 
 	
 }

@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -23,7 +25,7 @@ public class StartPanel extends PanelSchema {
 	private MyButton quitButton;
 	private JDialog exitDialog;
 	private Background backgroundImg;
-	private SoundPlayer soundPlayer/* = new SoundPlayer() */;
+	private SoundPlayer soundPlayer;
 	
 	public StartPanel(JFrame mainFrame) {
 		setLayout(null);
@@ -31,29 +33,16 @@ public class StartPanel extends PanelSchema {
 		gameTitle = new GameTitle();
 		speakerImg =  new SpeakerImg();
 		backgroundImg = new Background();
-//		---------------speakerSlider
-		speakerSlider = new JSlider(JSlider.VERTICAL);
-		speakerSlider.setBounds((int)(returnScreenWidth()/1.04), (int)(returnScreenHeight()/1.19), 
-				(int)(returnScreenWidth()/51.2), (int)(returnScreenHeight()/8.64));
-		soundPlayer.startLaucherMusic();
-		speakerSlider.addChangeListener(new ChangeListener() {
-			
-			@Override
-			public void stateChanged(ChangeEvent e) {
-			
-//				soundPlayer.setVolume((float)speakerSlider.getValue(),soundPlayer.getLaucherClip());
-//				System.out.println(speakerSlider.getValue());
-			}
-		});
+//		---------------speakerButton
+		Icon speakreIcon = new ImageIcon(speakerImg.getSpeakerPath());
+		JButton speakerButton = new JButton(speakreIcon);
 		
-		add(speakerSlider);
+		speakerButton.setBounds(100, 100, 50, 39);
+		add(speakerButton);
 //		---------------quitButton
-		quitButton = new MyButton(500, 500);
+		quitButton = new MyButton("QUIT");
 		quitButton.setBounds((int)(returnScreenWidth()/30.7), (int)(returnScreenHeight()/1.15), 
-				(int)(returnScreenWidth()/15.64), (int)(returnScreenHeight()/17.3));
-		quitButton.setText("QUIT");
-		quitButton.setFont(new Font("Arial", Font.BOLD, 25));
-		
+				(int)(returnScreenWidth()/15.64), (int)(returnScreenHeight()/17.3));	
 		
 		quitButton.addActionListener(new ActionListener() {
 			
@@ -97,7 +86,7 @@ public class StartPanel extends PanelSchema {
 		});
 		add(quitButton);
 //		--------------music player
-		
+		soundPlayer.startLaucherMusic();
 		
 	}
 		
