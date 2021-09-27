@@ -94,7 +94,9 @@ public class StartPanel extends PanelSchema {
 
 		public QuitButton(String text, MyFrame mainFrame, StartPanel startPanel) {
 			super(text);
-			setBounds((int) (returnScreenWidth() / 30.7), (int) (returnScreenHeight() / 1.2), getWidth(), getHeight());
+		//	setBounds((int) (returnScreenWidth() / 30.7), (int) (returnScreenHeight() / 1.2), getWidth(), getHeight());
+			setBounds((int)calculateWidth(5), (int)calculateHeight(90), getWidth(), getHeight());
+			
 			addActionListener(new ActionListener() {
 
 				@Override

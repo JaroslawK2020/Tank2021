@@ -236,13 +236,15 @@ class CreateNewPlayerPanel extends BasicPanel {
 			addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if (!isEnabled()) {
+					if (isEnabled()) {
+						// TO DO:
+						// implement nickname validation - is nickname in use?
+						// save new player
 						
+						databaseManager.addNewUser(nickNameTextField.getText(), selectedTankIndex);
+
+
 					}
-					// TO DO:
-					// connect with db
-					// implement nickname validation
-					// save new player
 
 					navigateToChoosePlayerFrame(createNewPlayerFrame, mainFrame);
 					createNewPlayerFrame.dispose();
