@@ -1,56 +1,59 @@
 package Database;
 
+import javax.persistence.Query;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class DatabaseManager {
-	Session session;
-	
+
+	private Session session;
+
+	public DatabaseManager() {
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+	}
+
 	public void addNewUser(String nickname, int tankId) {
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.getCurrentSession();
 
 			session.beginTransaction();
-			
+
 			Players players = new Players();
-			
+
 			players.setNickname(nickname);
 			players.setTankId(tankId);
-			
-			
+
 			session.save(players);
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		finally {
-			session.close();
-		}
 	}
-	
-	
-	public void verifyIfNicknameExist(String nickname) {
+
+	public int verifyIfNicknameExist(String nickname) {
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.getCurrentSession();
 
 			session.beginTransaction();
-			
-			Players players = new Players();
-			
-			players.getNickname();
-			
-			
-			session.save(players);
-			session.getTransaction().commit();
+
+			String hql = "FROM Players WHERE nickname ='" + nickname + "'";
+			Query query = session.createQuery(hql);
+			return query.getResultList().size();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		finally {
+		return 0;
+	}
+
+	public void closeSession() {
+		if (session != null) {
 			session.close();
+			System.out.println("session closed");
 		}
 	}
-}
 
+}

@@ -45,6 +45,7 @@ public class ExitPanel extends BasicPanel {
 			addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					databaseManager.closeSession();
 					exitFrame.dispose();
 					mainFrame.dispose();
 				}

@@ -109,11 +109,9 @@ public class StartPanel extends PanelSchema {
 		private void launchExitPanel(MyFrame mainFrame, StartPanel startPanel) {
 			MyFrame exitFrame = new MyFrame();
 			ExitPanel exitPanel = new ExitPanel(exitFrame, mainFrame);
-
 			exitFrame.add(exitPanel);
 			exitFrame.settupFrame();
 			mainFrame.setEnabled(false);
-
 		}
 	}
 

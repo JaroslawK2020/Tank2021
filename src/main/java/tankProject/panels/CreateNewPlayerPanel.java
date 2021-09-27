@@ -41,12 +41,12 @@ class CreateNewPlayerPanel extends BasicPanel {
 	public CreateNewPlayerPanel(MyFrame mainFrame, MyFrame createNewPlayerFrame) {
 
 		NickNameTextField nickNameTextField = new NickNameTextField(this);
-
+		NickNameLabel nickNameLabel = new NickNameLabel(this);
 		setLayout(null);
 		add(new Tittle(this));
-		add(new NickNameLabel(this));
+		add(nickNameLabel);
 		add(nickNameTextField);
-		add(new CreateButton(createNewPlayerFrame, mainFrame, nickNameTextField));
+		add(new CreateButton(createNewPlayerFrame, mainFrame, nickNameTextField, nickNameLabel));
 		add(new BackButton(mainFrame, createNewPlayerFrame, this));
 		add(new ChooseTankLeftButton(this, tanksListProvider));
 		add(new ChooseTankRightButton(this));
@@ -92,7 +92,7 @@ class CreateNewPlayerPanel extends BasicPanel {
 			setText("Provide player nickname:");
 			setBounds((int) (createNewPlayerPanel.returnScreenWidth() / 10),
 					(int) (createNewPlayerPanel.returnScreenHeight() / 7),
-					(int) (createNewPlayerPanel.returnScreenWidth() / 3),
+					(int) (createNewPlayerPanel.returnScreenWidth() / 2),
 					(int) (createNewPlayerPanel.returnScreenHeight() / 15));
 		}
 	}
@@ -214,9 +214,10 @@ class CreateNewPlayerPanel extends BasicPanel {
 
 	class CreateButton extends MyButton {
 
-		public CreateButton(MyFrame createNewPlayerFrame, MyFrame mainFrame, NickNameTextField nickNameTextField) {
+		public CreateButton(MyFrame createNewPlayerFrame, MyFrame mainFrame, NickNameTextField nickNameTextField,
+				NickNameLabel nickNameLabel) {
 			super("Create");
-			setEnabled(false); //
+			setEnabled(false);
 			setBounds((int) (returnScreenWidth() / 1.15), (int) (returnScreenHeight() / 1.2), getWidth(), getHeight());
 
 			nickNameTextField.getDocument().addDocumentListener(new DocumentListener() {
@@ -240,17 +241,34 @@ class CreateNewPlayerPanel extends BasicPanel {
 						// TO DO:
 						// implement nickname validation - is nickname in use?
 						// save new player
-						
-						databaseManager.addNewUser(nickNameTextField.getText(), selectedTankIndex);
 
+						// databaseManager.addNewUser(nickNameTextField.getText(), selectedTankIndex);
 
+						if (databaseManager.verifyIfNicknameExist(nickNameTextField.getText()) == 1) {
+
+							setWarning(nickNameLabel);
+							setEnabled(false);
+
+						} else {
+							databaseManager.addNewUser(nickNameTextField.getText(), selectedTankIndex);
+							setEnabled(true);
+							navigateToChoosePlayerFrame(createNewPlayerFrame, mainFrame);
+							createNewPlayerFrame.dispose();
+						}
 					}
-
-					navigateToChoosePlayerFrame(createNewPlayerFrame, mainFrame);
-					createNewPlayerFrame.dispose();
-
 				}
 			});
+		}
+
+		private void setWarning(NickNameLabel nickNameLabel) {
+			nickNameLabel.setText(
+					"UPS! The \"" + nickNameLabel.getText() + "\" is used by other user. Choose something else");
+			nickNameLabel.setForeground(Color.RED);
+		}
+
+		private void labelRevert(NickNameLabel nickNameLabel) {
+			nickNameLabel.setText("Provide player nickname:");
+			nickNameLabel.setForeground(Color.WHITE);
 		}
 
 		private void change(NickNameTextField nickNameTextField) {
