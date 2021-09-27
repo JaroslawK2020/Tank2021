@@ -10,54 +10,46 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import components.MyButton;
 import images.ArrowL;
+import images.ITanks;
 import images.TankImage_1;
+import images.TankImage_2;
+import images.TankImage_3;
+import providers.TanksListProvider;
 import strings.EStrings;
 import tankProject.Frame.MyFrame;
 
-public class CreateNewPlayerPanel extends BasicPanel {
+class CreateNewPlayerPanel extends BasicPanel {
+
+	TanksListProvider tanksListProvider = new TanksListProvider();
+	int selectedTankIndex = 0;
 
 	public CreateNewPlayerPanel(MyFrame mainFrame, MyFrame createNewPlayerFrame) {
 
-		JButton button_R = new JButton();
-		button_R.setBounds(300, 400, 225, 225);
-		button_R.setIcon(new ImageIcon("src//images//arrowL.png"));
-		button_R.setPressedIcon(new ImageIcon("src//images//arrowL-pressed.png"));
-		button_R.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		add(button_R);
-
-		JButton button_L = new JButton();
-		button_L.setBounds(1400, 400, 225, 225);
-		button_L.setIcon(new ImageIcon("src//images//arrowR.png"));
-		button_L.setPressedIcon(new ImageIcon("src//images//arrowR-pressed.png"));
-		button_L.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		add(button_L);
+		NickNameTextField nickNameTextField = new NickNameTextField(this);
 
 		setLayout(null);
-
-		add(new ExitButton(mainFrame, createNewPlayerFrame, this));
-		add(new NickNameTextField(this));
 		add(new Tittle(this));
-		add(new CreateButton());
+		add(new NickNameLabel(this));
+		add(nickNameTextField);
+		add(new CreateButton(createNewPlayerFrame, mainFrame, nickNameTextField));
+		add(new BackButton(mainFrame, createNewPlayerFrame, this));
+		add(new ChooseTankLeftButton(this, tanksListProvider));
+		add(new ChooseTankRightButton(this));
 
 	}
 
@@ -70,44 +62,12 @@ public class CreateNewPlayerPanel extends BasicPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(new TankImage_1().getImage(), (int) ((returnScreenWidth() / 2) - (returnScreenWidth() / 5) / 2),
-				(int) ((returnScreenHeight() / 2) - (returnScreenHeight() / 5) / 2), (int) (returnScreenWidth() / 5),
-				(int) (returnScreenHeight() / 5), null);
+		BufferedImage mainImage = tanksListProvider.getTanksList().get(selectedTankIndex).getImage();
 
-	}
+		g.drawImage(mainImage, (int) ((returnScreenWidth() / 2) - (returnScreenWidth() / 3) / 2),
+				(int) ((returnScreenHeight() / 2) - (returnScreenHeight() / 3) / 2), (int) (returnScreenWidth() / 3),
+				(int) (returnScreenHeight() / 3), null);
 
-	class ExitButton extends MyButton {
-
-		public ExitButton(MyFrame mainFrame, MyFrame createNewPlayerFrame, CreateNewPlayerPanel createNewPlayerPanel) {
-			super(EStrings.BACK.text);
-			setBounds(createNewPlayerPanel.returnScreenWidth() / 16,
-					createNewPlayerPanel.returnScreenHeight() - getHeight() * 2, getWidth(), getHeight());
-
-			addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					mainFrame.dispose();
-					createNewPlayerFrame.dispose();
-					mainFrame.setVisible(true);
-				}
-			});
-		}
-	}
-
-	class NickNameTextField extends JTextField {
-		private Font fontFamily = new Font("Arial", Font.BOLD, 40);
-
-		public NickNameTextField(CreateNewPlayerPanel createNewPlayerPanel) {
-			setBounds((int) (createNewPlayerPanel.returnScreenWidth() / 10),
-					(int) (createNewPlayerPanel.returnScreenHeight() / 5),
-					(int) (createNewPlayerPanel.returnScreenWidth() / 3),
-					(int) (createNewPlayerPanel.returnScreenHeight() / 15));
-			setFont(fontFamily);
-			setForeground(Color.WHITE);
-			setForeground(Color.WHITE);
-			setBackground(Color.BLACK);
-			setCaretColor(Color.ORANGE);
-		}
 	}
 
 	class Tittle extends JLabel {
@@ -125,18 +85,189 @@ public class CreateNewPlayerPanel extends BasicPanel {
 		}
 	}
 
-	class CreateButton extends MyButton {
+	class NickNameLabel extends Tittle {
 
-		public CreateButton() {
-			super("Create");
-			setBounds(1700, 900, 200, 80);
+		public NickNameLabel(CreateNewPlayerPanel createNewPlayerPanel) {
+			super(createNewPlayerPanel);
+			setText("Provide player nickname:");
+			setBounds((int) (createNewPlayerPanel.returnScreenWidth() / 10),
+					(int) (createNewPlayerPanel.returnScreenHeight() / 7),
+					(int) (createNewPlayerPanel.returnScreenWidth() / 3),
+					(int) (createNewPlayerPanel.returnScreenHeight() / 15));
+		}
+	}
+
+	class NickNameTextField extends JTextField {
+		private Font fontFamily = new Font("Arial", Font.BOLD, 40);
+
+		public NickNameTextField(CreateNewPlayerPanel createNewPlayerPanel) {
+			setBounds((int) (createNewPlayerPanel.returnScreenWidth() / 10),
+					(int) (createNewPlayerPanel.returnScreenHeight() / 5),
+					(int) (createNewPlayerPanel.returnScreenWidth() / 3),
+					(int) (createNewPlayerPanel.returnScreenHeight() / 15));
+			setFont(fontFamily);
+			setForeground(Color.WHITE);
+			setForeground(Color.WHITE);
+			setBackground(Color.DARK_GRAY);
+			setCaretColor(Color.ORANGE);
+		}
+	}
+
+	class ChooseTankLeftButton extends JButton {
+
+		public ChooseTankLeftButton(CreateNewPlayerPanel createNewPlayerPanel, TanksListProvider tanksListProvider) {
+			setBounds((int) ((returnScreenWidth() / 10) * 1), (int) (returnScreenHeight() / 2),
+					ChooseTankButtonSize.width, ChooseTankButtonSize.height);
+			setIcon(new ArrowL());
+			setPressedIcon(new ArrowL_Pressed());
+			addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+
+					if (createNewPlayerPanel.selectedTankIndex > 0) {
+						createNewPlayerPanel.selectedTankIndex--;
+						createNewPlayerPanel.repaint();
+					} else {
+						createNewPlayerPanel.selectedTankIndex = createNewPlayerPanel.tanksListProvider.getTanksList()
+								.size() - 1;
+						createNewPlayerPanel.repaint();
+					}
+				}
+			});
+		}
+	}
+
+	static class ChooseTankButtonSize {
+		static int width = 225;
+		static int height = 225;
+	}
+
+	class ChooseTankRightButton extends JButton {
+
+		public ChooseTankRightButton(CreateNewPlayerPanel createNewPlayerPanel) {
+			setBounds((int) ((returnScreenWidth() / 10) * 8), (int) (returnScreenHeight() / 2),
+					ChooseTankButtonSize.width, ChooseTankButtonSize.height);
+			setIcon(new ArrowR());
+			setPressedIcon(new ArrowR_Pressed());
+			addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (createNewPlayerPanel.selectedTankIndex < createNewPlayerPanel.tanksListProvider.getTanksList()
+							.size() - 1) {
+						createNewPlayerPanel.selectedTankIndex++;
+						createNewPlayerPanel.repaint();
+
+					} else {
+						createNewPlayerPanel.selectedTankIndex = 0;
+						createNewPlayerPanel.repaint();
+					}
+				}
+			});
+		}
+	}
+
+	class ArrowL extends ImageIcon {
+
+		public ArrowL() {
+			super("src//images//arrowL.png");
+		}
+	}
+
+	class ArrowL_Pressed extends ImageIcon {
+
+		public ArrowL_Pressed() {
+			super("src//images//arrowL-pressed.png");
+		}
+	}
+
+	class ArrowR extends ImageIcon {
+
+		public ArrowR() {
+			super("src//images//arrowR.png");
+		}
+	}
+
+	class ArrowR_Pressed extends ImageIcon {
+
+		public ArrowR_Pressed() {
+			super("src//images//arrowR-pressed.png");
+		}
+	}
+
+	class BackButton extends MyButton {
+
+		public BackButton(MyFrame mainFrame, MyFrame createNewPlayerFrame, CreateNewPlayerPanel createNewPlayerPanel) {
+			super(EStrings.BACK.text);
+			setBounds((int) (returnScreenWidth() / 30.7), (int) (returnScreenHeight() / 1.2), getWidth(), getHeight());
 
 			addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					
+					createNewPlayerFrame.dispose();
+					mainFrame.setVisible(true);
 				}
 			});
 		}
+	}
+
+	class CreateButton extends MyButton {
+
+		public CreateButton(MyFrame createNewPlayerFrame, MyFrame mainFrame, NickNameTextField nickNameTextField) {
+			super("Create");
+			setEnabled(false); //
+			setBounds((int) (returnScreenWidth() / 1.15), (int) (returnScreenHeight() / 1.2), getWidth(), getHeight());
+
+			nickNameTextField.getDocument().addDocumentListener(new DocumentListener() {
+				public void changedUpdate(DocumentEvent e) {
+					change(nickNameTextField);
+				}
+
+				public void removeUpdate(DocumentEvent e) {
+					change(nickNameTextField);
+				}
+
+				public void insertUpdate(DocumentEvent e) {
+					change(nickNameTextField);
+				}
+			});
+
+			addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (!isEnabled()) {
+						
+					}
+					// TO DO:
+					// connect with db
+					// implement nickname validation
+					// save new player
+
+					navigateToChoosePlayerFrame(createNewPlayerFrame, mainFrame);
+					createNewPlayerFrame.dispose();
+
+				}
+			});
+		}
+
+		private void change(NickNameTextField nickNameTextField) {
+			if (nickNameTextField.getText().equals("")) {
+				setEnabled(false);
+				nickNameTextField.setBorder(new LineBorder(Color.RED));
+			} else {
+				setEnabled(true);
+				nickNameTextField.setBorder(new LineBorder(Color.black));
+			}
+		}
+
+		private void navigateToChoosePlayerFrame(MyFrame createNewPlayerFrame, MyFrame mainFrame) {
+			MyFrame choosePlayerFrame = new MyFrame();
+			ChoosePlayerPanel choosePlayerPanel = new ChoosePlayerPanel(mainFrame, choosePlayerFrame);
+
+			choosePlayerFrame.add(choosePlayerPanel);
+			choosePlayerFrame.settupFrame();
+		}
+
 	}
 }

@@ -17,7 +17,6 @@ public class StartPanel extends PanelSchema {
 //	-----------my window size: Width:1536 Height: 864
 	private GameTitle gameTitle;
 	private SpeakerImg speakerImg;
-	private MyButton quitButton;
 	private Background backgroundImg;
 	private MySoundPlayer soundPlayer;
 
@@ -59,15 +58,12 @@ public class StartPanel extends PanelSchema {
 				public void actionPerformed(ActionEvent e) {
 
 					MyFrame createNewPlayerFrame = new MyFrame();
-					CreateNewPlayerPanel createNewPlayerPanel = new CreateNewPlayerPanel(mainFrame, createNewPlayerFrame);
+					CreateNewPlayerPanel createNewPlayerPanel = new CreateNewPlayerPanel(mainFrame,
+							createNewPlayerFrame);
 					mainFrame.setVisible(false);
 
-					createNewPlayerFrame.setUndecorated(true);
 					createNewPlayerFrame.add(createNewPlayerPanel);
-					createNewPlayerFrame.setVisible(true);
-					createNewPlayerFrame.pack();
-					createNewPlayerFrame.setLocationRelativeTo(null);
-
+					createNewPlayerFrame.settupFrame();
 				}
 			});
 		}
@@ -85,13 +81,10 @@ public class StartPanel extends PanelSchema {
 
 					MyFrame choosePlayerFrame = new MyFrame();
 					ChoosePlayerPanel choosePlayerPanel = new ChoosePlayerPanel(mainFrame, choosePlayerFrame);
-					mainFrame.setVisible(false);
 
-					choosePlayerFrame.setUndecorated(true);
 					choosePlayerFrame.add(choosePlayerPanel);
-					choosePlayerFrame.setVisible(true);
-					choosePlayerFrame.pack();
-					choosePlayerFrame.setLocationRelativeTo(null);
+					choosePlayerFrame.settupFrame();
+					mainFrame.setVisible(false);
 
 				}
 			});
@@ -102,8 +95,7 @@ public class StartPanel extends PanelSchema {
 
 		public QuitButton(String text, MyFrame mainFrame, StartPanel startPanel) {
 			super(text);
-			setBounds((int) (returnScreenWidth() / 30.7), (int) (returnScreenHeight() / 1.2), getWidth(),
-					getHeight());
+			setBounds((int) (returnScreenWidth() / 30.7), (int) (returnScreenHeight() / 1.2), getWidth(), getHeight());
 			addActionListener(new ActionListener() {
 
 				@Override
@@ -117,19 +109,17 @@ public class StartPanel extends PanelSchema {
 			MyFrame exitFrame = new MyFrame();
 			ExitPanel exitPanel = new ExitPanel(exitFrame, mainFrame);
 
-			exitFrame.setUndecorated(true);
 			exitFrame.add(exitPanel);
+			exitFrame.settupFrame();
 			mainFrame.setEnabled(false);
-			exitFrame.setVisible(true);
-			exitFrame.pack();
-			exitFrame.setLocationRelativeTo(null);
+
 		}
 	}
 
 	class MySoundPlayer extends SoundPlayer {
 
 		public MySoundPlayer() {
-				//startLaucherMusic();
+			// startLaucherMusic();
 		}
 	}
 }
