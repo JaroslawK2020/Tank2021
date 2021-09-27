@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import Database.DatabaseManager;
 import appRunner.AppRunner;
 
 public class Main {
@@ -16,10 +17,9 @@ public class Main {
 			@Override
 			public void run() {
 				new AppRunner();
-				SessionFactory session = new Configuration().configure().buildSessionFactory();
-				Session s = session.getCurrentSession();
+				new DatabaseManager();
+				
 			}
 		});
-		
 	}
 }
