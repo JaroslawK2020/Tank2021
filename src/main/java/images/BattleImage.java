@@ -1,4 +1,4 @@
-package tankProject.panels;
+package images;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -6,13 +6,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class GameTitle {
-	private BufferedImage image;
+public class BattleImage {
+	BufferedImage image;
 
-	public GameTitle() {
+	public BattleImage() {
 		try {
-			image = ImageIO.read(new File("src//images//gameName.png"));
-		}catch(IOException e) {
+			image = ImageIO.read(new File("src//images//battlefield.jpg"));
+		}catch(IOException e){
 			e.getMessage();
 		}
 	}
@@ -20,4 +20,5 @@ public class GameTitle {
 	public BufferedImage getImage() {
 		return image;
 	}
+	
 }

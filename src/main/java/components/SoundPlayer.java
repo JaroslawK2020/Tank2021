@@ -1,4 +1,4 @@
-package tankProject.panels;
+package components;
 
 import java.io.File;
 import java.io.IOException;
