@@ -6,12 +6,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class TankImage_1 implements ITanks{
+public class ArrowR {
 	BufferedImage image;
 
-	public TankImage_1() {
+	public ArrowR() {
 		try {
-			image = ImageIO.read(new File("src//images//tank1.jpg"));
+			image = ImageIO.read(new File("src//images//arrowR.png"));
 		}catch(IOException e){
 			e.getMessage();
 		}

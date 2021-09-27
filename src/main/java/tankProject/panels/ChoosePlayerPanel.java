@@ -13,16 +13,16 @@ public class ChoosePlayerPanel extends BasicPanel {
 	public ChoosePlayerPanel(MyFrame mainFrame, MyFrame ChoosePlayerFrame) {
 		setLayout(null);
 
-		add(new ExitButton(mainFrame, ChoosePlayerFrame, this));
+		add(new BacktButton(mainFrame, ChoosePlayerFrame, this));
 	}
 	@Override
 	public Dimension getPreferredSize() {
 		return new Dimension(super.returnScreenWidth(), super.returnScreenHeight());
 
 	}
-	class ExitButton extends MyButton {
+	class BacktButton extends MyButton {
 
-		public ExitButton(MyFrame mainFrame, MyFrame ChoosePlayerFrame, ChoosePlayerPanel choosePlayerPanel) {
+		public BacktButton(MyFrame mainFrame, MyFrame ChoosePlayerFrame, ChoosePlayerPanel choosePlayerPanel) {
 			super(EStrings.BACK.text);
 			setBounds(choosePlayerPanel.returnScreenWidth() / 16,
 					choosePlayerPanel.returnScreenHeight() - getHeight() * 2, getWidth(), getHeight());
@@ -30,7 +30,6 @@ public class ChoosePlayerPanel extends BasicPanel {
 			addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					mainFrame.dispose();
 					ChoosePlayerFrame.dispose();
 					mainFrame.setVisible(true);
 				}
