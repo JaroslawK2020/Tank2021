@@ -22,4 +22,3 @@ public class Tittle extends JLabel {
 		setForeground(Color.WHITE);
 	}
 }
-

@@ -27,11 +27,11 @@ public abstract class PanelSchema extends JPanel {
 		return (int) size.getHeight();
 	}
 
-	protected float calculateWidth(float x) {
+	public float calculateWidth(float x) {
 		return  (returnScreenWidth() / 100) * x;
 	}
 
-	protected float calculateHeight(float x) {
+	public float calculateHeight(float x) {
 		return (returnScreenHeight() / 100) * x;
 	}
 

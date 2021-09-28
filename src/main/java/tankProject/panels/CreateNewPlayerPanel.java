@@ -6,30 +6,16 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
 import components.MyButton;
 import components.CreateNewPlayerComponent.Tittle;
-import images.ArrowL;
-import images.ITanks;
-import images.TankImage_1;
-import images.TankImage_2;
-import images.TankImage_3;
 import providers.TanksListProvider;
 import strings.EStrings;
 import tankProject.Frame.MyFrame;
@@ -43,8 +29,9 @@ public class CreateNewPlayerPanel extends BasicPanel {
 
 		NickNameTextField nickNameTextField = new NickNameTextField(this);
 		NickNameLabel nickNameLabel = new NickNameLabel(this);
-
-		add(new Tittle(this));
+		Tittle tittle = new Tittle(this);
+		
+		add(tittle);
 		add(nickNameLabel);
 		add(nickNameTextField);
 		add(new CreateButton(createNewPlayerFrame, mainFrame, nickNameTextField, nickNameLabel));
@@ -70,18 +57,7 @@ public class CreateNewPlayerPanel extends BasicPanel {
 
 	}
 
-	class Tittle extends JLabel {
 
-		private Font fontFamily = new Font("Arial", Font.BOLD, 40);
-
-		public Tittle(CreateNewPlayerPanel createNewPlayerPanel) {
-			setText(EStrings.CREATE_NEW_PLAYER.text);
-			setBounds((int) calculateWidth(42), (int) calculateHeight(5),
-					(int) calculateWidth(30), (int) calculateHeight(6));
-			setFont(fontFamily);
-			setForeground(Color.WHITE);
-		}
-	}
 	class NickNameLabel extends Tittle {
 
 		public NickNameLabel(CreateNewPlayerPanel createNewPlayerPanel) {
