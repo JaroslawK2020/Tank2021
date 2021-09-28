@@ -239,7 +239,7 @@ class CreateNewPlayerPanel extends BasicPanel {
 
 						if (databaseManager.verifyIfNicknameExist(nickNameTextField.getText()) == 1) {
 
-							setWarning(nickNameLabel);
+							setWarning(nickNameTextField,nickNameLabel);
 							setEnabled(false);
 
 						} else {
@@ -253,9 +253,9 @@ class CreateNewPlayerPanel extends BasicPanel {
 			});
 		}
 
-		private void setWarning(NickNameLabel nickNameLabel) {
+		private void setWarning(NickNameTextField nickNameTextField, NickNameLabel nickNameLabel) {
 			nickNameLabel.setText(
-					"UPS! The \"" + nickNameLabel.getText() + "\" is used by other user. Choose something else");
+					"UPS! The \"" + nickNameTextField.getText() + "\" is used by other user. Choose something else");
 			nickNameLabel.setForeground(Color.RED);
 			nickNameLabel.setFont(new Font("Arial", Font.BOLD, 30));
 		}
