@@ -9,18 +9,20 @@ import javax.swing.JPanel;
 import Database.DatabaseManager;
 
 public abstract class PanelSchema extends JPanel {
-
+	
 	DatabaseManager databaseManager;
+	
 	public PanelSchema() {
+		setLayout(null);
 		databaseManager = new DatabaseManager();
 	}
 	
-	protected int returnScreenWidth() {
+	public int returnScreenWidth() {
 		Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
 		return (int) size.getWidth();
 	}
 
-	protected int returnScreenHeight() {
+	public int returnScreenHeight() {
 		Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
 		return (int) size.getHeight();
 	}

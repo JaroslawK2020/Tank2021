@@ -60,6 +60,7 @@ public class ExitPanel extends BasicPanel {
 				public void actionPerformed(ActionEvent e) {
 					mainFrame.setEnabled(true);
 					exitFrame.dispose();
+					System.exit(0);
 				}
 			});
 		}

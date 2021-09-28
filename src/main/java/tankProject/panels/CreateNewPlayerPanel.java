@@ -24,6 +24,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import components.MyButton;
+import components.CreateNewPlayerComponent.Tittle;
 import images.ArrowL;
 import images.ITanks;
 import images.TankImage_1;
@@ -33,7 +34,7 @@ import providers.TanksListProvider;
 import strings.EStrings;
 import tankProject.Frame.MyFrame;
 
-class CreateNewPlayerPanel extends BasicPanel {
+public class CreateNewPlayerPanel extends BasicPanel {
 
 	TanksListProvider tanksListProvider = new TanksListProvider();
 	int selectedTankIndex = 0;
@@ -42,7 +43,7 @@ class CreateNewPlayerPanel extends BasicPanel {
 
 		NickNameTextField nickNameTextField = new NickNameTextField(this);
 		NickNameLabel nickNameLabel = new NickNameLabel(this);
-		setLayout(null);
+
 		add(new Tittle(this));
 		add(nickNameLabel);
 		add(nickNameTextField);
@@ -70,21 +71,6 @@ class CreateNewPlayerPanel extends BasicPanel {
 
 	}
 
-	class Tittle extends JLabel {
-
-		private Font fontFamily = new Font("Arial", Font.BOLD, 40);
-
-		public Tittle(CreateNewPlayerPanel createNewPlayerPanel) {
-			setText(EStrings.CREATE_NEW_PLAYER.text);
-			setBounds((int) (createNewPlayerPanel.returnScreenWidth() / 2.5),
-					(int) (createNewPlayerPanel.returnScreenHeight() / 22),
-					(int) (createNewPlayerPanel.returnScreenWidth() / 2),
-					(int) (createNewPlayerPanel.returnScreenHeight() / 8));
-			setFont(fontFamily);
-			setForeground(Color.WHITE);
-		}
-	}
-
 	class NickNameLabel extends Tittle {
 
 		public NickNameLabel(CreateNewPlayerPanel createNewPlayerPanel) {
@@ -92,7 +78,7 @@ class CreateNewPlayerPanel extends BasicPanel {
 			setText("Provide player nickname:");
 			setBounds((int) (createNewPlayerPanel.returnScreenWidth() / 10),
 					(int) (createNewPlayerPanel.returnScreenHeight() / 7),
-					(int) (createNewPlayerPanel.returnScreenWidth() / 2),
+					(int) (createNewPlayerPanel.returnScreenWidth()),
 					(int) (createNewPlayerPanel.returnScreenHeight() / 15));
 		}
 	}
@@ -238,14 +224,7 @@ class CreateNewPlayerPanel extends BasicPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if (isEnabled()) {
-						// TO DO:
-						// implement nickname validation - is nickname in use?
-						// save new player
-
-						// databaseManager.addNewUser(nickNameTextField.getText(), selectedTankIndex);
-
 						if (databaseManager.verifyIfNicknameExist(nickNameTextField.getText()) == 1) {
-
 							setWarning(nickNameLabel);
 							setEnabled(false);
 
@@ -262,7 +241,7 @@ class CreateNewPlayerPanel extends BasicPanel {
 
 		private void setWarning(NickNameLabel nickNameLabel) {
 			nickNameLabel.setText(
-					"UPS! The \"" + nickNameLabel.getText() + "\" is used by other user. Choose something else");
+					"UPS! The \"" + nickNameLabel.getText() + "\" is used by other user.");
 			nickNameLabel.setForeground(Color.RED);
 		}
 
