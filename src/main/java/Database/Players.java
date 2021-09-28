@@ -23,6 +23,8 @@ public class Players implements Serializable{
 	private Integer tankId;
 	@Column
 	private Integer scores;
+	@Column
+	private Integer lvl;
 	
 	public int getId() {
 		return id;
@@ -46,9 +48,17 @@ public class Players implements Serializable{
 	public int getScores() {
 		return scores;
 	}
+	
 	public void setScores(int scores) {
 		this.scores = scores;
 	}
 	
+	public int getlvl() {
+		return lvl;
+	}
+	
+	public void setlvl(int lvl) {
+		this.lvl = lvl;
+	}
 	
 }
