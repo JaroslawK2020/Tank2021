@@ -10,7 +10,9 @@ public enum EStrings {
 	BACK("Back"),
 	CREATE_NEW_PLAYER("Create new player"),
 	NICKNAME_LABEL("What is your player nickname?"),
-	NICKNAME_TEXTFIELD_HINT("NICKNAME");
+	NICKNAME_TEXTFIELD_HINT("NICKNAME"),
+	SCORES("SCORES:"),
+	ESC_BATTLE_PANEL("To exit press esc");
 	public String text;
 
 	private EStrings(String text) {

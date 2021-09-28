@@ -14,6 +14,7 @@ public class ChoosePlayerPanel extends BasicPanel {
 		setLayout(null);
 
 		add(new BacktButton(mainFrame, ChoosePlayerFrame, this));
+		add(new StartBattle(mainFrame, ChoosePlayerFrame));
 	}
 	@Override
 	public Dimension getPreferredSize() {
@@ -34,5 +35,37 @@ public class ChoosePlayerPanel extends BasicPanel {
 				}
 			});
 		}
+	}
+	
+	class StartBattle extends MyButton{
+
+		public StartBattle(MyFrame mainFrame, MyFrame ChoosePlayerFrame) {
+			super("Start battle");
+			setBounds((int) calculateWidth(80), (int) calculateHeight(90), getWidth(), getHeight());
+			
+			addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					ChoosePlayerFrame.dispose();
+					mainFrame.setVisible(false);
+					navigateToBattlePanel();
+					
+					
+				}
+			});
+			
+		}
+		
+		public void navigateToBattlePanel() {
+			MyFrame battleFrame = new MyFrame();
+			
+			BattlePanel battlePanel = new BattlePanel(battleFrame);
+			battleFrame.add(battlePanel);
+			battleFrame.settupFrame();
+		}
+		
+		
+		
 	}
 }
