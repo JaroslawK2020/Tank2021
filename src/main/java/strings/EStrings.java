@@ -12,7 +12,11 @@ public enum EStrings {
 	NICKNAME_LABEL("What is your player nickname?"),
 	NICKNAME_TEXTFIELD_HINT("NICKNAME"),
 	SCORES("SCORES:"),
-	ESC_BATTLE_PANEL("To exit press esc");
+	ESC_BATTLE_PANEL("To exit press esc"),
+	CREATE_BUTTON("Create"),
+	PROVIDE_NICKNAME("Provide player nickname:"),
+	NICKNAME_INUSE_WARNING("UPS! This nichname is used by other user. Choose something else");
+
 	public String text;
 
 	private EStrings(String text) {
