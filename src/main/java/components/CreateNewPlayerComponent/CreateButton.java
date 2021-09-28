@@ -8,6 +8,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import components.MyButton;
+import strings.EStrings;
 import tankProject.Frame.MyFrame;
 import tankProject.panels.ChoosePlayerPanel;
 import tankProject.panels.CreateNewPlayerPanel;
@@ -16,7 +17,7 @@ public class CreateButton extends MyButton {
 
 	public CreateButton(MyFrame createNewPlayerFrame, MyFrame mainFrame, NickNameTextField nickNameTextField,
 			NickNameLabel nickNameLabel, CreateNewPlayerPanel createNewPlayerPanel) {
-		super("Create");
+		super(EStrings.CREATE_BUTTON.text);
 		setEnabled(false);
 		setBounds((int) createNewPlayerPanel.calculateWidth(83), (int) createNewPlayerPanel.calculateHeight(90), getWidth(), getHeight());
 
@@ -54,14 +55,13 @@ public class CreateButton extends MyButton {
 	}
 
 	private void setWarning(NickNameTextField nickNameTextField, NickNameLabel nickNameLabel) {
-		nickNameLabel.setText(
-				"UPS! The \"" + nickNameTextField.getText() + "\" is used by other user. Choose something else");
+		nickNameLabel.setText(EStrings.NICKNAME_INUSE_WARNING.text);
 		nickNameLabel.setForeground(Color.RED);
 		nickNameLabel.setFont(new Font("Arial", Font.BOLD, 30));
 	}
-
+	
 	private void labelRevert(NickNameLabel nickNameLabel) {
-		nickNameLabel.setText("Provide player nickname:");
+		nickNameLabel.setText(EStrings.PROVIDE_NICKNAME.text);
 		nickNameLabel.setForeground(Color.WHITE);
 	}
 

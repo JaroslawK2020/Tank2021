@@ -10,7 +10,10 @@ public enum EStrings {
 	BACK("Back"),
 	CREATE_NEW_PLAYER("Create new player"),
 	NICKNAME_LABEL("What is your player nickname?"),
-	NICKNAME_TEXTFIELD_HINT("NICKNAME");
+	NICKNAME_TEXTFIELD_HINT("NICKNAME"),
+	CREATE_BUTTON("Create"),
+	PROVIDE_NICKNAME("Provide player nickname:"),
+	NICKNAME_INUSE_WARNING("UPS! This nichname is used by other user. Choose something else");
 	public String text;
 
 	private EStrings(String text) {
