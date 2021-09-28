@@ -36,7 +36,7 @@ public class StartPanel extends PanelSchema {
 		g.drawImage(backgroundImg.getImage(), 0, 0, returnScreenWidth(), returnScreenHeight(), null);
 		g.drawImage(gameTitle.getImage(), (int) calculateWidth(15), (int) calculateHeight(15),
 				(int) calculateWidth(70), (int) calculateHeight(20), null);
-		g.drawImage(speakerImg.getImage(), (int) calculateWidth(95), (int) calculateHeight(95),
+		g.drawImage(speakerImg.getImage(), (int) calculateWidth(95), (int) calculateHeight(90),
 				(int) calculateWidth(5), (int) calculateHeight(6), null);
 	}
 

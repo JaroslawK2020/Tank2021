@@ -64,9 +64,8 @@ class CreateNewPlayerPanel extends BasicPanel {
 		super.paintComponent(g);
 		BufferedImage mainImage = tanksListProvider.getTanksList().get(selectedTankIndex).getImage();
 
-		g.drawImage(mainImage, (int) ((returnScreenWidth() / 2) - (returnScreenWidth() / 3) / 2),
-				(int) ((returnScreenHeight() / 2) - (returnScreenHeight() / 3) / 2), (int) (returnScreenWidth() / 3),
-				(int) (returnScreenHeight() / 3), null);
+		g.drawImage(mainImage, (int) calculateWidth(38), (int) calculateHeight(50), 
+				(int) calculateWidth(30),(int) calculateHeight(37), null);
 
 	}
 
@@ -76,10 +75,8 @@ class CreateNewPlayerPanel extends BasicPanel {
 
 		public Tittle(CreateNewPlayerPanel createNewPlayerPanel) {
 			setText(EStrings.CREATE_NEW_PLAYER.text);
-			setBounds((int) (createNewPlayerPanel.returnScreenWidth() / 2.5),
-					(int) (createNewPlayerPanel.returnScreenHeight() / 22),
-					(int) (createNewPlayerPanel.returnScreenWidth() / 2),
-					(int) (createNewPlayerPanel.returnScreenHeight() / 8));
+			setBounds((int) calculateWidth(42), (int) calculateHeight(5),
+					(int) calculateWidth(30), (int) calculateHeight(6));
 			setFont(fontFamily);
 			setForeground(Color.WHITE);
 		}
@@ -90,10 +87,8 @@ class CreateNewPlayerPanel extends BasicPanel {
 		public NickNameLabel(CreateNewPlayerPanel createNewPlayerPanel) {
 			super(createNewPlayerPanel);
 			setText("Provide player nickname:");
-			setBounds((int) (createNewPlayerPanel.returnScreenWidth() / 10),
-					(int) (createNewPlayerPanel.returnScreenHeight() / 7),
-					(int) (createNewPlayerPanel.returnScreenWidth() / 2),
-					(int) (createNewPlayerPanel.returnScreenHeight() / 15));
+			setBounds((int) calculateWidth(10), (int) calculateHeight(14),
+					(int) calculateWidth(90), (int) calculateHeight(7));
 		}
 	}
 
@@ -101,10 +96,8 @@ class CreateNewPlayerPanel extends BasicPanel {
 		private Font fontFamily = new Font("Arial", Font.BOLD, 40);
 
 		public NickNameTextField(CreateNewPlayerPanel createNewPlayerPanel) {
-			setBounds((int) (createNewPlayerPanel.returnScreenWidth() / 10),
-					(int) (createNewPlayerPanel.returnScreenHeight() / 5),
-					(int) (createNewPlayerPanel.returnScreenWidth() / 3),
-					(int) (createNewPlayerPanel.returnScreenHeight() / 15));
+			setBounds((int) calculateWidth(10), (int) calculateHeight(23),
+					(int) calculateWidth(30), (int) calculateHeight(7));
 			setFont(fontFamily);
 			setForeground(Color.WHITE);
 			setForeground(Color.WHITE);
@@ -116,7 +109,7 @@ class CreateNewPlayerPanel extends BasicPanel {
 	class ChooseTankLeftButton extends JButton {
 
 		public ChooseTankLeftButton(CreateNewPlayerPanel createNewPlayerPanel, TanksListProvider tanksListProvider) {
-			setBounds((int) ((returnScreenWidth() / 10) * 1), (int) (returnScreenHeight() / 2),
+			setBounds((int) calculateWidth(10), (int) calculateHeight(54),
 					ChooseTankButtonSize.width, ChooseTankButtonSize.height);
 			setIcon(new ArrowL());
 			setPressedIcon(new ArrowL_Pressed());
@@ -146,7 +139,7 @@ class CreateNewPlayerPanel extends BasicPanel {
 	class ChooseTankRightButton extends JButton {
 
 		public ChooseTankRightButton(CreateNewPlayerPanel createNewPlayerPanel) {
-			setBounds((int) ((returnScreenWidth() / 10) * 8), (int) (returnScreenHeight() / 2),
+			setBounds((int) calculateWidth(80), (int) calculateHeight(54),
 					ChooseTankButtonSize.width, ChooseTankButtonSize.height);
 			setIcon(new ArrowR());
 			setPressedIcon(new ArrowR_Pressed());
@@ -200,7 +193,7 @@ class CreateNewPlayerPanel extends BasicPanel {
 
 		public BackButton(MyFrame mainFrame, MyFrame createNewPlayerFrame, CreateNewPlayerPanel createNewPlayerPanel) {
 			super(EStrings.BACK.text);
-			setBounds((int) (returnScreenWidth() / 30.7), (int) (returnScreenHeight() / 1.2), getWidth(), getHeight());
+			setBounds((int) calculateWidth(10), (int) calculateHeight(90), getWidth(), getHeight());
 
 			addActionListener(new ActionListener() {
 				@Override
@@ -218,7 +211,7 @@ class CreateNewPlayerPanel extends BasicPanel {
 				NickNameLabel nickNameLabel) {
 			super("Create");
 			setEnabled(false);
-			setBounds((int) (returnScreenWidth() / 1.15), (int) (returnScreenHeight() / 1.2), getWidth(), getHeight());
+			setBounds((int) calculateWidth(83), (int) calculateHeight(90), getWidth(), getHeight());
 
 			nickNameTextField.getDocument().addDocumentListener(new DocumentListener() {
 				public void changedUpdate(DocumentEvent e) {
@@ -264,6 +257,7 @@ class CreateNewPlayerPanel extends BasicPanel {
 			nickNameLabel.setText(
 					"UPS! The \"" + nickNameLabel.getText() + "\" is used by other user. Choose something else");
 			nickNameLabel.setForeground(Color.RED);
+			nickNameLabel.setFont(new Font("Arial", Font.BOLD, 30));
 		}
 
 		private void labelRevert(NickNameLabel nickNameLabel) {

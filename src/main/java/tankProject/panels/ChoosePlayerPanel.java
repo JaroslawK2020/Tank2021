@@ -24,8 +24,7 @@ public class ChoosePlayerPanel extends BasicPanel {
 
 		public BacktButton(MyFrame mainFrame, MyFrame ChoosePlayerFrame, ChoosePlayerPanel choosePlayerPanel) {
 			super(EStrings.BACK.text);
-			setBounds(choosePlayerPanel.returnScreenWidth() / 16,
-					choosePlayerPanel.returnScreenHeight() - getHeight() * 2, getWidth(), getHeight());
+			setBounds((int) calculateWidth(10), (int) calculateHeight(90), getWidth(), getHeight());
 
 			addActionListener(new ActionListener() {
 				@Override
