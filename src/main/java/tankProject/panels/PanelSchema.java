@@ -10,7 +10,7 @@ import Database.DatabaseManager;
 
 public abstract class PanelSchema extends JPanel {
 	
-	DatabaseManager databaseManager;
+	public DatabaseManager databaseManager;
 	
 	public PanelSchema() {
 		setLayout(null);
