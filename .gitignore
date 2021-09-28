@@ -1,3 +1,4 @@
+src/main/resources/hibernate.cfg.xml
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
@@ -134,7 +135,6 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
-hibernate.cfg.xml
 
 ### Windows ###
 # Windows thumbnail cache files
