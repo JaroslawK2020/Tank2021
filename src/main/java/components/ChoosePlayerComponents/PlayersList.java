@@ -2,6 +2,7 @@ package components.ChoosePlayerComponents;
 
 import java.awt.Color;
 import java.util.Vector;
+import javax.swing.DefaultListModel;
 
 import javax.swing.JList;
 
