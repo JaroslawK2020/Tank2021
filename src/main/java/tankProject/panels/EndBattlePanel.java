@@ -27,7 +27,7 @@ public class EndBattlePanel extends BasicPanel {
 	class QuitButton extends MyButton {
 
 		public QuitButton(MyFrame battleFrame, MyFrame mainFrame) {
-			super(EStrings.QUITE.text);
+			super(EStrings.QUIT.text);
 			setBounds((int) calculateWidth(5), (int) calculateHeight(25), getWidth(), getHeight());
 			addActionListener(new ActionListener() {
 				

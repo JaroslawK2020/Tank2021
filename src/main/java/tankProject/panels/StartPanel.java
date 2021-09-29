@@ -30,7 +30,7 @@ public class StartPanel extends PanelSchema {
 
 		NewPlayerButton newPlayerButton = new NewPlayerButton(EStrings.CREATE_PLAYER.text, mainFrame, this);
 		ChoosePlayerButton choosePlayerButton = new ChoosePlayerButton(EStrings.CHOOSE_PLAYER.text, mainFrame, this);
-		QuitButton quitButton = new QuitButton(EStrings.QUITE.text, mainFrame, this);
+		QuitButton quitButton = new QuitButton(EStrings.QUIT.text, mainFrame, this);
 		
 		add(newPlayerButton);
 		add(choosePlayerButton);
