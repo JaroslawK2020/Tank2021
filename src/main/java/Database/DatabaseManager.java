@@ -1,5 +1,6 @@
 package Database;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -31,7 +32,7 @@ public class DatabaseManager {
 
 			session.save(players);
 			session.getTransaction().commit();
-			//should session be closed?
+			// should session be closed?
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -47,13 +48,13 @@ public class DatabaseManager {
 			String hql = "FROM Players WHERE nickname ='" + nickname + "'";
 			Query query = session.createQuery(hql);
 			return query.getResultList().size();
-			//should session be closed?
+			// should session be closed?
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
-	
+
 	public int getUserScores(String nickname) {
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -64,13 +65,13 @@ public class DatabaseManager {
 			String hql = "SELECT scores FROM Players WHERE nickname ='" + nickname + "'";
 			Query query = session.createQuery(hql);
 			return (int) query.getResultList().get(0);
-			//should session be closed?
+			// should session be closed?
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
-	
+
 	public int getLvl(String nickname) {
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -81,11 +82,30 @@ public class DatabaseManager {
 			String hql = "SELECT lvl FROM Players WHERE nickname ='" + nickname + "'";
 			Query query = session.createQuery(hql);
 			return (int) query.getResultList().get(0);
-			//should session be closed?
+			// should session be closed?
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
-	
+
+	public List<String> getPlayers() {
+		try {
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.getCurrentSession();
+
+			session.beginTransaction();
+
+			String hql = "SELECT nickname FROM Players";
+			Query query = session.createQuery(hql);
+
+			return query.getResultList();
+
+			// should session be closed?
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<String>();
+	}
+
 }

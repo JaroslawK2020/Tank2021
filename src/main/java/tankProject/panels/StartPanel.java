@@ -117,7 +117,7 @@ public class StartPanel extends PanelSchema {
 	class MySoundPlayer extends SoundPlayer {
 
 		public MySoundPlayer() {
-//			 startLaucherMusic();
+		 startLaucherMusic();
 		}
 	}
 }

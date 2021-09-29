@@ -3,6 +3,11 @@ package tankProject.panels;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.DefaultListModel;
+
 import components.ChoosePlayerComponents.BackButton;
 import components.ChoosePlayerComponents.LevelLabel;
 import components.ChoosePlayerComponents.NickNameLabel;
@@ -20,14 +25,22 @@ public class ChoosePlayerPanel extends BasicPanel {
 	
 	public TanksListProvider tanksListProvider = new TanksListProvider();
 	public int selectedTankIndex = 0; // this has to base on Database
-
+	public String nickname= "";
+	
 	public ChoosePlayerPanel(MyFrame mainFrame, MyFrame ChoosePlayerFrame) {
 		BackButton backtButton = new BackButton(mainFrame, ChoosePlayerFrame, this);
 		StartBattle startBattle = new StartBattle(mainFrame, ChoosePlayerFrame, this);
-		NickNameLabel nickNameLabel = new NickNameLabel(this, "dupa"); // this nickname has to be delivered from JList
-		ScoresLabel scoresLabel = new ScoresLabel(this, "dupa"); // this nickname has to be delivered from JList
-		LevelLabel levelLabel = new LevelLabel(this, "dupa");
-		PlayersList playersList = new PlayersList(this);
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		NickNameLabel nickNameLabel = new NickNameLabel(this, nickname); // this nickname has to be delivered from JList
+		ScoresLabel scoresLabel = new ScoresLabel(this, nickname); // this nickname has to be delivered from JList
+		LevelLabel levelLabel = new LevelLabel(this, nickname);
+		PlayersList playersList = new PlayersList(model, this, nickNameLabel, scoresLabel, levelLabel);
+		List<String> playersToDisplay = databaseManager.getPlayers();  
+	
+		for(String player: playersToDisplay) {
+			model.addElement(player);	
+		}
+
 		
 		add(backtButton);
 		add(startBattle);
