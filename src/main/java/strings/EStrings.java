@@ -11,11 +11,14 @@ public enum EStrings {
 	CREATE_NEW_PLAYER("Create new player"),
 	NICKNAME_LABEL("What is your player nickname?"),
 	NICKNAME_TEXTFIELD_HINT("NICKNAME"),
-	SCORES("SCORES:"),
+	SCORES("SCORES: "),
 	ESC_BATTLE_PANEL("To exit press esc"),
 	CREATE_BUTTON("Create"),
 	PROVIDE_NICKNAME("Provide player nickname:"),
-	NICKNAME_INUSE_WARNING("UPS! This nichname is used by other user. Choose something else");
+	NICKNAME_INUSE_WARNING("UPS! This nichname is used by other user. Choose something else"),
+	START_BATTLE("Start battle"),
+	LVL("Lvl. "),
+	PLAYER("PLAYER: ");
 
 	public String text;
 
