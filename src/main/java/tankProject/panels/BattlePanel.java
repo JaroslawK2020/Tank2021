@@ -20,10 +20,13 @@ public class BattlePanel extends BasicPanel {
 	public BattlePanel(MyFrame battleFrame) {
 		setLayout(null);
 		forestBackground = new ForestBackground();
+		ScoreCounter scoreCounter = new ScoreCounter("20", this);
+		ScoreLabel scoreLabel = new ScoreLabel(this);
+		ExitLabel exitLabel = new ExitLabel(this);
 		
-		add(new ScoreCounter("20",this));
-		add(new ScoreLabel(this));
-		add(new ExitLabel(this));
+		add(scoreCounter);
+		add(scoreLabel);
+		add(exitLabel);
 		
 		battleFrame.addKeyListener(new KeyListener() {
 			
@@ -35,15 +38,13 @@ public class BattlePanel extends BasicPanel {
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_W)
-					wKeyService = new WKeyService(e);
-				
 				
 			}
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
+				if(e.getKeyCode() == KeyEvent.VK_W)
+					wKeyService = new WKeyService(e);
 				
 			}
 		});
