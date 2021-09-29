@@ -6,6 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import components.MyButton;
 import components.SoundPlayer;
+import components.StartPanelComponents.ChoosePlayerButton;
+import components.StartPanelComponents.NewPlayerButton;
+import components.StartPanelComponents.QuitButton;
 import images.Background;
 import images.GameTitle;
 import images.SpeakerImg;
@@ -20,15 +23,18 @@ public class StartPanel extends PanelSchema {
 	private MySoundPlayer soundPlayer;
 
 	public StartPanel(MyFrame mainFrame) {
-		setLayout(null);
 		soundPlayer = new MySoundPlayer();
 		gameTitle = new GameTitle();
 		backgroundImg = new Background();
 		speakerImg = new SpeakerImg();
 
-		add(new NewPlayerButton(EStrings.CREATE_PLAYER.text, mainFrame));
-		add(new ChoosePlayerButton(EStrings.CHOOSE_PLAYER.text, mainFrame));
-		add(new QuitButton(EStrings.QUITE.text, mainFrame, this));
+		NewPlayerButton newPlayerButton = new NewPlayerButton(EStrings.CREATE_PLAYER.text, mainFrame, this);
+		ChoosePlayerButton choosePlayerButton = new ChoosePlayerButton(EStrings.CHOOSE_PLAYER.text, mainFrame, this);
+		QuitButton quitButton = new QuitButton(EStrings.QUITE.text, mainFrame, this);
+		
+		add(newPlayerButton);
+		add(choosePlayerButton);
+		add(quitButton);
 	}
 
 	@Override
@@ -45,79 +51,12 @@ public class StartPanel extends PanelSchema {
 		return super.getPreferredSize();
 	}
 
-	class NewPlayerButton extends MyButton {
-
-		public NewPlayerButton(String text, MyFrame mainFrame) {
-			super(text);
-			setBounds((int) calculateWidth(10), (int)calculateHeight(55), super.getWidth(), super.getHeight());
-
-			addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-
-					MyFrame createNewPlayerFrame = new MyFrame();
-					CreateNewPlayerPanel createNewPlayerPanel = new CreateNewPlayerPanel(mainFrame,
-							createNewPlayerFrame);
-					mainFrame.setVisible(false);
-
-					createNewPlayerFrame.add(createNewPlayerPanel);
-					createNewPlayerFrame.settupFrame();
-				}
-			});
-		}
-	}
-
-	class ChoosePlayerButton extends MyButton {
-
-		public ChoosePlayerButton(String text, MyFrame mainFrame) {
-			super(text);
-			setBounds((int) calculateWidth(75), (int)calculateHeight(55), super.getWidth(), super.getHeight());
-			addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-
-					MyFrame choosePlayerFrame = new MyFrame();
-					ChoosePlayerPanel choosePlayerPanel = new ChoosePlayerPanel(mainFrame, choosePlayerFrame);
-
-					choosePlayerFrame.add(choosePlayerPanel);
-					choosePlayerFrame.settupFrame();
-					mainFrame.setVisible(false);
-
-				}
-			});
-		}
-	}
-
-	class QuitButton extends MyButton {
-
-		public QuitButton(String text, MyFrame mainFrame, StartPanel startPanel) {
-			super(text);
-			setBounds((int)calculateWidth(5), (int)calculateHeight(90), getWidth(), getHeight());
-			
-			addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					launchExitPanel(mainFrame, startPanel);
-				};
-			});
-		}
-
-		private void launchExitPanel(MyFrame mainFrame, StartPanel startPanel) {
-			MyFrame exitFrame = new MyFrame();
-			ExitPanel exitPanel = new ExitPanel(exitFrame, mainFrame);
-			exitFrame.add(exitPanel);
-			exitFrame.settupFrame();
-			mainFrame.setEnabled(false);
-		}
-	}
-
+	
+	// we should decide whether this is a good place for keeping this
 	class MySoundPlayer extends SoundPlayer {
 
 		public MySoundPlayer() {
-		 startLaucherMusic();
+		 //startLaucherMusic();
 		}
 	}
 }
