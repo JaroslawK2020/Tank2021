@@ -3,6 +3,7 @@ package components.ChoosePlayerComponents;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import components.MyButton;
+import strings.EStrings;
 import tankProject.Frame.MyFrame;
 import tankProject.panels.BattlePanel;
 import tankProject.panels.ChoosePlayerPanel;
@@ -10,9 +11,8 @@ import tankProject.panels.ChoosePlayerPanel;
 public class StartBattle extends MyButton{
 
 	public StartBattle(MyFrame mainFrame, MyFrame ChoosePlayerFrame, ChoosePlayerPanel choosePlayerPanel) {
-		super("Start battle");
+		super(EStrings.START_BATTLE.text);
 		setBounds((int) choosePlayerPanel.calculateWidth(80), (int) choosePlayerPanel.calculateHeight(90), getWidth(), getHeight());
-		
 		addActionListener(new ActionListener() {
 			
 			@Override

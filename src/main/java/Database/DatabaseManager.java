@@ -1,5 +1,7 @@
 package Database;
 
+import java.util.List;
+
 import javax.persistence.Query;
 
 import org.hibernate.Session;
@@ -25,6 +27,7 @@ public class DatabaseManager {
 
 			players.setNickname(nickname);
 			players.setTankId(tankId);
+			players.setTankId(0);
 
 			session.save(players);
 			session.getTransaction().commit();
@@ -50,4 +53,39 @@ public class DatabaseManager {
 		}
 		return 0;
 	}
+	
+	public int getUserScores(String nickname) {
+		try {
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.getCurrentSession();
+
+			session.beginTransaction();
+
+			String hql = "SELECT scores FROM Players WHERE nickname ='" + nickname + "'";
+			Query query = session.createQuery(hql);
+			return (int) query.getResultList().get(0);
+			//should session be closed?
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int getLvl(String nickname) {
+		try {
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.getCurrentSession();
+
+			session.beginTransaction();
+
+			String hql = "SELECT lvl FROM Players WHERE nickname ='" + nickname + "'";
+			Query query = session.createQuery(hql);
+			return (int) query.getResultList().get(0);
+			//should session be closed?
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
 }
