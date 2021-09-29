@@ -14,10 +14,10 @@ public class Tittle extends JLabel {
 
 	public Tittle(CreateNewPlayerPanel createNewPlayerPanel) {
 		setText(EStrings.CREATE_NEW_PLAYER.text);
-		setBounds((int) (createNewPlayerPanel.returnScreenWidth() / 2.5),
-				(int) (createNewPlayerPanel.returnScreenHeight() / 22),
-				(int) (createNewPlayerPanel.returnScreenWidth() / 2),
-				(int) (createNewPlayerPanel.returnScreenHeight() / 8));
+		setBounds((int) (createNewPlayerPanel.calculateWidth(42)),
+				(int) (createNewPlayerPanel.calculateHeight(3)),
+				(int) (createNewPlayerPanel.calculateWidth(40)),
+				(int) (createNewPlayerPanel.calculateHeight(7)));
 		setFont(fontFamily);
 		setForeground(Color.WHITE);
 	}
