@@ -18,7 +18,8 @@ public enum EStrings {
 	NICKNAME_INUSE_WARNING("UPS! This nichname is used by other user. Choose something else"),
 	START_BATTLE("Start battle"),
 	LVL("Lvl. "),
-	PLAYER("PLAYER: ");
+	PLAYER("PLAYER: "),
+	PLAY_AGAIN("Play again!");
 
 	public String text;
 

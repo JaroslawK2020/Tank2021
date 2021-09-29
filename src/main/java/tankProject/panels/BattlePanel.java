@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import components.BattlePanel.BattlePanelTextEditor;
+import components.BattlePanel.EscKeyService;
 import components.BattlePanel.ExitLabel;
 import components.BattlePanel.ScoreCounter;
 import components.BattlePanel.ScoreLabel;
@@ -16,8 +17,9 @@ import tankProject.Frame.MyFrame;
 public class BattlePanel extends BasicPanel {
 	private ForestBackground forestBackground;
 	private WKeyService wKeyService;
+	private EscKeyService escKeyService;
 	
-	public BattlePanel(MyFrame battleFrame) {
+	public BattlePanel(MyFrame battleFrame, MyFrame mainFrame) {
 		setLayout(null);
 		forestBackground = new ForestBackground();
 		ScoreCounter scoreCounter = new ScoreCounter("20", this);
@@ -38,7 +40,8 @@ public class BattlePanel extends BasicPanel {
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				
+				if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+					escKeyService = new EscKeyService(e,battleFrame,mainFrame);
 			}
 			
 			@Override

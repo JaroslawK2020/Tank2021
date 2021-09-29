@@ -19,16 +19,16 @@ public class StartBattle extends MyButton{
 			public void actionPerformed(ActionEvent e) {
 				ChoosePlayerFrame.dispose();
 				mainFrame.setVisible(false);
-				navigateToBattlePanel();
+				navigateToBattlePanel(mainFrame);
 				
 			}
 		});
 	}
 	
-	public void navigateToBattlePanel() {
+	public void navigateToBattlePanel(MyFrame mainFrame) {
 		MyFrame battleFrame = new MyFrame();
 		
-		BattlePanel battlePanel = new BattlePanel(battleFrame);
+		BattlePanel battlePanel = new BattlePanel(battleFrame,mainFrame);
 		battleFrame.add(battlePanel);
 		battleFrame.settupFrame();
 	}
