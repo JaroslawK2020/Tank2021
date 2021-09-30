@@ -15,7 +15,7 @@ import tankProject.Frame.MyFrame;
 
 public class CreateNewPlayerPanel extends BasicPanel {
 
-	public TanksListProvider tanksListProvider = new TanksListProvider();
+	public TanksListProvider tanksListProvider = new TanksListProvider(this, null);
 	public int selectedTankIndex = 0;
 
 	public CreateNewPlayerPanel(MyFrame mainFrame, MyFrame createNewPlayerFrame) {

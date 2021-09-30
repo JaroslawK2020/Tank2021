@@ -24,6 +24,7 @@ import strings.EStrings;
 import tankProject.Frame.MyFrame;
 
 public class BattlePanel extends BasicPanel {
+	
 	private ForestBackground forestBackground;
 	private StartPlatform startPlatform;
 	private WKeyService wKeyService;
@@ -33,18 +34,15 @@ public class BattlePanel extends BasicPanel {
 	private SpaceKeyService spaceKeyService;
 	private EscKeyService escKeyService;
 	private MyFrame choosePlayerFrame;
-	private int selectedTankIndex = 0; //// this has to base on Database
-	private TanksListProvider tanksListProvider = new TanksListProvider();
 	private MyTank myTank;
 	
 	public BattlePanel(MyFrame battleFrame, MyFrame mainFrame, MyFrame choosePlayerFrame, ChoosePlayerPanel choosePlayerPanel) {
-		setLayout(null);
 		forestBackground = new ForestBackground();
 		startPlatform = new StartPlatform();
 		ScoreCounter scoreCounter = new ScoreCounter("20", this);
 		ScoreLabel scoreLabel = new ScoreLabel(this);
 		ExitLabel exitLabel = new ExitLabel(this);
-		myTank = new MyTank(tanksListProvider.getTanksList().get(selectedTankIndex).getImage(), 
+		myTank = new MyTank(choosePlayerPanel.mainImage, 
 				((int) this.calculateWidth(3)), ((int) this.calculateHeight(98)));
 		
 		

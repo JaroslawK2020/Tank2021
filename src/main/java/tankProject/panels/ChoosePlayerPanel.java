@@ -3,20 +3,15 @@ package tankProject.panels;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.DefaultListModel;
-
 import components.ChoosePlayerComponents.BackButton;
+import components.ChoosePlayerComponents.ForestMapImage;
 import components.ChoosePlayerComponents.LevelLabel;
 import components.ChoosePlayerComponents.NickNameLabel;
 import components.ChoosePlayerComponents.PlayersList;
 import components.ChoosePlayerComponents.ScoresLabel;
 import components.ChoosePlayerComponents.StartBattle;
-import images.CityMap;
-import images.DesertMap;
-import images.ForestBackground;
 import images.ForestMap;
 import providers.TanksListProvider;
 import tankProject.Frame.MyFrame;
@@ -35,8 +30,11 @@ public class ChoosePlayerPanel extends BasicPanel {
 		LevelLabel levelLabel = new LevelLabel(this, nickname);
 		TanksListProvider tanksListProvider = new TanksListProvider(this, nickname);
 		PlayersList playersList = new PlayersList(model, this, nickNameLabel, scoresLabel, levelLabel,
-				tanksListProvider);
+				tanksListProvider, startBattle);
+		ForestMapImage forestMap = new ForestMapImage(this);
+
 		List<String> playersToDisplay = databaseManager.getPlayers();
+		
 
 		for (String player : playersToDisplay) {
 			model.addElement(player);
@@ -48,7 +46,8 @@ public class ChoosePlayerPanel extends BasicPanel {
 		add(scoresLabel);
 		add(levelLabel);
 		add(playersList);
-		// playersList.value
+		add(forestMap);
+		
 	}
 
 	@Override
@@ -64,12 +63,12 @@ public class ChoosePlayerPanel extends BasicPanel {
 
 		g.drawImage(mainImage, (int) calculateWidth(60), (int) calculateHeight(10), (int) calculateWidth(30),
 				(int) calculateHeight(37), null);
-		g.drawImage(forestMap.getImage(), (int) calculateWidth(34), (int) calculateHeight(60), (int) calculateWidth(20),
-				(int) calculateHeight(20), null);
-		g.drawImage(new DesertMap().getImage(), (int) calculateWidth(56), (int) calculateHeight(60),
-				(int) calculateWidth(20), (int) calculateHeight(20), null);
-		g.drawImage(new CityMap().getImage(), (int) calculateWidth(78), (int) calculateHeight(60),
-				(int) calculateWidth(20), (int) calculateHeight(20), null);
+//		g.drawImage(forestMap.getImage(), (int) calculateWidth(34), (int) calculateHeight(60), (int) calculateWidth(20),
+//				(int) calculateHeight(20), null);
+//		g.drawImage(new DesertMap().getImage(), (int) calculateWidth(56), (int) calculateHeight(60),
+//				(int) calculateWidth(20), (int) calculateHeight(20), null);
+//		g.drawImage(new CityMap().getImage(), (int) calculateWidth(78), (int) calculateHeight(60),
+//				(int) calculateWidth(20), (int) calculateHeight(20), null);
 
 	}
 }

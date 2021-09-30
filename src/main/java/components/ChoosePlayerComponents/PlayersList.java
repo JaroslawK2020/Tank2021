@@ -18,7 +18,7 @@ public class PlayersList extends JList {
 	private Font fontFamily = new Font("Arial", Font.BOLD, 30);
 
 	public PlayersList(ListModel dataModel, ChoosePlayerPanel choosePlayerPanel, NickNameLabel nickNameLabel,
-			ScoresLabel scoresLabel, LevelLabel levelLabel, TanksListProvider tanksListProvider) {
+			ScoresLabel scoresLabel, LevelLabel levelLabel, TanksListProvider tanksListProvider, StartBattle startBattle) {
 		super(dataModel);
 		setBounds((int) choosePlayerPanel.calculateWidth(3), (int) choosePlayerPanel.calculateHeight(5),
 				(int) choosePlayerPanel.calculateWidth(30), (int) choosePlayerPanel.calculateHeight(80));
@@ -31,6 +31,7 @@ public class PlayersList extends JList {
 
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
+				startBattle.setEnabled(true);
 				nickNameLabel.chooseNickname((String) getSelectedValue());
 				scoresLabel.chooseScores(choosePlayerPanel, (String) getSelectedValue());
 				levelLabel.chooseLvl(choosePlayerPanel, (String) getSelectedValue());
