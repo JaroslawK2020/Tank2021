@@ -7,14 +7,16 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 import components.ChoosePlayerComponents.ScoresLabel;
+import images.Explosion;
 import providers.TanksListProvider;
 import strings.EStrings;
 import tankProject.Frame.MyFrame;
 
 public class EndBattlePanel extends BasicPanel {
 	
-	public TanksListProvider tanksListProvider = new TanksListProvider();
-	public int selectedTankIndex = 0; // this has to base on Database
+	private Explosion explosion = new Explosion();
+	private TanksListProvider tanksListProvider = new TanksListProvider();
+	private int selectedTankIndex = 0; // this has to base on Database
 	private String nickname ="";
 
 	public EndBattlePanel(MyFrame mainFrame,MyFrame choosePlayerFrame, MyFrame exitBattleFrame, MyFrame battleFrame, ChoosePlayerPanel choosePlayerPanel) {
@@ -44,6 +46,8 @@ public class EndBattlePanel extends BasicPanel {
 
 		g.drawImage(mainImage, (int) calculateWidth(25), (int) calculateHeight(8), 
 				(int) calculateWidth(15),(int) calculateHeight(20), null);
+		g.drawImage(explosion.getImage(),(int) calculateWidth(21), (int) calculateHeight(6), 
+				(int) calculateWidth(20),(int) calculateHeight(20), null);
 	}
 
 	class QuitButton extends MyButton {
