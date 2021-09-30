@@ -10,10 +10,12 @@ import tankProject.panels.ChoosePlayerPanel;
 
 public class StartBattle extends MyButton{
 	private MyFrame choosePlayerFrame;
+	private ChoosePlayerPanel choosePlayerPanel;
 
 	public StartBattle(MyFrame mainFrame, MyFrame choosePlayerFrame, ChoosePlayerPanel choosePlayerPanel) {
 		super(EStrings.START_BATTLE.text);
 		this.choosePlayerFrame = choosePlayerFrame;
+		this.choosePlayerPanel =  choosePlayerPanel;
 		setBounds((int) choosePlayerPanel.calculateWidth(80), (int) choosePlayerPanel.calculateHeight(90), getWidth(), getHeight());
 		addActionListener(new ActionListener() {
 			
@@ -30,7 +32,7 @@ public class StartBattle extends MyButton{
 	public void navigateToBattlePanel(MyFrame mainFrame) {
 		MyFrame battleFrame = new MyFrame();
 		
-		BattlePanel battlePanel = new BattlePanel(battleFrame,mainFrame,choosePlayerFrame);
+		BattlePanel battlePanel = new BattlePanel(battleFrame,mainFrame,choosePlayerFrame,choosePlayerPanel);
 		battleFrame.add(battlePanel);
 		battleFrame.settupFrame();
 	}
