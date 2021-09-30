@@ -7,8 +7,8 @@ public class LevelLabel extends MyLabel {
 
 	public LevelLabel(ChoosePlayerPanel choosePlayerPanel, String nickname) {
 		chooseLvl(choosePlayerPanel, nickname);
-		setBounds((int) choosePlayerPanel.calculateWidth(40), (int) choosePlayerPanel.calculateHeight(20),
-				(int) choosePlayerPanel.calculateWidth(15), (int) choosePlayerPanel.calculateHeight(30));
+		setBounds((int) choosePlayerPanel.calculateWidth(35), (int) choosePlayerPanel.calculateHeight(20),
+				(int) choosePlayerPanel.calculateWidth(50), (int) choosePlayerPanel.calculateHeight(30));
 	}
 	
 	public String getLvl(ChoosePlayerPanel choosePlayerPanel, String nickname) {

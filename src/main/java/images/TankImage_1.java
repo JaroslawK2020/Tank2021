@@ -16,9 +16,8 @@ public class TankImage_1 implements ITanks{
 			e.getMessage();
 		}
 	}
-
+	
 	public BufferedImage getImage() {
 		return image;
 	}
-	
 }

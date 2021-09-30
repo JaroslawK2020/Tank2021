@@ -10,6 +10,7 @@ import javax.swing.ListModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import providers.TanksListProvider;
 import tankProject.panels.ChoosePlayerPanel;
 
 public class PlayersList extends JList {
@@ -17,7 +18,7 @@ public class PlayersList extends JList {
 	private Font fontFamily = new Font("Arial", Font.BOLD, 30);
 
 	public PlayersList(ListModel dataModel, ChoosePlayerPanel choosePlayerPanel, NickNameLabel nickNameLabel,
-			ScoresLabel scoresLabel, LevelLabel levelLabel) {
+			ScoresLabel scoresLabel, LevelLabel levelLabel, TanksListProvider tanksListProvider) {
 		super(dataModel);
 		setBounds((int) choosePlayerPanel.calculateWidth(3), (int) choosePlayerPanel.calculateHeight(5),
 				(int) choosePlayerPanel.calculateWidth(30), (int) choosePlayerPanel.calculateHeight(80));
@@ -33,14 +34,10 @@ public class PlayersList extends JList {
 				nickNameLabel.chooseNickname((String) getSelectedValue());
 				scoresLabel.chooseScores(choosePlayerPanel, (String) getSelectedValue());
 				levelLabel.chooseLvl(choosePlayerPanel, (String) getSelectedValue());
+				choosePlayerPanel.mainImage = tanksListProvider.getTankByUser(choosePlayerPanel, (String) getSelectedValue());//here we get index from DB);
 				choosePlayerPanel.repaint();
 			}
 		});
 	}
-	public void zxc() {
-//		nickNameLabel.chooseNickname((String) getSelectedValue());
-//		scoresLabel.chooseScores(choosePlayerPanel, (String) getSelectedValue());
-//		levelLabel.chooseLvl(choosePlayerPanel, (String) getSelectedValue());
-//		choosePlayerPanel.repaint();
-	}
+
 }
