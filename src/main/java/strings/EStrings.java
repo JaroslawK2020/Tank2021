@@ -1,12 +1,12 @@
 package strings;
 
 public enum EStrings {
-	CONFIRM_IF_QUITE("Do you want to quit?"),
+	CONFIRM_IF_QUIT("Do you want to quit?"),
 	YES("Yes"),
 	NO("No"),
 	CREATE_PLAYER("Create player"),
 	CHOOSE_PLAYER("Choose player"),
-	QUITE("Quite"),
+	QUIT("Quit"),
 	BACK("Back"),
 	CREATE_NEW_PLAYER("Create new player"),
 	NICKNAME_LABEL("What is your player nickname?"),

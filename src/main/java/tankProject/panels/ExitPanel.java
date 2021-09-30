@@ -71,7 +71,7 @@ public class ExitPanel extends BasicPanel {
 		private Font fontFamily = new Font("Arial", Font.BOLD, 40);
 
 		public Tittle(ExitPanel exitPanel) {
-			setText(EStrings.CONFIRM_IF_QUITE.text);
+			setText(EStrings.CONFIRM_IF_QUIT.text);
 			setBounds((int) calculateWidth(12), (int) calculateHeight(18), (int) calculateWidth(50), (int) calculateHeight(5));
 			setFont(fontFamily);
 			setForeground(Color.WHITE);
