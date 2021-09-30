@@ -18,12 +18,14 @@ import components.BattlePanel.ScoreLabel;
 import components.BattlePanel.SpaceKeyService;
 import components.BattlePanel.WKeyService;
 import images.ForestBackground;
+import images.StartPlatform;
 import providers.TanksListProvider;
 import strings.EStrings;
 import tankProject.Frame.MyFrame;
 
 public class BattlePanel extends BasicPanel {
 	private ForestBackground forestBackground;
+	private StartPlatform startPlatform;
 	private WKeyService wKeyService;
 	private SKeyService sKeyService;
 	private AKeyService aKeyService;
@@ -38,11 +40,12 @@ public class BattlePanel extends BasicPanel {
 	public BattlePanel(MyFrame battleFrame, MyFrame mainFrame, MyFrame choosePlayerFrame, ChoosePlayerPanel choosePlayerPanel) {
 		setLayout(null);
 		forestBackground = new ForestBackground();
+		startPlatform = new StartPlatform();
 		ScoreCounter scoreCounter = new ScoreCounter("20", this);
 		ScoreLabel scoreLabel = new ScoreLabel(this);
 		ExitLabel exitLabel = new ExitLabel(this);
 		myTank = new MyTank(tanksListProvider.getTanksList().get(selectedTankIndex).getImage(), 
-				((int) this.calculateWidth(1)), ((int) this.calculateHeight(95)));
+				((int) this.calculateWidth(3)), ((int) this.calculateHeight(98)));
 		
 		
 		add(scoreCounter);
@@ -89,7 +92,7 @@ public class BattlePanel extends BasicPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		g.drawImage(forestBackground.getImage(), 0, 0, returnScreenWidth(),returnScreenHeight(),null);
-
+		g.drawImage(startPlatform.getImage(), (int) calculateWidth(0.01f),(int) calculateHeight(93.5f) , (int) calculateWidth(10), (int) calculateHeight(14.5f), null);
 		g.drawImage(myTank.getTankImg(), myTank.getTankStartXposition(), myTank.getTankStartYposition(), myTank.getWidth(),myTank.getHeight(), null);
 		
 	}
