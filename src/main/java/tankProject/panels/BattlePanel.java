@@ -11,6 +11,7 @@ import components.BattlePanel.BattlePanelTextEditor;
 import components.BattlePanel.DKeyService;
 import components.BattlePanel.EscKeyService;
 import components.BattlePanel.ExitLabel;
+import components.BattlePanel.MyTank;
 import components.BattlePanel.SKeyService;
 import components.BattlePanel.ScoreCounter;
 import components.BattlePanel.ScoreLabel;
@@ -32,6 +33,7 @@ public class BattlePanel extends BasicPanel {
 	private MyFrame choosePlayerFrame;
 	private int selectedTankIndex = 0; //// this has to base on Database
 	private TanksListProvider tanksListProvider = new TanksListProvider();
+	private MyTank myTank;
 	
 	public BattlePanel(MyFrame battleFrame, MyFrame mainFrame, MyFrame choosePlayerFrame, ChoosePlayerPanel choosePlayerPanel) {
 		setLayout(null);
@@ -39,6 +41,9 @@ public class BattlePanel extends BasicPanel {
 		ScoreCounter scoreCounter = new ScoreCounter("20", this);
 		ScoreLabel scoreLabel = new ScoreLabel(this);
 		ExitLabel exitLabel = new ExitLabel(this);
+		myTank = new MyTank(tanksListProvider.getTanksList().get(selectedTankIndex).getImage(), 
+				((int) this.calculateWidth(1)), ((int) this.calculateHeight(95)));
+		
 		
 		add(scoreCounter);
 		add(scoreLabel);
@@ -61,15 +66,16 @@ public class BattlePanel extends BasicPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_W)
-					wKeyService = new WKeyService(e);
+					wKeyService = new WKeyService(myTank);
 				else if (e.getKeyCode() == KeyEvent.VK_S)
-					sKeyService = new SKeyService(e);
+					sKeyService = new SKeyService(myTank,returnScreenHeight());
 				else if (e.getKeyCode() == KeyEvent.VK_A)
-					aKeyService = new AKeyService(e);
+					aKeyService = new AKeyService(myTank);
 				else if (e.getKeyCode() == KeyEvent.VK_D)
-					dKeyService = new DKeyService(e);
+					dKeyService = new DKeyService(myTank,returnScreenWidth());
 				else if (e.getKeyCode() == KeyEvent.VK_SPACE)
 					spaceKeyService = new SpaceKeyService(e);
+				repaint();
 			}
 		});
 		
@@ -83,11 +89,8 @@ public class BattlePanel extends BasicPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		g.drawImage(forestBackground.getImage(), 0, 0, returnScreenWidth(),returnScreenHeight(),null);
-		
-		BufferedImage mainImage = tanksListProvider.getTanksList().get(selectedTankIndex).getImage();
 
-		g.drawImage(mainImage, (int) calculateWidth(1), (int) calculateHeight(90), 
-				(int) calculateWidth(7),(int) calculateHeight(7.5f), null);
+		g.drawImage(myTank.getTankImg(), myTank.getTankStartXposition(), myTank.getTankStartYposition(), myTank.getWidth(),myTank.getHeight(), null);
 		
 	}
 
