@@ -35,11 +35,12 @@ public class BattlePanel extends BasicPanel {
 	private EscKeyService escKeyService;
 	private MyFrame choosePlayerFrame;
 	private MyTank myTank;
+	private int pointCounter = 0;
 	
 	public BattlePanel(MyFrame battleFrame, MyFrame mainFrame, MyFrame choosePlayerFrame, ChoosePlayerPanel choosePlayerPanel) {
 		forestBackground = new ForestBackground();
 		startPlatform = new StartPlatform();
-		ScoreCounter scoreCounter = new ScoreCounter("20", this);
+		ScoreCounter scoreCounter = new ScoreCounter(Integer.toString(pointCounter), this);
 		ScoreLabel scoreLabel = new ScoreLabel(this);
 		ExitLabel exitLabel = new ExitLabel(this);
 		myTank = new MyTank(choosePlayerPanel.mainImage, 
