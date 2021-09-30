@@ -53,11 +53,11 @@ public class Players implements Serializable{
 		this.scores = scores;
 	}
 	
-	public int getlvl() {
+	public int getLvl() {
 		return lvl;
 	}
 	
-	public void setlvl(int lvl) {
+	public void setLvl(int lvl) {
 		this.lvl = lvl;
 	}
 	

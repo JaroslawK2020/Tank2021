@@ -33,7 +33,14 @@ public class PlayersList extends JList {
 				nickNameLabel.chooseNickname((String) getSelectedValue());
 				scoresLabel.chooseScores(choosePlayerPanel, (String) getSelectedValue());
 				levelLabel.chooseLvl(choosePlayerPanel, (String) getSelectedValue());
+				choosePlayerPanel.repaint();
 			}
 		});
+	}
+	public void zxc() {
+//		nickNameLabel.chooseNickname((String) getSelectedValue());
+//		scoresLabel.chooseScores(choosePlayerPanel, (String) getSelectedValue());
+//		levelLabel.chooseLvl(choosePlayerPanel, (String) getSelectedValue());
+//		choosePlayerPanel.repaint();
 	}
 }

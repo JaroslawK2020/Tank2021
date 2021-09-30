@@ -26,7 +26,8 @@ public class ChoosePlayerPanel extends BasicPanel {
 	public TanksListProvider tanksListProvider = new TanksListProvider();
 	public int selectedTankIndex = 0; // this has to base on Database
 	public String nickname= "";
-	
+	int index = 1;
+
 	public ChoosePlayerPanel(MyFrame mainFrame, MyFrame ChoosePlayerFrame) {
 		BackButton backtButton = new BackButton(mainFrame, ChoosePlayerFrame, this);
 		StartBattle startBattle = new StartBattle(mainFrame, ChoosePlayerFrame, this);
@@ -41,13 +42,13 @@ public class ChoosePlayerPanel extends BasicPanel {
 			model.addElement(player);	
 		}
 
-		
 		add(backtButton);
 		add(startBattle);
 		add(nickNameLabel);
 		add(scoresLabel);
 		add(levelLabel);
 		add(playersList);
+		//playersList.value
 	}
 	@Override
 	public Dimension getPreferredSize() {
@@ -58,12 +59,14 @@ public class ChoosePlayerPanel extends BasicPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		BufferedImage mainImage = tanksListProvider.getTanksList().get(selectedTankIndex).getImage();
-
+		if(nickname!="")index =  databaseManager.getUserTank(nickname); 
+		BufferedImage mainImage = tanksListProvider.getTanksList().get(index).getImage();
+		ForestMap forestMap = new ForestMap();	
+		
 		g.drawImage(mainImage, (int) calculateWidth(60), (int) calculateHeight(10), 
 				(int) calculateWidth(30),(int) calculateHeight(37), null);
 		
-		g.drawImage(new ForestMap().getImage(), (int) calculateWidth(34), (int) calculateHeight(60), 
+		g.drawImage(forestMap.getImage(), (int) calculateWidth(34), (int) calculateHeight(60), 
 				(int) calculateWidth(20),(int) calculateHeight(20), null);
 		g.drawImage(new DesertMap().getImage(), (int) calculateWidth(56), (int) calculateHeight(60), 
 				(int) calculateWidth(20),(int) calculateHeight(20), null);

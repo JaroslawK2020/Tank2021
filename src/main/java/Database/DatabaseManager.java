@@ -29,6 +29,8 @@ public class DatabaseManager {
 			players.setNickname(nickname);
 			players.setTankId(tankId);
 			players.setTankId(0);
+			players.setScores(0);
+			players.setLvl(0);
 
 			session.save(players);
 			session.getTransaction().commit();
@@ -106,6 +108,23 @@ public class DatabaseManager {
 			e.printStackTrace();
 		}
 		return new ArrayList<String>();
+	}
+	
+	public int getUserTank(String nickname) {
+		try {
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.getCurrentSession();
+
+			session.beginTransaction();
+
+			String hql = "SELECT tankId FROM Players WHERE nickname ='" + nickname + "'";
+			Query query = session.createQuery(hql);
+			return (int) query.getResultList().get(0);
+			// should session be closed?
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 }

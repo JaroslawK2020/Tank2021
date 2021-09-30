@@ -50,7 +50,6 @@ public class StartPanel extends PanelSchema {
 	public Dimension getPreferredSize() {
 		return super.getPreferredSize();
 	}
-
 	
 	// we should decide whether this is a good place for keeping this
 	class MySoundPlayer extends SoundPlayer {
