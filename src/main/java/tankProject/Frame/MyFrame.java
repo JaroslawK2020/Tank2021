@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 public class MyFrame extends JFrame {
 
 	public void settupFrame() {
-		setUndecorated(true);
+//		setUndecorated(true);
 		setVisible(true);
 		pack();
 		setLocationRelativeTo(null);

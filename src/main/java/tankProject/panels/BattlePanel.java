@@ -36,14 +36,27 @@ public class BattlePanel extends BasicPanel {
 	private EscKeyService escKeyService;
 	private MyFrame choosePlayerFrame;
 	private MyTank myTank;
+<<<<<<< HEAD
 	String innerNickname;
 
 	public BattlePanel(MyFrame battleFrame, MyFrame mainFrame, MyFrame choosePlayerFrame,
 			ChoosePlayerPanel choosePlayerPanel, TanksListProvider tanksListProvider, String nickname) {
 		innerNickname = nickname;
+=======
+	private int pointCounter = 0;
+	private MyFrame battleFrame;
+	private MyFrame mainFrame;
+	private ChoosePlayerPanel choosePlayerPanel;
+
+	public BattlePanel(MyFrame battleFrame, MyFrame mainFrame, MyFrame choosePlayerFrame,
+			ChoosePlayerPanel choosePlayerPanel) {
+		this.battleFrame = battleFrame;
+		this.mainFrame = mainFrame;
+		this.choosePlayerPanel = choosePlayerPanel;
+>>>>>>> 1eb0e357bd67cee77c631b5277627296d395e2c6
 		forestBackground = new ForestBackground();
 		startPlatform = new StartPlatform();
-		ScoreCounter scoreCounter = new ScoreCounter("20", this);
+		ScoreCounter scoreCounter = new ScoreCounter(Integer.toString(pointCounter), this);
 		ScoreLabel scoreLabel = new ScoreLabel(this);
 		ExitLabel exitLabel = new ExitLabel(this);
 		myTank = new MyTank(choosePlayerPanel.mainImage, ((int) this.calculateWidth(3)),
@@ -64,11 +77,20 @@ public class BattlePanel extends BasicPanel {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
+<<<<<<< HEAD
 					escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel);
+=======
+					escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel, myTank);
+				if (e.getKeyChar() == KeyEvent.VK_1) {
+					destroyTank();// temporary set tank destroy on 1 click
+				}
+
+>>>>>>> 1eb0e357bd67cee77c631b5277627296d395e2c6
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {
+<<<<<<< HEAD
 			//if (e.getKeyCode() == KeyEvent.VK_W) {
 	System.out.println(innerNickname);
 	System.out.println(nickname);
@@ -97,6 +119,19 @@ public class BattlePanel extends BasicPanel {
 //					spaceKeyService = new SpaceKeyService(e);
 //
 //				repaint();
+=======
+				if (e.getKeyCode() == KeyEvent.VK_W)
+					wKeyService = new WKeyService(myTank);
+				else if (e.getKeyCode() == KeyEvent.VK_S)
+					sKeyService = new SKeyService(myTank, returnScreenHeight());
+				else if (e.getKeyCode() == KeyEvent.VK_A)
+					aKeyService = new AKeyService(myTank);
+				else if (e.getKeyCode() == KeyEvent.VK_D)
+					dKeyService = new DKeyService(myTank, returnScreenWidth());
+				else if (e.getKeyCode() == KeyEvent.VK_SPACE)
+					spaceKeyService = new SpaceKeyService(e);
+				repaint();
+>>>>>>> 1eb0e357bd67cee77c631b5277627296d395e2c6
 			}
 		});
 
@@ -115,6 +150,14 @@ public class BattlePanel extends BasicPanel {
 		g.drawImage(myTank.getTankImg(), myTank.getTankStartXposition(), myTank.getTankStartYposition(),
 				myTank.getWidth(), myTank.getHeight(), null);
 
+<<<<<<< HEAD
+=======
+	}
+
+	private void destroyTank() {
+		myTank.setAlive(false);
+		escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel, myTank);
+>>>>>>> 1eb0e357bd67cee77c631b5277627296d395e2c6
 	}
 
 }
