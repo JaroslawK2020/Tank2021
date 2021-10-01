@@ -54,6 +54,10 @@ public class BattlePanel extends BasicPanel {
 		ScoreCounter scoreCounter = new ScoreCounter(Integer.toString(pointCounter), this);
 		ScoreLabel scoreLabel = new ScoreLabel(this);
 		ExitLabel exitLabel = new ExitLabel(this);
+		
+		System.out.println("CH"+choosePlayerPanel);
+		System.out.println("N"+nickname);
+		
 
 		BufferedImage tankRight = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 0);
 		BufferedImage tankLeft = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 1);
@@ -79,9 +83,9 @@ public class BattlePanel extends BasicPanel {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
 					escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel,
-							myTank, tanksListProvider);
+							myTank, tanksListProvider, nickname);
 				if (e.getKeyChar() == KeyEvent.VK_1) {
-					destroyTank(tanksListProvider);// temporary set tank destroy on 1 click
+					destroyTank(tanksListProvider, nickname);// temporary set tank destroy on 1 click
 				}
 
 			}
@@ -124,9 +128,9 @@ public class BattlePanel extends BasicPanel {
 
 	}
 
-	private void destroyTank(TanksListProvider tanksListProvider) {
+	private void destroyTank(TanksListProvider tanksListProvider, String nickname) {
 		myTank.setAlive(false);
-		escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel, myTank, tanksListProvider);
+		escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel, myTank, tanksListProvider, nickname);
 	}
 
 }

@@ -25,18 +25,14 @@ public class EndBattlePanel extends BasicPanel {
 	private MyTank myTank;
 
 	public EndBattlePanel(MyFrame mainFrame, MyFrame choosePlayerFrame, MyFrame exitBattleFrame, MyFrame battleFrame,
-			ChoosePlayerPanel choosePlayerPanel, MyTank myTank) {
-		this.choosePlayerFrame = choosePlayerFrame;
-		this.choosePlayerPanel = choosePlayerPanel;
-		this.mainFrame = mainFrame;
-		this.myTank = myTank;
+			ChoosePlayerPanel choosePlayerPanel, MyTank myTank, TanksListProvider tanksListProvider, String nickname) {
 		width /= 2;
 		height /= 2;
 		mainImage = choosePlayerPanel.mainImage;
 
-		TanksListProvider tanksListProvider = new TanksListProvider(choosePlayerPanel, choosePlayerPanel.nickname);
 		QuitButton quitButton = new QuitButton(mainFrame, choosePlayerFrame, exitBattleFrame, battleFrame);
-		PlayAgainButton playAgainButton = new PlayAgainButton(mainFrame, exitBattleFrame, battleFrame, tanksListProvider);
+		PlayAgainButton playAgainButton = new PlayAgainButton(mainFrame, exitBattleFrame, battleFrame,
+				tanksListProvider, nickname);
 
 		add(quitButton);
 		add(playAgainButton);
@@ -86,10 +82,12 @@ public class EndBattlePanel extends BasicPanel {
 
 	class PlayAgainButton extends MyButton {
 
-		public PlayAgainButton(MyFrame mainFrame, MyFrame exitBattleFrame, MyFrame battleFrame, TanksListProvider tanksListProvider) {
+		public PlayAgainButton(MyFrame mainFrame, MyFrame exitBattleFrame, MyFrame battleFrame,
+				TanksListProvider tanksListProvider, String nickname) {
 			super(EStrings.PLAY_AGAIN.text);
 			setBounds((int) calculateWidth(35), (int) calculateHeight(38), getWidth(), getHeight());
-			StartBattle startBattle = new StartBattle(mainFrame, choosePlayerFrame, choosePlayerPanel, tanksListProvider);
+			StartBattle startBattle = new StartBattle(mainFrame, choosePlayerFrame, choosePlayerPanel,
+					tanksListProvider);
 			addActionListener(new ActionListener() {
 
 				@Override
@@ -97,7 +95,8 @@ public class EndBattlePanel extends BasicPanel {
 					mainFrame.setVisible(false);
 					exitBattleFrame.dispose();
 					battleFrame.dispose();
-					startBattle.navigateToBattlePanel(mainFrame, null, null, null, null);
+					startBattle.navigateToBattlePanel(mainFrame, choosePlayerFrame, choosePlayerPanel,
+							tanksListProvider, nickname);
 
 				}
 			});
