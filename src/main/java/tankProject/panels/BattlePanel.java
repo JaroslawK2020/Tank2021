@@ -46,6 +46,8 @@ public class BattlePanel extends BasicPanel {
 		ScoreLabel scoreLabel = new ScoreLabel(this);
 		ExitLabel exitLabel = new ExitLabel(this);
 
+		System.out.println("BattlePanel" + nickname);
+
 		BufferedImage tankRight = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 0);
 		BufferedImage tankLeft = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 1);
 		BufferedImage tankDown = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 2);
@@ -69,49 +71,51 @@ public class BattlePanel extends BasicPanel {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
-					escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel,	myTank, tanksListProvider);
+					escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel,
+							myTank, tanksListProvider, nickname);
 
 				if (e.getKeyChar() == KeyEvent.VK_1) {
-					destroyTank(tanksListProvider);// temporary set tank destroy on 1 click
+					destroyTank(tanksListProvider, nickname);// temporary set tank destroy on 1 click
 				}
 
 			}
 
 			int tankYCurrentPosition;
 			int tankXCurrentPosition;
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_W) {
 					myTank.setTankImg(tankUp);
 					tankYCurrentPosition = myTank.getTankStartYposition();
 					myTank.setTankStartYposition(tankYCurrentPosition -= 20);
-					if(tankYCurrentPosition <= 0)
+					if (tankYCurrentPosition <= 0)
 						myTank.setTankStartYposition(0);
-					
+
 				} else if (e.getKeyCode() == KeyEvent.VK_S) {
 					myTank.setTankImg(tankDown);
 					tankYCurrentPosition = myTank.getTankStartYposition();
 					myTank.setTankStartYposition(tankYCurrentPosition += 20);
-					if(tankYCurrentPosition > (returnScreenHeight() - myTank.getHeight()))
+					if (tankYCurrentPosition > (returnScreenHeight() - myTank.getHeight()))
 						myTank.setTankStartYposition(returnScreenHeight() - myTank.getHeight());
-					
+
 				} else if (e.getKeyCode() == KeyEvent.VK_A) {
 					myTank.setTankImg(tankLeft);
 					tankXCurrentPosition = myTank.getTankStartXposition();
 					myTank.setTankStartXposition(tankXCurrentPosition -= 20);
-					if(tankXCurrentPosition <= 0)
+					if (tankXCurrentPosition <= 0)
 						myTank.setTankStartXposition(0);
-					
+
 				} else if (e.getKeyCode() == KeyEvent.VK_D) {
 					myTank.setTankImg(tankRight);
 					tankXCurrentPosition = myTank.getTankStartXposition();
 					myTank.setTankStartXposition(tankXCurrentPosition += 20);
-					if(tankXCurrentPosition > (returnScreenWidth() - myTank.getWidth()))
+					if (tankXCurrentPosition > (returnScreenWidth() - myTank.getWidth()))
 						myTank.setTankStartXposition(returnScreenWidth() - myTank.getWidth());
-					
+
 				} else if (e.getKeyCode() == KeyEvent.VK_SPACE)
 					System.out.println("SHOT");
-					
+
 				repaint();
 			}
 		});
@@ -132,9 +136,10 @@ public class BattlePanel extends BasicPanel {
 
 	}
 
-	private void destroyTank(TanksListProvider tanksListProvider) {
+	private void destroyTank(TanksListProvider tanksListProvider, String nickname) {
 		myTank.setAlive(false);
-		escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel, myTank, tanksListProvider);
+		escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel, myTank,
+				tanksListProvider, nickname);
 	}
 
 }
