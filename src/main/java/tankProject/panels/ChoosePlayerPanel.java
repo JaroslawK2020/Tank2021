@@ -28,7 +28,7 @@ public class ChoosePlayerPanel extends BasicPanel {
 		ScoresLabel scoresLabel = new ScoresLabel(this, nickname); // this nickname has to be delivered from JList
 		LevelLabel levelLabel = new LevelLabel(this, nickname);
 		TanksListProvider tanksListProvider = new TanksListProvider(this, nickname);
-		StartBattle startBattle = new StartBattle(mainFrame, choosePlayerFrame, this, tanksListProvider, nickname);
+		StartBattle startBattle = new StartBattle(mainFrame, choosePlayerFrame, this, tanksListProvider);
 		PlayersList playersList = new PlayersList(model, this, nickNameLabel, scoresLabel, levelLabel,
 				tanksListProvider, startBattle);
 		ForestMapImage forestMap = new ForestMapImage(this);
@@ -63,6 +63,9 @@ public class ChoosePlayerPanel extends BasicPanel {
 
 		g.drawImage(mainImage, (int) calculateWidth(60), (int) calculateHeight(10), (int) calculateWidth(30),
 				(int) calculateHeight(37), null);
+		
+		
+		///TO DO
 //		g.drawImage(forestMap.getImage(), (int) calculateWidth(34), (int) calculateHeight(60), (int) calculateWidth(20),
 //				(int) calculateHeight(20), null);
 //		g.drawImage(new DesertMap().getImage(), (int) calculateWidth(56), (int) calculateHeight(60),

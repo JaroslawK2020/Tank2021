@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 import components.BattlePanel.AKeyService;
 import components.BattlePanel.BattlePanelTextEditor;
@@ -36,29 +38,28 @@ public class BattlePanel extends BasicPanel {
 	private EscKeyService escKeyService;
 	private MyFrame choosePlayerFrame;
 	private MyTank myTank;
-<<<<<<< HEAD
-	String innerNickname;
 
-	public BattlePanel(MyFrame battleFrame, MyFrame mainFrame, MyFrame choosePlayerFrame,
-			ChoosePlayerPanel choosePlayerPanel, TanksListProvider tanksListProvider, String nickname) {
-		innerNickname = nickname;
-=======
 	private int pointCounter = 0;
 	private MyFrame battleFrame;
 	private MyFrame mainFrame;
 	private ChoosePlayerPanel choosePlayerPanel;
 
 	public BattlePanel(MyFrame battleFrame, MyFrame mainFrame, MyFrame choosePlayerFrame,
-			ChoosePlayerPanel choosePlayerPanel) {
+			ChoosePlayerPanel choosePlayerPanel, TanksListProvider tanksListProvider, String nickname) {
 		this.battleFrame = battleFrame;
 		this.mainFrame = mainFrame;
 		this.choosePlayerPanel = choosePlayerPanel;
->>>>>>> 1eb0e357bd67cee77c631b5277627296d395e2c6
 		forestBackground = new ForestBackground();
 		startPlatform = new StartPlatform();
 		ScoreCounter scoreCounter = new ScoreCounter(Integer.toString(pointCounter), this);
 		ScoreLabel scoreLabel = new ScoreLabel(this);
 		ExitLabel exitLabel = new ExitLabel(this);
+
+		BufferedImage tankRight = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 0);
+		BufferedImage tankLeft = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 1);
+		BufferedImage tankDown = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 2);
+		BufferedImage tankUp = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 3);
+
 		myTank = new MyTank(choosePlayerPanel.mainImage, ((int) this.calculateWidth(3)),
 				((int) this.calculateHeight(98)));
 
@@ -77,64 +78,35 @@ public class BattlePanel extends BasicPanel {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
-<<<<<<< HEAD
-					escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel);
-=======
-					escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel, myTank);
+					escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel,
+							myTank);
 				if (e.getKeyChar() == KeyEvent.VK_1) {
 					destroyTank();// temporary set tank destroy on 1 click
 				}
 
->>>>>>> 1eb0e357bd67cee77c631b5277627296d395e2c6
 			}
 
+			// why we create new objects instead changing existing object position?
+			
 			@Override
 			public void keyPressed(KeyEvent e) {
-<<<<<<< HEAD
-			//if (e.getKeyCode() == KeyEvent.VK_W) {
-	System.out.println(innerNickname);
-	System.out.println(nickname);
-
-
-	
-
-//					.setTankImg(tanksListProvider.getTankByUserForMove(choosePlayerPanel,
-//							choosePlayerPanel.nickname, 1));
-//					wKeyService = new WKeyService(myTank);
-//				} else if (e.getKeyCode() == KeyEvent.VK_S) {
-//					sKeyService = new SKeyService(myTank, returnScreenHeight());
-//					myTank.setTankImg(tanksListProvider.getTankByUserForMove(choosePlayerPanel,
-//							choosePlayerPanel.nickname, 2));
-//				} else if (e.getKeyCode() == KeyEvent.VK_A) {
-//					aKeyService = new AKeyService(myTank);
-//					myTank.setTankImg(tanksListProvider.getTankByUserForMove(choosePlayerPanel,
-//							choosePlayerPanel.nickname, 3));
-//				} else if (e.getKeyCode() == KeyEvent.VK_D) {
-//					dKeyService = new DKeyService(myTank, returnScreenWidth());
-//					myTank.setTankImg(tanksListProvider.getTankByUserForMove(choosePlayerPanel,
-//							choosePlayerPanel.nickname, 4));
-//				}
-//
-//				else if (e.getKeyCode() == KeyEvent.VK_SPACE)
-//					spaceKeyService = new SpaceKeyService(e);
-//
-//				repaint();
-=======
-				if (e.getKeyCode() == KeyEvent.VK_W)
+				if (e.getKeyCode() == KeyEvent.VK_W) {
+					myTank.setTankImg(tankUp);
 					wKeyService = new WKeyService(myTank);
-				else if (e.getKeyCode() == KeyEvent.VK_S)
+				} else if (e.getKeyCode() == KeyEvent.VK_S) {
+					myTank.setTankImg(tankDown);
 					sKeyService = new SKeyService(myTank, returnScreenHeight());
-				else if (e.getKeyCode() == KeyEvent.VK_A)
+				} else if (e.getKeyCode() == KeyEvent.VK_A) {
+					myTank.setTankImg(tankLeft);
 					aKeyService = new AKeyService(myTank);
-				else if (e.getKeyCode() == KeyEvent.VK_D)
+				} else if (e.getKeyCode() == KeyEvent.VK_D) {
+					myTank.setTankImg(tankRight);
 					dKeyService = new DKeyService(myTank, returnScreenWidth());
-				else if (e.getKeyCode() == KeyEvent.VK_SPACE)
+				} else if (e.getKeyCode() == KeyEvent.VK_SPACE)
 					spaceKeyService = new SpaceKeyService(e);
 				repaint();
->>>>>>> 1eb0e357bd67cee77c631b5277627296d395e2c6
 			}
 		});
-
 	}
 
 	@Override
@@ -150,14 +122,11 @@ public class BattlePanel extends BasicPanel {
 		g.drawImage(myTank.getTankImg(), myTank.getTankStartXposition(), myTank.getTankStartYposition(),
 				myTank.getWidth(), myTank.getHeight(), null);
 
-<<<<<<< HEAD
-=======
 	}
 
 	private void destroyTank() {
 		myTank.setAlive(false);
 		escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel, myTank);
->>>>>>> 1eb0e357bd67cee77c631b5277627296d395e2c6
 	}
 
 }

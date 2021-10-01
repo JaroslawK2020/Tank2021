@@ -1,6 +1,5 @@
 package images;
 
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,10 +22,12 @@ public class GreenTank implements ITanks {
 		}
 	}
 
+	@Override
 	public BufferedImage getImage() {
 		return images.get(0);
 	}
 
+	@Override
 	public BufferedImage getImage(int key) {
 		return images.get(key);
 	}

@@ -21,7 +21,6 @@ public class RedTank implements ITanks {
 			e.getMessage();
 		}
 	}
-
 	public BufferedImage getImage() {
 		return images.get(0);
 	}

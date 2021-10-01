@@ -22,10 +22,12 @@ public class BlueTank implements ITanks {
 		}
 	}
 
+	@Override
 	public BufferedImage getImage() {
 		return images.get(0);
 	}
 
+	@Override
 	public BufferedImage getImage(int key) {
 		return images.get(key);
 	}

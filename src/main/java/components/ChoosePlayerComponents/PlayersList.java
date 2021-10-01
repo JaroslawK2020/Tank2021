@@ -35,7 +35,8 @@ public class PlayersList extends JList {
 				nickNameLabel.chooseNickname((String) getSelectedValue());
 				scoresLabel.chooseScores(choosePlayerPanel, (String) getSelectedValue());
 				levelLabel.chooseLvl(choosePlayerPanel, (String) getSelectedValue());
-				choosePlayerPanel.mainImage = tanksListProvider.getTankByUser(choosePlayerPanel, (String) getSelectedValue());//here we get index from DB);
+				choosePlayerPanel.mainImage = tanksListProvider.getTankByUser(choosePlayerPanel, (String) getSelectedValue());
+				startBattle.setNickname((String) getSelectedValue());
 				choosePlayerPanel.repaint();
 			}
 		});
