@@ -8,6 +8,7 @@ public class MyTank {
 	private int tankStartYposition;
 	private int width = 60;
 	private int height = 50;
+	private boolean isAlive = true;
 	
 	public MyTank(BufferedImage tankImg, int tankStartXposition, int tankStartYposition) {
 		this.tankImg = tankImg;
@@ -42,6 +43,12 @@ public class MyTank {
 	public int getHeight() {
 		return height;
 	}
-	
-	
+
+	public boolean isAlive() {
+		return isAlive;
+	}
+
+	public void setAlive(boolean isAlive) {
+		this.isAlive = isAlive;
+	}
 }

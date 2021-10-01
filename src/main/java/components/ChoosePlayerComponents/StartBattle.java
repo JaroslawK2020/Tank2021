@@ -32,7 +32,6 @@ public class StartBattle extends MyButton{
 	
 	public void navigateToBattlePanel(MyFrame mainFrame) {
 		MyFrame battleFrame = new MyFrame();
-		
 		BattlePanel battlePanel = new BattlePanel(battleFrame,mainFrame,choosePlayerFrame,choosePlayerPanel);
 		battleFrame.add(battlePanel);
 		battleFrame.settupFrame();
