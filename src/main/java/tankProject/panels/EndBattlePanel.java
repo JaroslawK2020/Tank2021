@@ -36,7 +36,7 @@ public class EndBattlePanel extends BasicPanel {
 
 		TanksListProvider tanksListProvider = new TanksListProvider(choosePlayerPanel, choosePlayerPanel.nickname);
 		QuitButton quitButton = new QuitButton(mainFrame, choosePlayerFrame, exitBattleFrame, battleFrame);
-		PlayAgainButton playAgainButton = new PlayAgainButton(mainFrame, exitBattleFrame, battleFrame);
+		PlayAgainButton playAgainButton = new PlayAgainButton(mainFrame, exitBattleFrame, battleFrame, tanksListProvider);
 
 		add(quitButton);
 		add(playAgainButton);
@@ -86,10 +86,10 @@ public class EndBattlePanel extends BasicPanel {
 
 	class PlayAgainButton extends MyButton {
 
-		public PlayAgainButton(MyFrame mainFrame, MyFrame exitBattleFrame, MyFrame battleFrame) {
+		public PlayAgainButton(MyFrame mainFrame, MyFrame exitBattleFrame, MyFrame battleFrame, TanksListProvider tanksListProvider) {
 			super(EStrings.PLAY_AGAIN.text);
 			setBounds((int) calculateWidth(35), (int) calculateHeight(38), getWidth(), getHeight());
-			StartBattle startBattle = new StartBattle(mainFrame, choosePlayerFrame, choosePlayerPanel);
+			StartBattle startBattle = new StartBattle(mainFrame, choosePlayerFrame, choosePlayerPanel, tanksListProvider);
 			addActionListener(new ActionListener() {
 
 				@Override
@@ -97,7 +97,7 @@ public class EndBattlePanel extends BasicPanel {
 					mainFrame.setVisible(false);
 					exitBattleFrame.dispose();
 					battleFrame.dispose();
-					startBattle.navigateToBattlePanel(mainFrame);
+					startBattle.navigateToBattlePanel(mainFrame, null, null, null, null);
 
 				}
 			});
