@@ -28,6 +28,7 @@ public class CreateNewPlayerPanel extends BasicPanel {
 		ChooseTankLeftButton chooseTankLeftButton = new ChooseTankLeftButton(this, tanksListProvider);
 		ChooseTankRightButton chooseTankRightButton = new ChooseTankRightButton(this);
 		
+		
 		add(tittle);
 		add(nickNameLabel);
 		add(nickNameTextField);

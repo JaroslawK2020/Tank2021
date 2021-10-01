@@ -21,14 +21,14 @@ public class ChoosePlayerPanel extends BasicPanel {
 	public String nickname = "";
 	public BufferedImage mainImage = null;
 
-	public ChoosePlayerPanel(MyFrame mainFrame, MyFrame ChoosePlayerFrame) {
-		BackButton backtButton = new BackButton(mainFrame, ChoosePlayerFrame, this);
-		StartBattle startBattle = new StartBattle(mainFrame, ChoosePlayerFrame, this);
+	public ChoosePlayerPanel(MyFrame mainFrame, MyFrame choosePlayerFrame) {
+		BackButton backtButton = new BackButton(mainFrame, choosePlayerFrame, this);
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		NickNameLabel nickNameLabel = new NickNameLabel(this, nickname); // this nickname has to be delivered from JList
 		ScoresLabel scoresLabel = new ScoresLabel(this, nickname); // this nickname has to be delivered from JList
 		LevelLabel levelLabel = new LevelLabel(this, nickname);
 		TanksListProvider tanksListProvider = new TanksListProvider(this, nickname);
+		StartBattle startBattle = new StartBattle(mainFrame, choosePlayerFrame, this, tanksListProvider, nickname);
 		PlayersList playersList = new PlayersList(model, this, nickNameLabel, scoresLabel, levelLabel,
 				tanksListProvider, startBattle);
 		ForestMapImage forestMap = new ForestMapImage(this);

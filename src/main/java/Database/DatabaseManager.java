@@ -28,7 +28,6 @@ public class DatabaseManager {
 
 			players.setNickname(nickname);
 			players.setTankId(tankId);
-			players.setTankId(0);
 			players.setScores(0);
 			players.setLvl(0);
 

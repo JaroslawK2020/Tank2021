@@ -8,7 +8,7 @@ public class MyTank {
 	private int tankStartYposition;
 	private int width = 60;
 	private int height = 50;
-	
+
 	public MyTank(BufferedImage tankImg, int tankStartXposition, int tankStartYposition) {
 		this.tankImg = tankImg;
 		this.tankStartXposition = tankStartXposition;
@@ -35,6 +35,10 @@ public class MyTank {
 		return tankImg;
 	}
 
+	public void setTankImg(BufferedImage image) {
+		tankImg = image;
+	}
+
 	public int getWidth() {
 		return width;
 	}
@@ -42,6 +46,5 @@ public class MyTank {
 	public int getHeight() {
 		return height;
 	}
-	
-	
+
 }

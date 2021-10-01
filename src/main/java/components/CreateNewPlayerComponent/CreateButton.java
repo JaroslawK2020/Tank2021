@@ -8,6 +8,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import components.MyButton;
+import providers.TanksListProvider;
 import strings.EStrings;
 import tankProject.Frame.MyFrame;
 import tankProject.panels.ChoosePlayerPanel;
@@ -44,6 +45,7 @@ public class CreateButton extends MyButton {
 						setEnabled(false);
 
 					} else {
+						System.out.println(createNewPlayerPanel.selectedTankIndex);
 						createNewPlayerPanel.databaseManager.addNewUser(nickNameTextField.getText(), createNewPlayerPanel.selectedTankIndex);
 						setEnabled(true);
 						navigateToChoosePlayerFrame(createNewPlayerFrame, mainFrame);
