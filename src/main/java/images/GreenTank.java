@@ -13,7 +13,7 @@ public class GreenTank implements ITanks {
 
 	public GreenTank() {
 		try {
-			images.add(ImageIO.read(new File("src//images//GreenTankRight.png")));
+			images.add(ImageIO.read(new File("src//images//GreenTankRight.png"))); 
 			images.add(ImageIO.read(new File("src//images//GreenTankLeft.png")));
 			images.add(ImageIO.read(new File("src//images//GreenTankDown.png")));
 			images.add(ImageIO.read(new File("src//images//GreenTankUp.png")));
