@@ -67,7 +67,7 @@ public class BattlePanel extends BasicPanel {
 		BufferedImage tankDown = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 2);
 		BufferedImage tankUp = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 3);
 
-		int delay = 100;
+		int delay = 500;
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				shootsManager();
@@ -164,7 +164,7 @@ public class BattlePanel extends BasicPanel {
 					upShootsProvider.shootsList.get(i).getYposition(), upShootsProvider.shootsList.get(i).getWidth(),
 					upShootsProvider.shootsList.get(i).getHeight(), null);
 		}
-		
+
 		drawMineAndReactors(g);
 
 	}
@@ -192,6 +192,7 @@ public class BattlePanel extends BasicPanel {
 		if (shootDirection == 3) {
 			upShootsProvider.newShoot(myTank);
 		}
+		printMinePosition(); // temporary print mine position on space click
 
 	}
 
@@ -271,25 +272,71 @@ public class BattlePanel extends BasicPanel {
 					upShootsProvider.getShootsList().get(i).move();
 			}
 		}
-		
 	}
-	
 
 	private void drawMineAndReactors(Graphics g) {
 		for (int i = 0; i < destroyableObjectProvider.getDestroyableObjects().size(); i++) {
 			for (int j = 0; j < destroyableObjectProvider.getDestroyableObjects().get(i).size(); j++) {
-				if(destroyableObjectProvider.getDestroyableObjects().get(i).get(j) instanceof MineImg) {
+				if (destroyableObjectProvider.getDestroyableObjects().get(i).get(j) instanceof MineImg) {
 					int mineSize = 30;
-				g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getImage(), 
-						destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectXPosition(), 
-						destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectYPosition(), mineSize, mineSize, null);
-				}if(destroyableObjectProvider.getDestroyableObjects().get(i).get(j) instanceof ReactorImg) {		
+					if (destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+							.getObjectXPosition() < (int) calculateWidth(10)
+							&& destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+									.getObjectYPosition() >= (int) calculateHeight(93.5f)
+											+ (int) calculateHeight(14.5f)) {
+						g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getImage(),
+								destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectXPosition()
+										+ 50,
+								destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectYPosition()
+										- 50,
+								mineSize, mineSize, null);
+					} else {
+						g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getImage(),
+								destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectXPosition(),
+								destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectYPosition(),
+								mineSize, mineSize, null);
+					}
+				} else if (destroyableObjectProvider.getDestroyableObjects().get(i).get(j) instanceof ReactorImg) {
 					int reactorSize = 100;
-				g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getImage(), 
-						destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectXPosition(), 
-						destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectYPosition(), reactorSize,reactorSize, null);
+					if (destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+							.getObjectXPosition() < (int) calculateWidth(10)
+							&& destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+									.getObjectYPosition() >= (int) calculateHeight(93.5f)
+											+ (int) calculateHeight(14.5f)) {
+						g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getImage(),
+								destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectXPosition()
+										+ 100,
+								destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectYPosition()
+										- 100,
+								reactorSize, reactorSize, null);
+					} else {
+						g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getImage(),
+								destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectXPosition(),
+								destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectYPosition(),
+								reactorSize, reactorSize, null);
+						g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getImage(),
+								destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectXPosition(),
+								destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectYPosition(),
+								reactorSize, reactorSize, null);
+					}
 				}
 			}
 		}
+
 	}
+
+	private void printMinePosition() {
+		for (int i = 0; i < destroyableObjectProvider.getDestroyableObjects().size(); i++) {
+			for (int j = 0; j < destroyableObjectProvider.getDestroyableObjects().get(i).size(); j++) {
+				if (destroyableObjectProvider.getDestroyableObjects().get(i).get(j) instanceof MineImg) {
+					System.out.println("mine X pos: "
+							+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectXPosition());
+					System.out.println("mine Y pos: "
+							+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectYPosition());
+				}
+			}
+		}
+
+	}
+
 }

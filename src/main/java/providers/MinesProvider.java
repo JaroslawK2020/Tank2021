@@ -25,6 +25,15 @@ public class MinesProvider {
 		minesList.add(new MineImg());
 		minesList.add(new MineImg());
 		minesList.add(new MineImg());
+		minesList.add(new MineImg());
+		minesList.add(new MineImg());
+		minesList.add(new MineImg());
+		minesList.add(new MineImg());
+		minesList.add(new MineImg());
+		minesList.add(new MineImg());
+		minesList.add(new MineImg());
+		minesList.add(new MineImg());
+		minesList.add(new MineImg());
 	}
 
 	public List<IDestroyable> getMinesList() {
