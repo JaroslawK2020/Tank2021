@@ -3,6 +3,7 @@ package images;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -16,9 +17,16 @@ public class MineImg implements IDestroyable {
 			e.getMessage();
 		}
 	}
-
+	
+	@Override
 	public BufferedImage getImage() {
 		return image;
 	}
+
+	@Override
+	public boolean isDestroyAble() {
+		return true;
+	}
+
 
 }

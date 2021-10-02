@@ -21,6 +21,7 @@ import components.BattlePanel.ScoreCounter;
 import components.BattlePanel.ScoreLabel;
 import images.ForestBackground;
 import images.StartPlatform;
+import providers.DestroyableObjectProvider;
 import providers.DownShootProvider;
 import providers.LeftShootsProvider;
 import providers.MapsProvider;
@@ -48,6 +49,7 @@ public class BattlePanel extends BasicPanel {
 	RightShootProvider rightShootProvider = new RightShootProvider();
 	DownShootProvider downShootsProvider = new DownShootProvider();
 	UpShootProvider upShootsProvider = new UpShootProvider();
+	DestroyableObjectProvider destroyableObjectProvider = new DestroyableObjectProvider();
 	boolean runAnimation = true;
 	int shootDirection = 0;
 
@@ -57,7 +59,6 @@ public class BattlePanel extends BasicPanel {
 		this.battleFrame = battleFrame;
 		this.mainFrame = mainFrame;
 		this.choosePlayerPanel = choosePlayerPanel;
-		//forestBackground = new ForestBackground();
 		startPlatform = new StartPlatform();
 		ScoreCounter scoreCounter = new ScoreCounter(Integer.toString(pointCounter), this);
 		ScoreLabel scoreLabel = new ScoreLabel(this);
@@ -135,6 +136,16 @@ public class BattlePanel extends BasicPanel {
 				(int) calculateWidth(10), (int) calculateHeight(14.5f), null);
 		g.drawImage(myTank.getTankImg(), myTank.getTankStartXposition(), myTank.getTankStartYposition(),
 				myTank.getWidth(), myTank.getHeight(), null);
+	
+		for (int x = 0; x < 2; x++) {
+	
+			g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(0).get(0).getImage(), 50, 300, 200, 200, null);
+			g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(0).get(1).getImage(), 300, 300, 200, 200, null);
+			
+			g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(1).get(0).getImage(), 550, 300, 200, 200, null);
+			g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(1).get(1).getImage(), 900, 300, 200, 200, null);
+
+		}
 
 		for (int i = 0; i < leftShootsProvider.shootsList.size(); i++) {
 

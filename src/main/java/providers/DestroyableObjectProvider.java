@@ -8,16 +8,16 @@ import images.MineImg;
 import images.ReactorImg;
 
 public class DestroyableObjectProvider {
-	private List<IDestroyable> destroyableObjectsList = new ArrayList<IDestroyable>();
+	private List<List<IDestroyable>> destroyableObjectsList = new ArrayList<List<IDestroyable>>();
+	
 	
 	public DestroyableObjectProvider() {
-		destroyableObjectsList.add(new MineImg());
-		destroyableObjectsList.add(new ReactorImg());		
+		destroyableObjectsList.add(new MinesProvider().getMinesList());
+		destroyableObjectsList.add(new ReactorsProvider().getReactorsList());
+
 	}
 
-	public List<IDestroyable> getDestroyableObjects() {
+	public List<List<IDestroyable>> getDestroyableObjects() {
 		return destroyableObjectsList;
 	}
-	
-	
 }

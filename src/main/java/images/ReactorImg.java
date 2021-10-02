@@ -11,13 +11,19 @@ public class ReactorImg implements IDestroyable {
 
 	public ReactorImg() {
 		try {
-			image = ImageIO.read(new File("src//images//r.png"));
-		}catch(IOException e) {
+			image = ImageIO.read(new File("src//images//reactor.png"));
+		} catch (IOException e) {
 			e.getMessage();
 		}
 	}
 
+	@Override
 	public BufferedImage getImage() {
 		return image;
+	}
+
+	@Override
+	public boolean isDestroyAble() {
+		return true;
 	}
 }
