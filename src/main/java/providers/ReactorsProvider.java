@@ -12,6 +12,11 @@ public class ReactorsProvider {
 	public ReactorsProvider() {
 		reactorsList.add(new ReactorImg());
 		reactorsList.add(new ReactorImg());
+		reactorsList.add(new ReactorImg());
+		reactorsList.add(new ReactorImg());
+		reactorsList.add(new ReactorImg());
+		reactorsList.add(new ReactorImg());
+
 
 	}
 

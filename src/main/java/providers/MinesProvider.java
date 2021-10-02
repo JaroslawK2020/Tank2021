@@ -12,11 +12,15 @@ public class MinesProvider {
 	public MinesProvider() {
 		minesList.add(new MineImg());
 		minesList.add(new MineImg());
-
+		minesList.add(new MineImg());
+		minesList.add(new MineImg());
+		minesList.add(new MineImg());
 	}
 
 	public List<IDestroyable> getMinesList() {
 		return minesList;
 	}
+	
+	
 
 }

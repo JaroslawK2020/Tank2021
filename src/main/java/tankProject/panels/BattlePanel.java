@@ -1,25 +1,21 @@
 package tankProject.panels;
 
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import components.BattlePanel.EscKeyService;
 import components.BattlePanel.ExitLabel;
-import components.BattlePanel.IShoot;
 import components.BattlePanel.MyTank;
 import components.BattlePanel.ScoreCounter;
 import components.BattlePanel.ScoreLabel;
-import images.ForestBackground;
+import images.MineImg;
+import images.ReactorImg;
 import images.StartPlatform;
 import providers.DestroyableObjectProvider;
 import providers.DownShootProvider;
@@ -75,7 +71,7 @@ public class BattlePanel extends BasicPanel {
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				shootsManager();
-				repaint();
+//				repaint();
 			}
 		};
 		new Timer(delay, taskPerformer).start();
@@ -136,16 +132,8 @@ public class BattlePanel extends BasicPanel {
 				(int) calculateWidth(10), (int) calculateHeight(14.5f), null);
 		g.drawImage(myTank.getTankImg(), myTank.getTankStartXposition(), myTank.getTankStartYposition(),
 				myTank.getWidth(), myTank.getHeight(), null);
-	
-		for (int x = 0; x < 2; x++) {
-	
-			g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(0).get(0).getImage(), 50, 300, 200, 200, null);
-			g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(0).get(1).getImage(), 300, 300, 200, 200, null);
-			
-			g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(1).get(0).getImage(), 550, 300, 200, 200, null);
-			g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(1).get(1).getImage(), 900, 300, 200, 200, null);
 
-		}
+		
 
 		for (int i = 0; i < leftShootsProvider.shootsList.size(); i++) {
 
@@ -178,6 +166,8 @@ public class BattlePanel extends BasicPanel {
 					upShootsProvider.shootsList.get(i).getYposition(), upShootsProvider.shootsList.get(i).getWidth(),
 					upShootsProvider.shootsList.get(i).getHeight(), null);
 		}
+		
+		drawMineAndReactors(g);
 
 	}
 
@@ -283,6 +273,35 @@ public class BattlePanel extends BasicPanel {
 					upShootsProvider.getShootsList().get(i).move();
 			}
 		}
-
+		
+	}
+	int foo = drawDestroyableObjectPositionX();
+	private void drawMineAndReactors(Graphics g) {
+		
+		for (int i = 0; i < destroyableObjectProvider.getDestroyableObjects().size(); i++) {
+			for (int j = 0; j < destroyableObjectProvider.getDestroyableObjects().get(i).size(); j++) {
+				if(destroyableObjectProvider.getDestroyableObjects().get(i).get(j) instanceof MineImg) {
+					int mineSize = 30;
+				g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getImage(), foo, 300, mineSize,
+						mineSize, null);
+				}if(destroyableObjectProvider.getDestroyableObjects().get(i).get(j) instanceof ReactorImg) {		
+					int reactorSize = 100;
+				g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getImage(), foo, 300, reactorSize,
+						reactorSize, null);
+				}
+			}
+		}	
+			
+	}
+	
+	private int drawDestroyableObjectPositionX() {
+		final int LOWER_RANGE = 20;
+		final int UPPER_RANGE = returnScreenWidth() - 200;
+		int drawNum = (int)(Math.random() * (UPPER_RANGE - LOWER_RANGE) + LOWER_RANGE);
+		if(drawNum % 100 == 0)
+			return drawNum;
+		else 
+			drawDestroyableObjectPositionX();
+		return drawNum;
 	}
 }
