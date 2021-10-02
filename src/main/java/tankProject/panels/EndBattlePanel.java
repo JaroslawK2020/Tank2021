@@ -4,11 +4,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-
 import components.BattlePanel.MyTank;
-import components.ChoosePlayerComponents.ScoresLabel;
 import components.ChoosePlayerComponents.StartBattle;
+import components.CreateNewPlayerComponent.CreateButton;
 import images.Explosion;
 import images.Game;
 import images.Over;
@@ -37,6 +35,7 @@ public class EndBattlePanel extends BasicPanel {
 
 		add(quitButton);
 		add(playAgainButton);
+//		System.out.println("EndBattlePanel/contructor: " + choosePlayerFrame.toString());
 	}
 
 	@Override
@@ -71,8 +70,13 @@ public class EndBattlePanel extends BasicPanel {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					MyFrame choosePlayerFrame = new MyFrame();
+					ChoosePlayerPanel choosePlayerPanel = new ChoosePlayerPanel(mainFrame, choosePlayerFrame);
+					choosePlayerFrame.add(choosePlayerPanel);
+					choosePlayerFrame.settupFrame();
+				
 					mainFrame.setVisible(false);
-					choosePlayerFrame.setVisible(true);
+//					choosePlayerFrame.setVisible(true);
 					exitBattleFrame.dispose();
 					battleFrame.dispose();
 
