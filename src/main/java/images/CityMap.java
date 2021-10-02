@@ -16,7 +16,7 @@ public class CityMap implements IMaps{
 
 	public CityMap() {
 		try {
-			image = ImageIO.read(new File("src//images//city.png"));
+			image = ImageIO.read(new File("src//images//city.jpg"));
 		} catch (IOException e) {
 			e.getMessage();
 		}

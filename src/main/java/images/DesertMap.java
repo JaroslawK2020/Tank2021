@@ -16,7 +16,7 @@ public class DesertMap implements IMaps{
 
 	public DesertMap() {
 		try {
-			image = ImageIO.read(new File("src//images//desert.png"));
+			image = ImageIO.read(new File("src//images//desert.jpg"));
 		} catch (IOException e) {
 			e.getMessage();
 		}

@@ -1,5 +1,7 @@
 package providers;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +17,17 @@ public class MinesProvider {
 		minesList.add(new MineImg());
 		minesList.add(new MineImg());
 		minesList.add(new MineImg());
+		minesList.add(new MineImg());
+		minesList.add(new MineImg());
+		minesList.add(new MineImg());
+		minesList.add(new MineImg());
+		minesList.add(new MineImg());
+		minesList.add(new MineImg());
+		minesList.add(new MineImg());
+		minesList.add(new MineImg());
 	}
 
 	public List<IDestroyable> getMinesList() {
 		return minesList;
 	}
-	
-	
-
 }

@@ -1,5 +1,7 @@
 package providers;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,16 @@ public class DestroyableObjectProvider {
 	public DestroyableObjectProvider() {
 		destroyableObjectsList.add(new MinesProvider().getMinesList());
 		destroyableObjectsList.add(new ReactorsProvider().getReactorsList());
-
+		setUpObjectPosition();
+	}
+	
+	private void setUpObjectPosition() {
+		for (int i = 0; i < destroyableObjectsList.size(); i++) {
+			for (int j = 0; j < destroyableObjectsList.get(i).size(); j++) {
+				destroyableObjectsList.get(i).get(j).setObjectXPosition();
+				destroyableObjectsList.get(i).get(j).setObjectYPosition();
+			}
+		}
 	}
 
 	public List<List<IDestroyable>> getDestroyableObjects() {

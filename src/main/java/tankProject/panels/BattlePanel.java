@@ -133,8 +133,6 @@ public class BattlePanel extends BasicPanel {
 		g.drawImage(myTank.getTankImg(), myTank.getTankStartXposition(), myTank.getTankStartYposition(),
 				myTank.getWidth(), myTank.getHeight(), null);
 
-		
-
 		for (int i = 0; i < leftShootsProvider.shootsList.size(); i++) {
 
 			g.drawImage(leftShootsProvider.shootsList.get(i).getImage(),
@@ -275,35 +273,23 @@ public class BattlePanel extends BasicPanel {
 		}
 		
 	}
-	int foo = drawDestroyableObjectPositionX();
+	
+
 	private void drawMineAndReactors(Graphics g) {
-		
 		for (int i = 0; i < destroyableObjectProvider.getDestroyableObjects().size(); i++) {
 			for (int j = 0; j < destroyableObjectProvider.getDestroyableObjects().get(i).size(); j++) {
 				if(destroyableObjectProvider.getDestroyableObjects().get(i).get(j) instanceof MineImg) {
 					int mineSize = 30;
-				g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getImage(), foo, 300, mineSize,
-						mineSize, null);
+				g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getImage(), 
+						destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectXPosition(), 
+						destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectYPosition(), mineSize, mineSize, null);
 				}if(destroyableObjectProvider.getDestroyableObjects().get(i).get(j) instanceof ReactorImg) {		
 					int reactorSize = 100;
-				g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getImage(), foo, 300, reactorSize,
-						reactorSize, null);
+				g.drawImage(destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getImage(), 
+						destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectXPosition(), 
+						destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectYPosition(), reactorSize,reactorSize, null);
 				}
 			}
-		}	
-		
-		foo += 10;
-			
-	}
-	
-	private int drawDestroyableObjectPositionX() {
-		final int LOWER_RANGE = 20;
-		final int UPPER_RANGE = returnScreenWidth() - 200;
-		int drawNum = (int)(Math.random() * (UPPER_RANGE - LOWER_RANGE) + LOWER_RANGE);
-		if(drawNum % 100 == 0)
-			return drawNum;
-		else 
-			drawDestroyableObjectPositionX();
-		return drawNum;
+		}
 	}
 }
