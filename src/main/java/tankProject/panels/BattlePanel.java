@@ -17,6 +17,7 @@ import components.BattlePanel.ScoreLabel;
 import components.ChoosePlayerComponents.PlayersList;
 import images.ForestBackground;
 import images.StartPlatform;
+import providers.MapsProvider;
 import providers.TanksListProvider;
 import strings.EStrings;
 import tankProject.Frame.MyFrame;
@@ -34,9 +35,13 @@ public class BattlePanel extends BasicPanel {
 	private MyFrame battleFrame;
 	private MyFrame mainFrame;
 	private ChoosePlayerPanel choosePlayerPanel;
+	private int selectedMap;
+	MapsProvider mapsProvider = new MapsProvider();
+
 
 	public BattlePanel(MyFrame battleFrame, MyFrame mainFrame, MyFrame choosePlayerFrame,
-			ChoosePlayerPanel choosePlayerPanel, TanksListProvider tanksListProvider, String nickname) {
+			ChoosePlayerPanel choosePlayerPanel, TanksListProvider tanksListProvider, String nickname, int selectedMap) {
+		this.selectedMap = selectedMap;
 		this.battleFrame = battleFrame;
 		this.mainFrame = mainFrame;
 		this.choosePlayerPanel = choosePlayerPanel;
@@ -45,8 +50,6 @@ public class BattlePanel extends BasicPanel {
 		ScoreCounter scoreCounter = new ScoreCounter(Integer.toString(pointCounter), this);
 		ScoreLabel scoreLabel = new ScoreLabel(this);
 		ExitLabel exitLabel = new ExitLabel(this);
-
-		System.out.println("BattlePanel" + nickname);
 
 		BufferedImage tankRight = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 0);
 		BufferedImage tankLeft = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 1);
@@ -72,7 +75,7 @@ public class BattlePanel extends BasicPanel {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
 					escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel,
-							myTank, tanksListProvider, nickname);
+							myTank, tanksListProvider, nickname, selectedMap);
 
 				if (e.getKeyChar() == KeyEvent.VK_1) {
 					destroyTank(tanksListProvider, nickname);// temporary set tank destroy on 1 click
@@ -128,7 +131,7 @@ public class BattlePanel extends BasicPanel {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		g.drawImage(forestBackground.getImage(), 0, 0, returnScreenWidth(), returnScreenHeight(), null);
+		g.drawImage(mapsProvider.getMapsList().get(selectedMap).getImage(), 0, 0, returnScreenWidth(), returnScreenHeight(), null);
 		g.drawImage(startPlatform.getImage(), (int) calculateWidth(0.01f), (int) calculateHeight(93.5f),
 				(int) calculateWidth(10), (int) calculateHeight(14.5f), null);
 		g.drawImage(myTank.getTankImg(), myTank.getTankStartXposition(), myTank.getTankStartYposition(),
@@ -139,7 +142,7 @@ public class BattlePanel extends BasicPanel {
 	private void destroyTank(TanksListProvider tanksListProvider, String nickname) {
 		myTank.setAlive(false);
 		escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel, myTank,
-				tanksListProvider, nickname);
+				tanksListProvider, nickname, selectedMap);
 	}
 
 }

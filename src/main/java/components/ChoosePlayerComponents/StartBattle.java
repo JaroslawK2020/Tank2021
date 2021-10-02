@@ -23,22 +23,19 @@ public class StartBattle extends MyButton {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-System.out.println("StartBattle"+nickname);
 				choosePlayerFrame.setVisible(false);
 				mainFrame.setVisible(false);
-				navigateToBattlePanel(mainFrame, choosePlayerFrame, choosePlayerPanel, tanksListProvider, nickname);
+				navigateToBattlePanel(mainFrame, choosePlayerFrame, choosePlayerPanel, tanksListProvider, nickname, choosePlayerPanel.getSelectedMap());
 
 			}
 		});
 	}
 
 	public void navigateToBattlePanel(MyFrame mainFrame, MyFrame choosePlayerFrame, ChoosePlayerPanel choosePlayerPanel,
-			TanksListProvider tanksListProvider, String nickname) {
+			TanksListProvider tanksListProvider, String nickname, int selectedMap) {
 		MyFrame battleFrame = new MyFrame();
-
 		BattlePanel battlePanel = new BattlePanel(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel,
-				tanksListProvider, nickname);
-		System.out.println("StartBattle/navigateToBattlePanel"+nickname);
+				tanksListProvider, nickname, selectedMap);
 
 		battleFrame.add(battlePanel);
 		battleFrame.settupFrame();

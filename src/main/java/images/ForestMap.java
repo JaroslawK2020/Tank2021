@@ -6,13 +6,18 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class ForestMap {
+import providers.IMaps;
+
+public class ForestMap implements IMaps {
 	BufferedImage image;
+	int hoverValue = 0;
+	boolean isSelected = false;
+	int index = 0;
 
 	public ForestMap() {
 		try {
-			image = ImageIO.read(new File("src//images//forest.png"));
-		}catch(IOException e){
+			image = ImageIO.read(new File("src//images//forestArenaBackground.jpg"));
+		} catch (IOException e) {
 			e.getMessage();
 		}
 	}
@@ -20,5 +25,24 @@ public class ForestMap {
 	public BufferedImage getImage() {
 		return image;
 	}
-	
+
+	public int getHoverValue() {
+		return hoverValue;
+	}
+
+	public void setHoverValue(int hoverValue) {
+		this.hoverValue = hoverValue;
+	}
+
+	public boolean getIsSelected() {
+		return isSelected;
+	}
+
+	public void setIsSelected(boolean isSelected) {
+		this.isSelected = isSelected;
+	}
+
+	public int getIndex() {
+		return index;
+	}
 }
