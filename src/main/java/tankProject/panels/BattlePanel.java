@@ -1,12 +1,21 @@
 package tankProject.panels;
 
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
 import components.BattlePanel.EscKeyService;
 import components.BattlePanel.ExitLabel;
+import components.BattlePanel.IShoot;
 import components.BattlePanel.MyTank;
 import components.BattlePanel.ScoreCounter;
 import components.BattlePanel.ScoreLabel;
@@ -22,7 +31,6 @@ import tankProject.Frame.MyFrame;
 
 public class BattlePanel extends BasicPanel {
 
-	private ForestBackground forestBackground;
 	private StartPlatform startPlatform;
 	private EscKeyService escKeyService;
 	private MyFrame choosePlayerFrame;
@@ -40,7 +48,7 @@ public class BattlePanel extends BasicPanel {
 	RightShootProvider rightShootProvider = new RightShootProvider();
 	DownShootProvider downShootsProvider = new DownShootProvider();
 	UpShootProvider upShootsProvider = new UpShootProvider();
-
+	boolean runAnimation = true;
 	int shootDirection = 0;
 
 	public BattlePanel(MyFrame battleFrame, MyFrame mainFrame, ChoosePlayerPanel choosePlayerPanel,
@@ -49,7 +57,7 @@ public class BattlePanel extends BasicPanel {
 		this.battleFrame = battleFrame;
 		this.mainFrame = mainFrame;
 		this.choosePlayerPanel = choosePlayerPanel;
-		forestBackground = new ForestBackground();
+		//forestBackground = new ForestBackground();
 		startPlatform = new StartPlatform();
 		ScoreCounter scoreCounter = new ScoreCounter(Integer.toString(pointCounter), this);
 		ScoreLabel scoreLabel = new ScoreLabel(this);
@@ -62,6 +70,15 @@ public class BattlePanel extends BasicPanel {
 		BufferedImage tankDown = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 2);
 		BufferedImage tankUp = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 3);
 
+		int delay = 100;
+		ActionListener taskPerformer = new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				shootsManager();
+				repaint();
+			}
+		};
+		new Timer(delay, taskPerformer).start();
+
 		add(scoreCounter);
 		add(scoreLabel);
 		add(exitLabel);
@@ -70,7 +87,6 @@ public class BattlePanel extends BasicPanel {
 
 			@Override
 			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
@@ -80,7 +96,7 @@ public class BattlePanel extends BasicPanel {
 					ESC_KeyAction(tanksListProvider, nickname);
 
 				if (e.getKeyChar() == KeyEvent.VK_1) {
-					destroyTank(tanksListProvider, nickname);// temporary set tank destroy on 1 click
+					destroyTank(tanksListProvider, nickname);
 				}
 			}
 
@@ -123,34 +139,35 @@ public class BattlePanel extends BasicPanel {
 		for (int i = 0; i < leftShootsProvider.shootsList.size(); i++) {
 
 			g.drawImage(leftShootsProvider.shootsList.get(i).getImage(),
-					leftShootsProvider.shootsList.get(i).getYposition(),
 					leftShootsProvider.shootsList.get(i).getXposition(),
+					leftShootsProvider.shootsList.get(i).getYposition(),
 					leftShootsProvider.shootsList.get(i).getWidth(), leftShootsProvider.shootsList.get(i).getHeight(),
 					null);
 		}
 		for (int i = 0; i < rightShootProvider.shootsList.size(); i++) {
 
 			g.drawImage(rightShootProvider.shootsList.get(i).getImage(),
-					rightShootProvider.shootsList.get(i).getYposition(),
 					rightShootProvider.shootsList.get(i).getXposition(),
+					rightShootProvider.shootsList.get(i).getYposition(),
 					rightShootProvider.shootsList.get(i).getWidth(), rightShootProvider.shootsList.get(i).getHeight(),
 					null);
 		}
 		for (int i = 0; i < downShootsProvider.shootsList.size(); i++) {
 
 			g.drawImage(downShootsProvider.shootsList.get(i).getImage(),
-					downShootsProvider.shootsList.get(i).getYposition(),
 					downShootsProvider.shootsList.get(i).getXposition(),
+					downShootsProvider.shootsList.get(i).getYposition(),
 					downShootsProvider.shootsList.get(i).getWidth(), downShootsProvider.shootsList.get(i).getHeight(),
 					null);
 		}
 		for (int i = 0; i < upShootsProvider.shootsList.size(); i++) {
 
 			g.drawImage(upShootsProvider.shootsList.get(i).getImage(),
-					upShootsProvider.shootsList.get(i).getYposition(),
-					upShootsProvider.shootsList.get(i).getXposition(), upShootsProvider.shootsList.get(i).getWidth(),
+					upShootsProvider.shootsList.get(i).getXposition(),
+					upShootsProvider.shootsList.get(i).getYposition(), upShootsProvider.shootsList.get(i).getWidth(),
 					upShootsProvider.shootsList.get(i).getHeight(), null);
 		}
+
 	}
 
 	private void destroyTank(TanksListProvider tanksListProvider, String nickname) {
@@ -217,7 +234,44 @@ public class BattlePanel extends BasicPanel {
 	}
 
 	public void ESC_KeyAction(TanksListProvider tanksListProvider, String nickname) {
+		runAnimation = false;
 		escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel, myTank,
 				tanksListProvider, nickname, selectedMap);
+	}
+
+	public void shootsManager() {
+		if (leftShootsProvider.getShootsList().size() > 0) {
+			for (int i = 0; i < leftShootsProvider.getShootsList().size(); i++) {
+				if (leftShootsProvider.getShootsList().get(i).getXposition() < 0) {
+					leftShootsProvider.getShootsList().remove(leftShootsProvider.getShootsList().get(i));
+				} else
+					leftShootsProvider.getShootsList().get(i).move();
+			}
+		}
+		if (rightShootProvider.getShootsList().size() > 0) {
+			for (int i = 0; i < rightShootProvider.getShootsList().size(); i++) {
+				if (rightShootProvider.getShootsList().get(i).getXposition() > returnScreenWidth()) {
+					rightShootProvider.getShootsList().remove(rightShootProvider.getShootsList().get(i));
+				} else
+					rightShootProvider.getShootsList().get(i).move();
+			}
+		}
+		if (downShootsProvider.getShootsList().size() > 0) {
+			for (int i = 0; i < downShootsProvider.getShootsList().size(); i++) {
+				if (downShootsProvider.getShootsList().get(i).getYposition() > returnScreenHeight()) {
+					downShootsProvider.getShootsList().remove(downShootsProvider.getShootsList().get(i));
+				} else
+					downShootsProvider.getShootsList().get(i).move();
+			}
+		}
+		if (upShootsProvider.getShootsList().size() > 0) {
+			for (int i = 0; i < upShootsProvider.getShootsList().size(); i++) {
+				if (upShootsProvider.getShootsList().get(i).getYposition() < 0) {
+					upShootsProvider.getShootsList().remove(upShootsProvider.getShootsList().get(i));
+				} else
+					upShootsProvider.getShootsList().get(i).move();
+			}
+		}
+
 	}
 }

@@ -16,4 +16,7 @@ public class UpShootProvider {
 	public void destroyShoot() {
 		shootsList.remove(0);
 	}
+	public List<IShoot> getShootsList() {
+		return shootsList;
+	}
 }

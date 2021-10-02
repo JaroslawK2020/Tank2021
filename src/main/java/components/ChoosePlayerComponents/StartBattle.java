@@ -1,7 +1,13 @@
 package components.ChoosePlayerComponents;
 
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
 import components.MyButton;
 import providers.TanksListProvider;
 import strings.EStrings;
@@ -12,7 +18,9 @@ import tankProject.panels.ChoosePlayerPanel;
 public class StartBattle extends MyButton {
 
 	String nickname = "";
-	
+    private Timer timer;
+
+
 	public StartBattle(MyFrame mainFrame, MyFrame choosePlayerFrame, ChoosePlayerPanel choosePlayerPanel,
 			TanksListProvider tanksListProvider) {
 		super(EStrings.START_BATTLE.text);
@@ -24,7 +32,8 @@ public class StartBattle extends MyButton {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				navigateToBattlePanel(mainFrame, choosePlayerPanel, tanksListProvider, nickname, choosePlayerPanel.getSelectedMap());
+				navigateToBattlePanel(mainFrame, choosePlayerPanel, tanksListProvider, nickname,
+						choosePlayerPanel.getSelectedMap());
 				choosePlayerFrame.dispose();
 			}
 		});
@@ -33,13 +42,15 @@ public class StartBattle extends MyButton {
 	public void navigateToBattlePanel(MyFrame mainFrame, ChoosePlayerPanel choosePlayerPanel,
 			TanksListProvider tanksListProvider, String nickname, int selectedMap) {
 		MyFrame battleFrame = new MyFrame();
-		BattlePanel battlePanel = new BattlePanel(battleFrame, mainFrame, choosePlayerPanel,
-				tanksListProvider, nickname, selectedMap);
+		BattlePanel battlePanel = new BattlePanel(battleFrame, mainFrame, choosePlayerPanel, tanksListProvider,
+				nickname, selectedMap);
 
 		battleFrame.add(battlePanel);
 		battleFrame.settupFrame();
+		mainFrame.dispose();
+		
 	}
-	
+
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}

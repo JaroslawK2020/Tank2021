@@ -17,4 +17,8 @@ public class LeftShootsProvider {
 	public void destroyShoot() {
 		shootsList.remove(0);
 	}
+	
+	public List<IShoot> getShootsList() {
+		return shootsList;
+	}
 }

@@ -34,11 +34,11 @@ public class ShootRight implements IShoot {
 	}
 
 	public int getXposition() {
-		return Yposition;
+		return Xposition;
 	}
 
 	public int getYposition() {
-		return Xposition;
+		return Yposition;
 	}
 
 	public int getHeight() {
@@ -48,4 +48,7 @@ public class ShootRight implements IShoot {
 	public int getWidth() {
 		return width;
 	}
-}
+
+	public void move() {
+		Xposition += 60;
+	}}
