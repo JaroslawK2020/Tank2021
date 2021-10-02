@@ -6,12 +6,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class EnemyTankImg {
+public class MineImg implements IDestroyable {
 	private BufferedImage image;
 
-	public EnemyTankImg() {
+	public MineImg() {
 		try {
-			image = ImageIO.read(new File("src//images//enemyTank.png"));
+			image = ImageIO.read(new File("src//images//mine.png"));
 		}catch(IOException e) {
 			e.getMessage();
 		}
@@ -20,4 +20,5 @@ public class EnemyTankImg {
 	public BufferedImage getImage() {
 		return image;
 	}
+
 }
