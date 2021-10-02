@@ -20,7 +20,7 @@ public class EndBattlePanel extends BasicPanel {
 	public MyTank myTank;
 	
 	public EndBattlePanel(MyFrame mainFrame, MyFrame choosePlayerFrame, MyFrame exitBattleFrame, MyFrame battleFrame,
-			ChoosePlayerPanel choosePlayerPanel, MyTank myTank, TanksListProvider tanksListProvider, String nickname) {
+			ChoosePlayerPanel choosePlayerPanel, MyTank myTank, TanksListProvider tanksListProvider, String nickname, int selectedMap) {
 
 		System.out.println("EndBattlePanel"+nickname);
 
@@ -31,7 +31,7 @@ public class EndBattlePanel extends BasicPanel {
 		height /= 2;
 
 		QuitButton quitButton = new QuitButton(mainFrame, choosePlayerFrame, exitBattleFrame, battleFrame);
-		PlayAgainButton playAgainButton = new PlayAgainButton(mainFrame, exitBattleFrame, choosePlayerFrame, battleFrame, choosePlayerPanel, tanksListProvider, nickname);
+		PlayAgainButton playAgainButton = new PlayAgainButton(mainFrame, exitBattleFrame, choosePlayerFrame, battleFrame, choosePlayerPanel, tanksListProvider, nickname, selectedMap);
 
 		add(quitButton);
 		add(playAgainButton);
@@ -85,7 +85,7 @@ public class EndBattlePanel extends BasicPanel {
 
 	class PlayAgainButton extends MyButton {
 
-		public PlayAgainButton(MyFrame mainFrame, MyFrame exitBattleFrame, MyFrame choosePlayerFrame, MyFrame battleFrame, ChoosePlayerPanel choosePlayerPanel, TanksListProvider tanksListProvider, String nickname) {
+		public PlayAgainButton(MyFrame mainFrame, MyFrame exitBattleFrame, MyFrame choosePlayerFrame, MyFrame battleFrame, ChoosePlayerPanel choosePlayerPanel, TanksListProvider tanksListProvider, String nickname, int selectedMap) {
 			super(EStrings.PLAY_AGAIN.text);
 			setBounds((int) calculateWidth(35), (int) calculateHeight(38), getWidth(), getHeight());
 			System.out.println("PlayAgainButton"+nickname);
@@ -99,7 +99,7 @@ public class EndBattlePanel extends BasicPanel {
 					mainFrame.setVisible(false);
 					exitBattleFrame.dispose();
 					battleFrame.dispose();
-					startBattle.navigateToBattlePanel(mainFrame,choosePlayerFrame,choosePlayerPanel,tanksListProvider,nickname);
+					startBattle.navigateToBattlePanel(mainFrame,choosePlayerFrame,choosePlayerPanel,tanksListProvider,nickname, selectedMap);
 
 				}
 			});
