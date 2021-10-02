@@ -78,7 +78,7 @@ public class BattlePanel extends BasicPanel {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
-					ESC_KeyAction(tanksListProvider);
+					ESC_KeyAction(tanksListProvider, nickname);
 
 				if (e.getKeyChar() == KeyEvent.VK_1) {
 					destroyTank(tanksListProvider, nickname);// temporary set tank destroy on 1 click
@@ -217,7 +217,7 @@ public class BattlePanel extends BasicPanel {
 			myTank.setTankStartXposition(returnScreenWidth() - myTank.getWidth());
 	}
 
-	public void ESC_KeyAction(TanksListProvider tanksListProvider) {
+	public void ESC_KeyAction(TanksListProvider tanksListProvider, String nickname) {
 		escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel, myTank,
 				tanksListProvider, nickname, selectedMap);
 	}
