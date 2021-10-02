@@ -71,7 +71,7 @@ public class BattlePanel extends BasicPanel {
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				shootsManager();
-//				repaint();
+				repaint();
 			}
 		};
 		new Timer(delay, taskPerformer).start();
@@ -291,6 +291,8 @@ public class BattlePanel extends BasicPanel {
 				}
 			}
 		}	
+		
+		foo += 10;
 			
 	}
 	
