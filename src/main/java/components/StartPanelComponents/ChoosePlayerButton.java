@@ -3,6 +3,8 @@ package components.StartPanelComponents;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JPanel;
+
 import components.MyButton;
 import tankProject.Frame.MyFrame;
 import tankProject.panels.ChoosePlayerPanel;

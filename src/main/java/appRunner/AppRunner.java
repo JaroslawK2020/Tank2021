@@ -1,5 +1,7 @@
 package appRunner;
 
+import javax.swing.JPanel;
+
 import tankProject.Frame.MyFrame;
 import tankProject.panels.StartPanel;
 

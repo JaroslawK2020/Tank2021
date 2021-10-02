@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class ShootLeft implements IShoot{
+public class ShootLeft implements IShoot {
 
 	BufferedImage image;
 	int Xposition;
@@ -18,8 +18,8 @@ public class ShootLeft implements IShoot{
 	boolean isVisible = false;
 
 	public ShootLeft(MyTank myTank) {
-		Xposition = myTank.getTankStartXposition()- (myTank.getHeight()/2);
-		Yposition = myTank.getTankStartYposition()+ (myTank.getHeight()/2);
+		Xposition = myTank.getTankStartXposition() - (myTank.getHeight() / 2);
+		Yposition = myTank.getTankStartYposition() + (myTank.getHeight() / 2);
 		try {
 			image = ImageIO.read(new File("src//images//LaserLeft.png"));
 		} catch (IOException e) {
@@ -32,11 +32,11 @@ public class ShootLeft implements IShoot{
 	}
 
 	public int getXposition() {
-		return Yposition;
+		return Xposition;
 	}
 
 	public int getYposition() {
-		return Xposition;
+		return Yposition;
 	}
 
 	public int getHeight() {
@@ -45,5 +45,9 @@ public class ShootLeft implements IShoot{
 
 	public int getWidth() {
 		return width;
+	}
+
+	public void move() {
+		Xposition -= 60;
 	}
 }

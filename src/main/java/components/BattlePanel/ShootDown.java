@@ -18,8 +18,8 @@ public class ShootDown implements IShoot{
 	boolean isVisible = false;
 
 	public ShootDown(MyTank myTank) {
-		Xposition = myTank.getTankStartXposition()+ (myTank.getHeight()/2);
-		Yposition = myTank.getTankStartYposition() + (myTank.getHeight()/2);
+		Xposition = myTank.getTankStartXposition()+ (myTank.getHeight() / 2);
+		Yposition = myTank.getTankStartYposition();
 		try {
 			image = ImageIO.read(new File("src//images//LaserDown.png"));
 		} catch (IOException e) {
@@ -30,13 +30,12 @@ public class ShootDown implements IShoot{
 	public BufferedImage getImage() {
 		return image;
 	}
-
 	public int getXposition() {
-		return Yposition;
+		return Xposition;
 	}
 
 	public int getYposition() {
-		return Xposition;
+		return Yposition;
 	}
 
 	public int getHeight() {
@@ -45,5 +44,9 @@ public class ShootDown implements IShoot{
 
 	public int getWidth() {
 		return width;
+	}
+
+	public void move() {
+		Yposition += 60;
 	}
 }
