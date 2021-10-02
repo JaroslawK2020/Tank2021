@@ -35,7 +35,6 @@ public class EndBattlePanel extends BasicPanel {
 
 		add(quitButton);
 		add(playAgainButton);
-//		System.out.println("EndBattlePanel/contructor: " + choosePlayerFrame.toString());
 	}
 
 	@Override
@@ -76,7 +75,6 @@ public class EndBattlePanel extends BasicPanel {
 					choosePlayerFrame.settupFrame();
 				
 					mainFrame.setVisible(false);
-//					choosePlayerFrame.setVisible(true);
 					exitBattleFrame.dispose();
 					battleFrame.dispose();
 
