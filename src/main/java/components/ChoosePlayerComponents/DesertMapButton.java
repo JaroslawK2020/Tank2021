@@ -30,8 +30,6 @@ public class DesertMapButton extends JButton {
 					forestMap.setHoverValue(-40);
 					cityMap.setHoverValue(-40);
 					choosePlayerPanel.setSelectedMap(desertMap.getIndex());
-					System.out.println("DesertMapButton"+desertMap.getIndex());
-					System.out.println("DesertMapButton"+choosePlayerPanel.selectedMap);
 					choosePlayerPanel.repaint();
 				}
 				else {

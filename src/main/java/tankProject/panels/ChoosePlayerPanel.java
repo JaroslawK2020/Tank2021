@@ -70,7 +70,6 @@ public class ChoosePlayerPanel extends BasicPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		System.out.println("paintComponent"+selectedMap);
 
 		g.drawImage(mainImage, (int) calculateWidth(60), (int) calculateHeight(10), (int) calculateWidth(30),
 				(int) calculateHeight(37), null);
