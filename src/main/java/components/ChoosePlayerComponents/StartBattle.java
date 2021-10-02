@@ -16,6 +16,7 @@ public class StartBattle extends MyButton {
 	public StartBattle(MyFrame mainFrame, MyFrame choosePlayerFrame, ChoosePlayerPanel choosePlayerPanel,
 			TanksListProvider tanksListProvider) {
 		super(EStrings.START_BATTLE.text);
+
 		setEnabled(false);
 		setBounds((int) choosePlayerPanel.calculateWidth(80), (int) choosePlayerPanel.calculateHeight(90), getWidth(),
 				getHeight());
@@ -23,18 +24,16 @@ public class StartBattle extends MyButton {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				choosePlayerFrame.setVisible(false);
-				mainFrame.setVisible(false);
-				navigateToBattlePanel(mainFrame, choosePlayerFrame, choosePlayerPanel, tanksListProvider, nickname, choosePlayerPanel.getSelectedMap());
-
+				navigateToBattlePanel(mainFrame, choosePlayerPanel, tanksListProvider, nickname, choosePlayerPanel.getSelectedMap());
+				choosePlayerFrame.dispose();
 			}
 		});
 	}
 
-	public void navigateToBattlePanel(MyFrame mainFrame, MyFrame choosePlayerFrame, ChoosePlayerPanel choosePlayerPanel,
+	public void navigateToBattlePanel(MyFrame mainFrame, ChoosePlayerPanel choosePlayerPanel,
 			TanksListProvider tanksListProvider, String nickname, int selectedMap) {
 		MyFrame battleFrame = new MyFrame();
-		BattlePanel battlePanel = new BattlePanel(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel,
+		BattlePanel battlePanel = new BattlePanel(battleFrame, mainFrame, choosePlayerPanel,
 				tanksListProvider, nickname, selectedMap);
 
 		battleFrame.add(battlePanel);

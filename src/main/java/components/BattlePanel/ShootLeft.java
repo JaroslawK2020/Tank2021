@@ -18,8 +18,8 @@ public class ShootLeft implements IShoot{
 	boolean isVisible = false;
 
 	public ShootLeft(MyTank myTank) {
-		Xposition = myTank.getTankStartXposition();
-		Yposition = myTank.getTankStartYposition();
+		Xposition = myTank.getTankStartXposition()- (myTank.getHeight()/2);
+		Yposition = myTank.getTankStartYposition()+ (myTank.getHeight()/2);
 		try {
 			image = ImageIO.read(new File("src//images//LaserLeft.png"));
 		} catch (IOException e) {

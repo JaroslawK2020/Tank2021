@@ -18,7 +18,7 @@ public class ShootUp implements IShoot{
 	boolean isVisible = false;
 
 	public ShootUp(MyTank myTank) {
-		Xposition = myTank.getTankStartXposition();
+		Xposition = myTank.getTankStartXposition()+ (myTank.getHeight() / 2);
 		Yposition = myTank.getTankStartYposition();
 		try {
 			image = ImageIO.read(new File("src//images//LaserUp.png"));

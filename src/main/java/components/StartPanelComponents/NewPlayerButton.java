@@ -22,10 +22,10 @@ public class NewPlayerButton extends MyButton {
 
 				MyFrame createNewPlayerFrame = new MyFrame();
 				CreateNewPlayerPanel createNewPlayerPanel = new CreateNewPlayerPanel(mainFrame, createNewPlayerFrame);
-				mainFrame.setVisible(false);
-
+				
 				createNewPlayerFrame.add(createNewPlayerPanel);
 				createNewPlayerFrame.settupFrame();
+				mainFrame.dispose();
 			}
 		});
 	}

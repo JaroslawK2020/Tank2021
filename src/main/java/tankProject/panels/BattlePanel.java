@@ -43,9 +43,8 @@ public class BattlePanel extends BasicPanel {
 
 	int shootDirection = 0;
 
-	public BattlePanel(MyFrame battleFrame, MyFrame mainFrame, MyFrame choosePlayerFrame,
-			ChoosePlayerPanel choosePlayerPanel, TanksListProvider tanksListProvider, String nickname,
-			int selectedMap) {
+	public BattlePanel(MyFrame battleFrame, MyFrame mainFrame, ChoosePlayerPanel choosePlayerPanel,
+			TanksListProvider tanksListProvider, String nickname, int selectedMap) {
 		this.selectedMap = selectedMap;
 		this.battleFrame = battleFrame;
 		this.mainFrame = mainFrame;

@@ -18,20 +18,22 @@ public class EndBattlePanel extends BasicPanel {
 
 	public ChoosePlayerPanel choosePlayerPanel;
 	public MyTank myTank;
-	
-	public EndBattlePanel(MyFrame mainFrame, MyFrame choosePlayerFrame, MyFrame exitBattleFrame, MyFrame battleFrame,
-			ChoosePlayerPanel choosePlayerPanel, MyTank myTank, TanksListProvider tanksListProvider, String nickname, int selectedMap) {
 
-		System.out.println("EndBattlePanel"+nickname);
+	public EndBattlePanel(MyFrame mainFrame, MyFrame choosePlayerFrame, MyFrame exitBattleFrame, MyFrame battleFrame,
+			ChoosePlayerPanel choosePlayerPanel, MyTank myTank, TanksListProvider tanksListProvider, String nickname,
+			int selectedMap) {
+
+		System.out.println("EndBattlePanel" + nickname);
 
 		this.choosePlayerPanel = choosePlayerPanel;
 		this.myTank = myTank;
-		
+
 		width /= 2;
 		height /= 2;
 
 		QuitButton quitButton = new QuitButton(mainFrame, choosePlayerFrame, exitBattleFrame, battleFrame);
-		PlayAgainButton playAgainButton = new PlayAgainButton(mainFrame, exitBattleFrame, choosePlayerFrame, battleFrame, choosePlayerPanel, tanksListProvider, nickname, selectedMap);
+		PlayAgainButton playAgainButton = new PlayAgainButton(mainFrame, exitBattleFrame, choosePlayerFrame,
+				battleFrame, choosePlayerPanel, tanksListProvider, nickname, selectedMap);
 
 		add(quitButton);
 		add(playAgainButton);
@@ -46,8 +48,8 @@ public class EndBattlePanel extends BasicPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		g.drawImage(choosePlayerPanel.mainImage, (int) calculateWidth(25), (int) calculateHeight(8), (int) calculateWidth(15),
-				(int) calculateHeight(20), null);
+		g.drawImage(choosePlayerPanel.mainImage, (int) calculateWidth(25), (int) calculateHeight(8),
+				(int) calculateWidth(15), (int) calculateHeight(20), null);
 		if (!myTank.isAlive()) {
 			g.drawImage(new Explosion().getImage(), (int) calculateWidth(33), (int) calculateHeight(7),
 					(int) calculateWidth(10), (int) calculateHeight(13), null);
@@ -71,13 +73,12 @@ public class EndBattlePanel extends BasicPanel {
 				public void actionPerformed(ActionEvent e) {
 					MyFrame choosePlayerFrame = new MyFrame();
 					ChoosePlayerPanel choosePlayerPanel = new ChoosePlayerPanel(mainFrame, choosePlayerFrame);
+		
 					choosePlayerFrame.add(choosePlayerPanel);
 					choosePlayerFrame.settupFrame();
-				
-					mainFrame.setVisible(false);
+					
 					exitBattleFrame.dispose();
 					battleFrame.dispose();
-
 				}
 			});
 		}
@@ -85,21 +86,25 @@ public class EndBattlePanel extends BasicPanel {
 
 	class PlayAgainButton extends MyButton {
 
-		public PlayAgainButton(MyFrame mainFrame, MyFrame exitBattleFrame, MyFrame choosePlayerFrame, MyFrame battleFrame, ChoosePlayerPanel choosePlayerPanel, TanksListProvider tanksListProvider, String nickname, int selectedMap) {
+		public PlayAgainButton(MyFrame mainFrame, MyFrame exitBattleFrame, MyFrame choosePlayerFrame,
+				MyFrame battleFrame, ChoosePlayerPanel choosePlayerPanel, TanksListProvider tanksListProvider,
+				String nickname, int selectedMap) {
 			super(EStrings.PLAY_AGAIN.text);
 			setBounds((int) calculateWidth(35), (int) calculateHeight(38), getWidth(), getHeight());
-			System.out.println("PlayAgainButton"+nickname);
 
-			StartBattle startBattle = new StartBattle(mainFrame, choosePlayerFrame, choosePlayerPanel, tanksListProvider);
+			StartBattle startBattle = new StartBattle(mainFrame, choosePlayerFrame, choosePlayerPanel,
+					tanksListProvider);
 
 			addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					mainFrame.setVisible(false);
-					exitBattleFrame.dispose();
+
 					battleFrame.dispose();
-					startBattle.navigateToBattlePanel(mainFrame,choosePlayerFrame,choosePlayerPanel,tanksListProvider,nickname, selectedMap);
+					exitBattleFrame.dispose();
+
+					startBattle.navigateToBattlePanel(mainFrame, choosePlayerPanel,
+							tanksListProvider, nickname, selectedMap);
 
 				}
 			});

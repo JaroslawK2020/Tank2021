@@ -20,8 +20,7 @@ public class EscKeyService {
 		MyFrame exitBattleFrame = new MyFrame();
 		EndBattlePanel endBattlePanel = new EndBattlePanel(mainFrame, choosePlayerFrame, exitBattleFrame, battleFrame,
 				choosePlayerPanel, myTank, tanksListProvider, nickname, selectedMap);
-		System.out.println("EscKeyService"+nickname);
-
+		
 		exitBattleFrame.add(endBattlePanel);
 		exitBattleFrame.settupFrame();
 		battleFrame.setEnabled(false);

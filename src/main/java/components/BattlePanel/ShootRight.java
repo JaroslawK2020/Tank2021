@@ -8,7 +8,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-public class ShootRight implements IShoot{
+public class ShootRight implements IShoot {
 
 	BufferedImage image;
 	int Xposition;
@@ -20,8 +20,8 @@ public class ShootRight implements IShoot{
 	boolean isVisible = false;
 
 	public ShootRight(MyTank myTank) {
-		Xposition = myTank.getTankStartXposition();
-		Yposition = myTank.getTankStartYposition();
+		Xposition = myTank.getTankStartXposition()+ (myTank.getHeight()/2);
+		Yposition = myTank.getTankStartYposition()+ (myTank.getHeight()/2);
 		try {
 			image = ImageIO.read(new File("src//images//LaserRight.png"));
 		} catch (IOException e) {
