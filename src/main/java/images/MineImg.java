@@ -13,6 +13,8 @@ public class MineImg implements IDestroyable {
 	private BufferedImage image;
 	private int objectXPositon;
 	private int objectYPosition;
+	private int heigth=30;
+	private int width=30;
 
 	public MineImg() {
 		try {
@@ -85,6 +87,14 @@ public class MineImg implements IDestroyable {
 	public void setObjectYPosition() {
 		objectYPosition = drawDestroyableObjectPositionY();
 		
+	}
+
+	public int getHeigth() {
+		return heigth;
+	}
+
+	public int getWidth() {
+		return width;
 	}
 
 }

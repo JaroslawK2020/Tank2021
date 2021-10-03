@@ -6,17 +6,21 @@ public interface IDestroyable {
 	BufferedImage getImage();
 
 	boolean isDestroyAble();
-	
+
 	int drawDestroyableObjectPositionX();
-	
+
 	int getObjectXPosition();
-	
+
 	void setObjectXPosition();
-	
+
 	int drawDestroyableObjectPositionY();
-	
+
 	int getObjectYPosition();
-	
+
 	void setObjectYPosition();
+
+	int getHeigth();
+
+	int getWidth();
 
 }

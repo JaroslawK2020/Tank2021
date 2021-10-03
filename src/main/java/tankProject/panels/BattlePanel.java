@@ -9,6 +9,8 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import javax.swing.Timer;
 
+import com.sun.xml.bind.v2.util.CollisionCheckStack;
+
 import components.BattlePanel.EscKeyService;
 import components.BattlePanel.ExitLabel;
 import components.BattlePanel.MyTank;
@@ -67,10 +69,22 @@ public class BattlePanel extends BasicPanel {
 		BufferedImage tankDown = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 2);
 		BufferedImage tankUp = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 3);
 
-		int delay = 500;
+		int delay = 100;
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				shootsManager();
+				if (leftShootsProvider.getShootsList().size() > 0) {
+					leftShootsDestoyedObjectsManager();
+				}
+				if (rightShootProvider.getShootsList().size() > 0) {
+					rigthShootsDestoyedObjectsManager();
+				}
+				if (downShootsProvider.getShootsList().size() > 0) {
+					downShootsDestoyedObjectsManager();
+				}
+				if (upShootsProvider.getShootsList().size() > 0) {
+					upShootsDestoyedObjectsManager();
+				}
 				repaint();
 			}
 		};
@@ -328,15 +342,152 @@ public class BattlePanel extends BasicPanel {
 	private void printMinePosition() {
 		for (int i = 0; i < destroyableObjectProvider.getDestroyableObjects().size(); i++) {
 			for (int j = 0; j < destroyableObjectProvider.getDestroyableObjects().get(i).size(); j++) {
-				if (destroyableObjectProvider.getDestroyableObjects().get(i).get(j) instanceof MineImg) {
-					System.out.println("mine X pos: "
-							+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectXPosition());
-					System.out.println("mine Y pos: "
-							+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectYPosition());
-				}
+
 			}
 		}
-
 	}
 
+	private void leftShootsDestoyedObjectsManager() {
+
+		if (destroyableObjectProvider.getDestroyableObjects().size() > 0) {
+
+			for (int i = 0; i < destroyableObjectProvider.getDestroyableObjects().size(); i++) {
+				for (int j = 0; j < destroyableObjectProvider.getDestroyableObjects().get(i).size(); j++) {
+
+					if (leftShootsProvider.getShootsList().get(0)
+							.getXposition() >= destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+									.getObjectXPosition()
+									- (destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getWidth())
+							& leftShootsProvider.getShootsList().get(0)
+									.getXposition() <= destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+											.getObjectXPosition()
+											+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getWidth()
+							& leftShootsProvider.getShootsList().get(0).getXposition() >= destroyableObjectProvider
+									.getDestroyableObjects().get(i).get(j).getObjectXPosition()) {
+
+						if (leftShootsProvider.getShootsList().get(0)
+								.getYposition() >= destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+										.getObjectYPosition()
+										- (destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getHeigth())
+								& leftShootsProvider.getShootsList().get(0).getYposition() <= destroyableObjectProvider
+										.getDestroyableObjects().get(i).get(j).getObjectYPosition()
+										+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getHeigth()
+								& leftShootsProvider.getShootsList().get(0).getYposition() >= destroyableObjectProvider
+										.getDestroyableObjects().get(i).get(j).getObjectYPosition()) {
+							destroyableObjectProvider.getDestroyableObjects().get(0).remove(j);
+						}
+					}
+				}
+
+			}
+		}
+	}
+
+	private void rigthShootsDestoyedObjectsManager() {
+
+		if (destroyableObjectProvider.getDestroyableObjects().size() > 0) {
+
+			for (int i = 0; i < destroyableObjectProvider.getDestroyableObjects().size(); i++) {
+				for (int j = 0; j < destroyableObjectProvider.getDestroyableObjects().get(i).size(); j++) {
+
+					if (rightShootProvider.getShootsList().get(0)
+							.getXposition() >= destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+									.getObjectXPosition()
+									- (destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getWidth())
+							& rightShootProvider.getShootsList().get(0)
+									.getXposition() <= destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+											.getObjectXPosition()
+											+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getWidth()
+							& rightShootProvider.getShootsList().get(0).getXposition() >= destroyableObjectProvider
+									.getDestroyableObjects().get(i).get(j).getObjectXPosition()) {
+
+						if (rightShootProvider.getShootsList().get(0)
+								.getYposition() >= destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+										.getObjectYPosition()
+										- (destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getHeigth())
+								& rightShootProvider.getShootsList().get(0).getYposition() <= destroyableObjectProvider
+										.getDestroyableObjects().get(i).get(j).getObjectYPosition()
+										+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getHeigth()
+								& rightShootProvider.getShootsList().get(0).getYposition() >= destroyableObjectProvider
+										.getDestroyableObjects().get(i).get(j).getObjectYPosition()) {
+							destroyableObjectProvider.getDestroyableObjects().get(0).remove(j);
+						}
+					}
+				}
+
+			}
+		}
+	}
+
+	private void upShootsDestoyedObjectsManager() {
+
+		if (destroyableObjectProvider.getDestroyableObjects().size() > 0) {
+
+			for (int i = 0; i < destroyableObjectProvider.getDestroyableObjects().size(); i++) {
+				for (int j = 0; j < destroyableObjectProvider.getDestroyableObjects().get(i).size(); j++) {
+
+					if (upShootsProvider.getShootsList().get(0)
+							.getXposition() >= destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+									.getObjectXPosition()
+									- (destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getWidth())
+							& upShootsProvider.getShootsList().get(0)
+									.getXposition() <= destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+											.getObjectXPosition()
+											+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getWidth()
+							& upShootsProvider.getShootsList().get(0).getXposition() >= destroyableObjectProvider
+									.getDestroyableObjects().get(i).get(j).getObjectXPosition()) {
+
+						if (upShootsProvider.getShootsList().get(0)
+								.getYposition() >= destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+										.getObjectYPosition()
+										- (destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getHeigth())
+								& upShootsProvider.getShootsList().get(0).getYposition() <= destroyableObjectProvider
+										.getDestroyableObjects().get(i).get(j).getObjectYPosition()
+										+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getHeigth()
+								& upShootsProvider.getShootsList().get(0).getYposition() >= destroyableObjectProvider
+										.getDestroyableObjects().get(i).get(j).getObjectYPosition()) {
+							destroyableObjectProvider.getDestroyableObjects().get(0).remove(j);
+						}
+					}
+				}
+
+			}
+		}
+	}
+
+	private void downShootsDestoyedObjectsManager() {
+
+		if (destroyableObjectProvider.getDestroyableObjects().size() > 0) {
+
+			for (int i = 0; i < destroyableObjectProvider.getDestroyableObjects().size(); i++) {
+				for (int j = 0; j < destroyableObjectProvider.getDestroyableObjects().get(i).size(); j++) {
+
+					if (downShootsProvider.getShootsList().get(0)
+							.getXposition() >= destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+									.getObjectXPosition()
+									- (destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getWidth())
+							& downShootsProvider.getShootsList().get(0)
+									.getXposition() <= destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+											.getObjectXPosition()
+											+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getWidth()
+							& downShootsProvider.getShootsList().get(0).getXposition() >= destroyableObjectProvider
+									.getDestroyableObjects().get(i).get(j).getObjectXPosition()) {
+
+						if (downShootsProvider.getShootsList().get(0)
+								.getYposition() >= destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+										.getObjectYPosition()
+										- (destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getHeigth())
+								& downShootsProvider.getShootsList().get(0).getYposition() <= destroyableObjectProvider
+										.getDestroyableObjects().get(i).get(j).getObjectYPosition()
+										+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getHeigth()
+								& downShootsProvider.getShootsList().get(0).getYposition() >= destroyableObjectProvider
+										.getDestroyableObjects().get(i).get(j).getObjectYPosition()) {
+							destroyableObjectProvider.getDestroyableObjects().get(0).remove(j);
+						}
+					}
+				}
+
+			}
+		}
+	}
 }

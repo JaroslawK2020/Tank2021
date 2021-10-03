@@ -15,4 +15,6 @@ public interface IShoot {
 	int getHeight();
 	
 	void move();
+	
+	void setRemove();
 }

@@ -14,7 +14,7 @@ public class DestroyableObjectProvider {
 	
 	
 	public DestroyableObjectProvider() {
-		destroyableObjectsList.add(new MinesProvider().getMinesList());
+		//destroyableObjectsList.add(new MinesProvider().getMinesList());
 		destroyableObjectsList.add(new ReactorsProvider().getReactorsList());
 		setUpObjectPosition();
 	}

@@ -17,11 +17,6 @@ public class ReactorsProvider {
 		reactorsList.add(new ReactorImg());
 		reactorsList.add(new ReactorImg());
 		reactorsList.add(new ReactorImg());
-		reactorsList.add(new ReactorImg());
-		reactorsList.add(new ReactorImg());
-		reactorsList.add(new ReactorImg());
-		reactorsList.add(new ReactorImg());
-
 	}
 
 	public List<IDestroyable> getReactorsList() {
