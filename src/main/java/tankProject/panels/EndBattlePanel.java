@@ -96,7 +96,7 @@ public class EndBattlePanel extends BasicPanel {
 			setBounds((int) calculateWidth(35), (int) calculateHeight(38), getWidth(), getHeight());
 
 			StartBattle startBattle = new StartBattle(mainFrame, choosePlayerFrame, choosePlayerPanel,
-					tanksListProvider, lvl);
+					tanksListProvider , lvl );
 
 			addActionListener(new ActionListener() {
 

@@ -39,7 +39,8 @@ public class ChoosePlayerPanel extends BasicPanel {
 		ScoresLabel scoresLabel = new ScoresLabel(this, nickname);
 		LevelLabel levelLabel = new LevelLabel(this, nickname);
 		TanksListProvider tanksListProvider = new TanksListProvider(this, nickname);
-		StartBattle startBattle = new StartBattle(mainFrame, choosePlayerFrame, this, tanksListProvider, lvl);
+		lvl = this.databaseManager.getLvl("jarek123");
+		StartBattle startBattle = new StartBattle(mainFrame, choosePlayerFrame, this, tanksListProvider,lvl);
 		PlayersList playersList = new PlayersList(model, this, nickNameLabel, scoresLabel, levelLabel,
 				tanksListProvider, startBattle);
 		ForestMapButton forestMapButton = new ForestMapButton(this, forestMapImage, cityMapImage, desertMapImage);
@@ -95,7 +96,14 @@ public class ChoosePlayerPanel extends BasicPanel {
 	public int getSelectedMap() {
 		return selectedMap;
 	}
-	public void setLV(int key){
-		this.lvl = key;
-	}
+	
+//	public void setLV(int key){
+//		this.lvl = key;
+//	}
+//
+//	public int getLvl() {
+//		return lvl;
+//	}
+	
+	
 }

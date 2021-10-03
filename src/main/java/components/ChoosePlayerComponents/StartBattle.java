@@ -21,6 +21,7 @@ public class StartBattle extends MyButton {
     private Timer timer;
 
 
+
 	public StartBattle(MyFrame mainFrame, MyFrame choosePlayerFrame, ChoosePlayerPanel choosePlayerPanel,
 			TanksListProvider tanksListProvider, int lvl) {
 		super(EStrings.START_BATTLE.text);
