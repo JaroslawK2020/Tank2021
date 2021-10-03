@@ -36,7 +36,6 @@ public class BattlePanel extends BasicPanel {
 	private EscKeyService escKeyService;
 	private MyFrame choosePlayerFrame;
 	private MyTank myTank;
-	private String nickname;
 	int tankYCurrentPosition;
 	int tankXCurrentPosition;
 	private MyFrame battleFrame;
@@ -51,7 +50,7 @@ public class BattlePanel extends BasicPanel {
 	private DestroyableObjectProvider destroyableObjectProvider;
 	private boolean gameOver = false;
 	private int shootDirection = 0;
-	private int LVL;
+	private int lvl;
 	private int initScore = 0;
 	ScoreCounter scoreCounter = new ScoreCounter("0", this);
 	private int delay = 100;
@@ -64,8 +63,7 @@ public class BattlePanel extends BasicPanel {
 		this.battleFrame = battleFrame;
 		this.mainFrame = mainFrame;
 		this.choosePlayerPanel = choosePlayerPanel;
-		this.LVL = lvl;
-		this.destroyableObjectProvider = new DestroyableObjectProvider(LVL);// setup lvl
+		this.destroyableObjectProvider = new DestroyableObjectProvider(lvl);
 		startPlatform = new StartPlatform();
 		ScoreLabel scoreLabel = new ScoreLabel(this);
 		ExitLabel exitLabel = new ExitLabel(this);
@@ -128,7 +126,7 @@ public class BattlePanel extends BasicPanel {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
-					ESC_KeyAction(tanksListProvider, nickname, initScore, LVL);
+					ESC_KeyAction(tanksListProvider, nickname, initScore, lvl);
 			}
 
 			@Override
@@ -208,7 +206,7 @@ public class BattlePanel extends BasicPanel {
 		gameOver = false;
 		timer.stop();
 		escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel, myTank,
-				tanksListProvider, nickname, selectedMap, initScore, LVL);
+				tanksListProvider, nickname, selectedMap, initScore, lvl);
 	}
 
 	public void changeShootDirection(int index) {

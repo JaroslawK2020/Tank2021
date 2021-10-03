@@ -15,7 +15,6 @@ public class DatabaseManager {
 	private Session session;
 
 	public DatabaseManager() {
-		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 	}
 
 	public void addNewUser(String nickname, int tankId) {
@@ -74,7 +73,6 @@ public class DatabaseManager {
 	}
 
 	public int getLvl(String nickname) {
-		System.out.println("getl tlvl");
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.getCurrentSession();
@@ -85,10 +83,6 @@ public class DatabaseManager {
 			Query query = session.createQuery(hql);
 			
 			return (int) query.getResultList().get(0);
-			
-			
-//			int foo = ((int) (query.getResultList().get(0)));
-			// should session be closed?
 			
 		} catch (Exception e) {
 			e.printStackTrace();

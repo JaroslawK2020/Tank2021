@@ -17,13 +17,10 @@ import tankProject.panels.ChoosePlayerPanel;
 
 public class StartBattle extends MyButton {
 
-	String nickname = "";
     private Timer timer;
 
-
-
 	public StartBattle(MyFrame mainFrame, MyFrame choosePlayerFrame, ChoosePlayerPanel choosePlayerPanel,
-			TanksListProvider tanksListProvider, int lvl) {
+			TanksListProvider tanksListProvider) {
 		super(EStrings.START_BATTLE.text);
 
 		setEnabled(false);
@@ -33,8 +30,8 @@ public class StartBattle extends MyButton {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				navigateToBattlePanel(mainFrame, choosePlayerPanel, tanksListProvider, nickname,
-						choosePlayerPanel.getSelectedMap(), lvl);
+				navigateToBattlePanel(mainFrame, choosePlayerPanel, tanksListProvider, choosePlayerPanel.nickname,
+						choosePlayerPanel.getSelectedMap(), choosePlayerPanel.lvl);
 				choosePlayerFrame.dispose();
 			}
 		});
@@ -45,15 +42,11 @@ public class StartBattle extends MyButton {
 		MyFrame battleFrame = new MyFrame();
 		BattlePanel battlePanel = new BattlePanel(battleFrame, mainFrame, choosePlayerPanel, tanksListProvider,
 				nickname, selectedMap, lvl);
-
+		
 		battleFrame.add(battlePanel);
 		battleFrame.settupFrame();
 		mainFrame.dispose();
 		
-	}
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
 	}
 
 }
