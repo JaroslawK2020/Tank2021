@@ -42,14 +42,16 @@ public class BattlePanel extends BasicPanel {
 	private MyFrame mainFrame;
 	private ChoosePlayerPanel choosePlayerPanel;
 	private int selectedMap;
-	MapsProvider mapsProvider = new MapsProvider();
-	LeftShootsProvider leftShootsProvider = new LeftShootsProvider();
-	RightShootProvider rightShootProvider = new RightShootProvider();
-	DownShootProvider downShootsProvider = new DownShootProvider();
-	UpShootProvider upShootsProvider = new UpShootProvider();
-	DestroyableObjectProvider destroyableObjectProvider = new DestroyableObjectProvider();
-	boolean runAnimation = true;
-	int shootDirection = 0;
+	private MapsProvider mapsProvider = new MapsProvider();
+	private LeftShootsProvider leftShootsProvider = new LeftShootsProvider();
+	private DownShootProvider downShootsProvider = new DownShootProvider();
+	private UpShootProvider upShootsProvider = new UpShootProvider();
+	private RightShootProvider rightShootProvider = new RightShootProvider();
+	private DestroyableObjectProvider destroyableObjectProvider;
+	private boolean runAnimation = true;
+	private int shootDirection = 0;
+	private int LVL = 5; /////////////////set default lvl to 1 min 1 max 5
+	
 
 	public BattlePanel(MyFrame battleFrame, MyFrame mainFrame, ChoosePlayerPanel choosePlayerPanel,
 			TanksListProvider tanksListProvider, String nickname, int selectedMap) {
@@ -57,12 +59,14 @@ public class BattlePanel extends BasicPanel {
 		this.battleFrame = battleFrame;
 		this.mainFrame = mainFrame;
 		this.choosePlayerPanel = choosePlayerPanel;
+		this.destroyableObjectProvider = new DestroyableObjectProvider(LVL);//setup lvl
 		startPlatform = new StartPlatform();
 		ScoreCounter scoreCounter = new ScoreCounter(Integer.toString(pointCounter), this);
 		ScoreLabel scoreLabel = new ScoreLabel(this);
 		ExitLabel exitLabel = new ExitLabel(this);
 		myTank = new MyTank(choosePlayerPanel.mainImage, ((int) this.calculateWidth(3)),
 				((int) this.calculateHeight(98)));
+		
 
 		BufferedImage tankRight = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 0);
 		BufferedImage tankLeft = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 1);

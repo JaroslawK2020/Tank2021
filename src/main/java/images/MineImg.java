@@ -49,10 +49,8 @@ public class MineImg implements IDestroyable {
 		final int LOWER_RANGE = 50;
 		final int UPPER_RANGE = returnScreenWidth() - 50;
 		int drawNum = (int)(Math.random() * (UPPER_RANGE - LOWER_RANGE) + LOWER_RANGE);
-		if(drawNum % 100 == 0)
-			return drawNum;
-		else 
-			drawDestroyableObjectPositionX();
+		while(drawNum % 100 != 0)
+			drawNum = (int)(Math.random() * (UPPER_RANGE - LOWER_RANGE) + LOWER_RANGE);
 		return drawNum;
 	}
 
@@ -71,10 +69,8 @@ public class MineImg implements IDestroyable {
 		final int LOWER_RANGE = 50;
 		final int UPPER_RANGE = returnScreenHeight() - 50;
 		int drawNum = (int)(Math.random() * (UPPER_RANGE - LOWER_RANGE) + LOWER_RANGE);
-		if(drawNum % 100 == 0)
-			return drawNum;
-		else 
-			drawDestroyableObjectPositionY();
+		while(drawNum % 100 != 0)
+			drawNum = (int)(Math.random() * (UPPER_RANGE - LOWER_RANGE) + LOWER_RANGE);
 		return drawNum;
 	}
 
@@ -95,6 +91,25 @@ public class MineImg implements IDestroyable {
 
 	public int getWidth() {
 		return width;
+	}
+	@Override
+	public void mediumLVL() {
+		
+	}
+
+	@Override
+	public void hardLVL() {
+		
+	}
+
+	@Override
+	public void expertLVL() {
+		
+	}
+
+	@Override
+	public void madnessLVL() {
+		
 	}
 
 }
