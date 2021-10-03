@@ -46,10 +46,8 @@ public class ReactorImg implements IDestroyable {
 		final int LOWER_RANGE = 100;
 		final int UPPER_RANGE = returnScreenWidth() - 200;
 		int drawNum = (int)(Math.random() * (UPPER_RANGE - LOWER_RANGE) + LOWER_RANGE);
-		if(drawNum % 100 == 0)
-			return drawNum;
-		else 
-			drawDestroyableObjectPositionX();
+		while(drawNum % 100 != 0)
+			drawNum = (int)(Math.random() * (UPPER_RANGE - LOWER_RANGE) + LOWER_RANGE);
 		return drawNum;
 	}
 
@@ -68,10 +66,8 @@ public class ReactorImg implements IDestroyable {
 		final int LOWER_RANGE = 100;
 		final int UPPER_RANGE = returnScreenHeight() - 100;
 		int drawNum = (int)(Math.random() * (UPPER_RANGE - LOWER_RANGE) + LOWER_RANGE);
-		if(drawNum % 100 == 0)
-			return drawNum;
-		else 
-			drawDestroyableObjectPositionY();
+		while(drawNum % 100 != 0)
+			drawNum = (int)(Math.random() * (UPPER_RANGE - LOWER_RANGE) + LOWER_RANGE);
 		return drawNum;
 	}
 
