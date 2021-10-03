@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 public class DatabaseManager {
@@ -49,7 +50,7 @@ public class DatabaseManager {
 			String hql = "FROM Players WHERE nickname ='" + nickname + "'";
 			Query query = session.createQuery(hql);
 			return query.getResultList().size();
-			// should session be closed?
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -66,8 +67,7 @@ public class DatabaseManager {
 			String hql = "SELECT scores FROM Players WHERE nickname ='" + nickname + "'";
 			Query query = session.createQuery(hql);
 			return (int) query.getResultList().get(0);
-			// should session be closed?
-		} catch (Exception e) {
+			} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
@@ -108,7 +108,7 @@ public class DatabaseManager {
 		}
 		return new ArrayList<String>();
 	}
-	
+
 	public int getUserTank(String nickname) {
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -124,6 +124,24 @@ public class DatabaseManager {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	public void setNewScores(String nickname, int scores) {
+		try {
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.getCurrentSession();
+
+			 session.beginTransaction();
+			//Transaction transaction = session.beginTransaction();
+
+			String hql = "update players set scores =1 where  nickname = '" + nickname + "'";
+			Query query = session.createQuery(hql);
+			query.executeUpdate();
+			//transaction.commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

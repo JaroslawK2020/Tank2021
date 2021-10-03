@@ -18,13 +18,13 @@ public interface IDestroyable {
 	int getObjectYPosition();
 
 	void setObjectYPosition();
-	
+
 	void mediumLVL();
-	
+
 	void hardLVL();
-	
+
 	void expertLVL();
-	
+
 	void madnessLVL();
 
 	int getHeigth();

@@ -21,9 +21,7 @@ public class EndBattlePanel extends BasicPanel {
 
 	public EndBattlePanel(MyFrame mainFrame, MyFrame choosePlayerFrame, MyFrame exitBattleFrame, MyFrame battleFrame,
 			ChoosePlayerPanel choosePlayerPanel, MyTank myTank, TanksListProvider tanksListProvider, String nickname,
-			int selectedMap) {
-
-		System.out.println("EndBattlePanel" + nickname);
+			int selectedMap, int initScore) {
 
 		this.choosePlayerPanel = choosePlayerPanel;
 		this.myTank = myTank;
@@ -31,7 +29,7 @@ public class EndBattlePanel extends BasicPanel {
 		width /= 2;
 		height /= 2;
 
-		QuitButton quitButton = new QuitButton(mainFrame, choosePlayerFrame, exitBattleFrame, battleFrame);
+		QuitButton quitButton = new QuitButton(mainFrame, choosePlayerFrame, exitBattleFrame, battleFrame, nickname, initScore);
 		PlayAgainButton playAgainButton = new PlayAgainButton(mainFrame, exitBattleFrame, choosePlayerFrame,
 				battleFrame, choosePlayerPanel, tanksListProvider, nickname, selectedMap);
 
@@ -64,16 +62,21 @@ public class EndBattlePanel extends BasicPanel {
 
 	class QuitButton extends MyButton {
 
-		public QuitButton(MyFrame mainFrame, MyFrame choosePlayerFrame, MyFrame exitBattleFrame, MyFrame battleFrame) {
+		public QuitButton(MyFrame mainFrame, MyFrame choosePlayerFrame, MyFrame exitBattleFrame, MyFrame battleFrame, String nickname, int initScore) {
 			super(EStrings.QUIT.text);
 			setBounds((int) calculateWidth(5), (int) calculateHeight(38), getWidth(), getHeight());
 			addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
+		
 					MyFrame choosePlayerFrame = new MyFrame();
 					ChoosePlayerPanel choosePlayerPanel = new ChoosePlayerPanel(mainFrame, choosePlayerFrame);
 		
+					
+					int updateValue = initScore + choosePlayerPanel.databaseManager.getUserScores(nickname);
+					System.out.println(updateValue);
+					choosePlayerPanel.databaseManager.setNewScores(nickname, updateValue);
 					choosePlayerFrame.add(choosePlayerPanel);
 					choosePlayerFrame.settupFrame();
 					
