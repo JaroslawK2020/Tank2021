@@ -48,7 +48,7 @@ public class BattlePanel extends BasicPanel {
 	private DestroyableObjectProvider destroyableObjectProvider;
 	private boolean runAnimation = true;
 	private int shootDirection = 0;
-	private int LVL = 5; /////////////////set default lvl to 1 min 1 max 5
+	private int LVL = 1; /////////////////set default lvl to 1 min 1 max 5
 	
 
 	public BattlePanel(MyFrame battleFrame, MyFrame mainFrame, ChoosePlayerPanel choosePlayerPanel,
