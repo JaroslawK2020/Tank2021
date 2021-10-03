@@ -7,10 +7,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.Timer;
+
 
 import components.BattlePanel.EscKeyService;
 import components.BattlePanel.ExitLabel;
+import components.BattlePanel.IShoot;
 import components.BattlePanel.MyTank;
 import components.BattlePanel.ScoreCounter;
 import components.BattlePanel.ScoreLabel;
@@ -35,7 +40,6 @@ public class BattlePanel extends BasicPanel {
 	private String nickname;
 	int tankYCurrentPosition;
 	int tankXCurrentPosition;
-	private int pointCounter = 0;
 	private MyFrame battleFrame;
 	private MyFrame mainFrame;
 	private ChoosePlayerPanel choosePlayerPanel;
@@ -46,10 +50,14 @@ public class BattlePanel extends BasicPanel {
 	private UpShootProvider upShootsProvider = new UpShootProvider();
 	private RightShootProvider rightShootProvider = new RightShootProvider();
 	private DestroyableObjectProvider destroyableObjectProvider;
-	private boolean runAnimation = true;
+	private boolean gameOver = false;
 	private int shootDirection = 0;
-	private int LVL = 1; /////////////////set default lvl to 1 min 1 max 5
-	
+	private int LVL = 5; ///////////////// set default lvl to 1 min 1 max 5
+	private int initScore = 0;
+	ScoreCounter scoreCounter = new ScoreCounter("0", this);
+	private int delay = 100;
+	ActionListener taskPerformer;
+	Timer timer;
 
 	public BattlePanel(MyFrame battleFrame, MyFrame mainFrame, ChoosePlayerPanel choosePlayerPanel,
 			TanksListProvider tanksListProvider, String nickname, int selectedMap) {
@@ -57,28 +65,45 @@ public class BattlePanel extends BasicPanel {
 		this.battleFrame = battleFrame;
 		this.mainFrame = mainFrame;
 		this.choosePlayerPanel = choosePlayerPanel;
-		this.destroyableObjectProvider = new DestroyableObjectProvider(LVL);//setup lvl
+		this.destroyableObjectProvider = new DestroyableObjectProvider(LVL);// setup lvl
 		startPlatform = new StartPlatform();
-		ScoreCounter scoreCounter = new ScoreCounter(Integer.toString(pointCounter), this);
 		ScoreLabel scoreLabel = new ScoreLabel(this);
 		ExitLabel exitLabel = new ExitLabel(this);
 		myTank = new MyTank(choosePlayerPanel.mainImage, ((int) this.calculateWidth(3)),
 				((int) this.calculateHeight(98)));
-		
 
 		BufferedImage tankRight = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 0);
 		BufferedImage tankLeft = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 1);
 		BufferedImage tankDown = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 2);
 		BufferedImage tankUp = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 3);
 
-		int delay = 500;
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				shootsManager();
-				repaint();
+				if (!gameOver) {
+					shootsManager();
+					if (leftShootsProvider.getShootsList().size() > 0) {
+						leftShootsDestoyedObjectsManager();
+					}
+					if (rightShootProvider.getShootsList().size() > 0) {
+						rigthShootsDestoyedObjectsManager();
+					}
+					if (downShootsProvider.getShootsList().size() > 0) {
+						downShootsDestoyedObjectsManager();
+					}
+					if (upShootsProvider.getShootsList().size() > 0) {
+						upShootsDestoyedObjectsManager();
+					}
+					if (destroyableObjectProvider.getDestroyableObjects().size() > 0) {
+						destroyTankOnTouch();
+					}
+					repaint();
+				} else {
+					destroyTank(tanksListProvider, nickname);
+				}
 			}
 		};
-		new Timer(delay, taskPerformer).start();
+		timer = new Timer(delay, taskPerformer);
+		timer.start();
 
 		add(scoreCounter);
 		add(scoreLabel);
@@ -94,11 +119,7 @@ public class BattlePanel extends BasicPanel {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
-					ESC_KeyAction(tanksListProvider, nickname);
-
-				if (e.getKeyChar() == KeyEvent.VK_1) {
-					destroyTank(tanksListProvider, nickname);
-				}
+					ESC_KeyAction(tanksListProvider, nickname, initScore);
 			}
 
 			@Override
@@ -175,8 +196,10 @@ public class BattlePanel extends BasicPanel {
 
 	private void destroyTank(TanksListProvider tanksListProvider, String nickname) {
 		myTank.setAlive(false);
+		gameOver = false;
+		timer.stop();
 		escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel, myTank,
-				tanksListProvider, nickname, selectedMap);
+				tanksListProvider, nickname, selectedMap, initScore);
 	}
 
 	public void changeShootDirection(int index) {
@@ -237,10 +260,9 @@ public class BattlePanel extends BasicPanel {
 			myTank.setTankStartXposition(returnScreenWidth() - myTank.getWidth());
 	}
 
-	public void ESC_KeyAction(TanksListProvider tanksListProvider, String nickname) {
-		runAnimation = false;
+	public void ESC_KeyAction(TanksListProvider tanksListProvider, String nickname, int initScore) {
 		escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel, myTank,
-				tanksListProvider, nickname, selectedMap);
+				tanksListProvider, nickname, selectedMap, initScore);
 	}
 
 	public void shootsManager() {
@@ -282,7 +304,7 @@ public class BattlePanel extends BasicPanel {
 		for (int i = 0; i < destroyableObjectProvider.getDestroyableObjects().size(); i++) {
 			for (int j = 0; j < destroyableObjectProvider.getDestroyableObjects().get(i).size(); j++) {
 				if (destroyableObjectProvider.getDestroyableObjects().get(i).get(j) instanceof MineImg) {
-					int mineSize = 30;
+					int mineSize = 60;
 					if (destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
 							.getObjectXPosition() < (int) calculateWidth(10)
 							&& destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
@@ -332,15 +354,237 @@ public class BattlePanel extends BasicPanel {
 	private void printMinePosition() {
 		for (int i = 0; i < destroyableObjectProvider.getDestroyableObjects().size(); i++) {
 			for (int j = 0; j < destroyableObjectProvider.getDestroyableObjects().get(i).size(); j++) {
-				if (destroyableObjectProvider.getDestroyableObjects().get(i).get(j) instanceof MineImg) {
-					System.out.println("mine X pos: "
-							+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectXPosition());
-					System.out.println("mine Y pos: "
-							+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getObjectYPosition());
+
+			}
+		}
+	}
+
+	private void leftShootsDestoyedObjectsManager() {
+
+		List<IShoot> temp = new ArrayList<IShoot>();
+
+		for (int x = 0; x < leftShootsProvider.shootsList.size(); x++) {
+
+			if (destroyableObjectProvider.getDestroyableObjects().size() > 0) {
+
+				for (int i = 0; i < destroyableObjectProvider.getDestroyableObjects().size(); i++) {
+					for (int j = 0; j < destroyableObjectProvider.getDestroyableObjects().get(i).size(); j++) {
+
+						if (leftShootsProvider.getShootsList().get(x)
+								.getXposition() >= destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+										.getObjectXPosition()
+										- (destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getWidth())
+								& leftShootsProvider.getShootsList().get(x).getXposition() <= destroyableObjectProvider
+										.getDestroyableObjects().get(i).get(j).getObjectXPosition()
+										+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getWidth()
+								& leftShootsProvider.getShootsList().get(x).getXposition() >= destroyableObjectProvider
+										.getDestroyableObjects().get(i).get(j).getObjectXPosition()) {
+
+							if (leftShootsProvider.getShootsList().get(x).getYposition() >= destroyableObjectProvider
+									.getDestroyableObjects().get(i).get(j).getObjectYPosition()
+									- (destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getHeigth())
+									& leftShootsProvider.getShootsList().get(x)
+											.getYposition() <= destroyableObjectProvider.getDestroyableObjects().get(i)
+													.get(j).getObjectYPosition()
+													+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+															.getHeigth()
+									& leftShootsProvider.getShootsList().get(x)
+											.getYposition() >= destroyableObjectProvider.getDestroyableObjects().get(i)
+													.get(j).getObjectYPosition()) {
+								destroyableObjectProvider.getDestroyableObjects().get(i).remove(j);
+								temp.add(leftShootsProvider.getShootsList().get(x));
+								initScore++;
+								scoreCounter.setText(Integer.toString(initScore));
+							}
+						}
+					}
+
 				}
+			}
+			for (IShoot t : temp) {
+				leftShootsProvider.getShootsList().remove(t);
 			}
 		}
 
+	}
+
+	private void rigthShootsDestoyedObjectsManager() {
+
+		List<IShoot> temp = new ArrayList<IShoot>();
+
+		for (int x = 0; x < rightShootProvider.shootsList.size(); x++) {
+
+			if (destroyableObjectProvider.getDestroyableObjects().size() > 0) {
+
+				for (int i = 0; i < destroyableObjectProvider.getDestroyableObjects().size(); i++) {
+					for (int j = 0; j < destroyableObjectProvider.getDestroyableObjects().get(i).size(); j++) {
+
+						if (rightShootProvider.getShootsList().get(x)
+								.getXposition() >= destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+										.getObjectXPosition()
+										- (destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getWidth())
+								& rightShootProvider.getShootsList().get(x).getXposition() <= destroyableObjectProvider
+										.getDestroyableObjects().get(i).get(j).getObjectXPosition()
+										+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getWidth()
+								& rightShootProvider.getShootsList().get(x).getXposition() >= destroyableObjectProvider
+										.getDestroyableObjects().get(i).get(j).getObjectXPosition()) {
+
+							if (rightShootProvider.getShootsList().get(x).getYposition() >= destroyableObjectProvider
+									.getDestroyableObjects().get(i).get(j).getObjectYPosition()
+									- (destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getHeigth())
+									& rightShootProvider.getShootsList().get(x)
+											.getYposition() <= destroyableObjectProvider.getDestroyableObjects().get(i)
+													.get(j).getObjectYPosition()
+													+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+															.getHeigth()
+									& rightShootProvider.getShootsList().get(x)
+											.getYposition() >= destroyableObjectProvider.getDestroyableObjects().get(i)
+													.get(j).getObjectYPosition()) {
+								destroyableObjectProvider.getDestroyableObjects().get(i).remove(j);
+								temp.add(rightShootProvider.getShootsList().get(x));
+								initScore++;
+								scoreCounter.setText(Integer.toString(initScore));
+							}
+						}
+					}
+
+				}
+			}
+			for (IShoot t : temp) {
+				rightShootProvider.getShootsList().remove(t);
+			}
+		}
+	}
+
+	private void upShootsDestoyedObjectsManager() {
+
+		List<IShoot> temp = new ArrayList<IShoot>();
+
+		for (int x = 0; x < upShootsProvider.shootsList.size(); x++) {
+
+			if (destroyableObjectProvider.getDestroyableObjects().size() > 0) {
+
+				for (int i = 0; i < destroyableObjectProvider.getDestroyableObjects().size(); i++) {
+					for (int j = 0; j < destroyableObjectProvider.getDestroyableObjects().get(i).size(); j++) {
+
+						if (upShootsProvider.getShootsList().get(x)
+								.getXposition() >= destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+										.getObjectXPosition()
+										- (destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getWidth())
+								& upShootsProvider.getShootsList().get(x).getXposition() <= destroyableObjectProvider
+										.getDestroyableObjects().get(i).get(j).getObjectXPosition()
+										+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getWidth()
+								& upShootsProvider.getShootsList().get(x).getXposition() >= destroyableObjectProvider
+										.getDestroyableObjects().get(i).get(j).getObjectXPosition()) {
+
+							if (upShootsProvider.getShootsList().get(x).getYposition() >= destroyableObjectProvider
+									.getDestroyableObjects().get(i).get(j).getObjectYPosition()
+									- (destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getHeigth())
+									& upShootsProvider.getShootsList().get(x)
+											.getYposition() <= destroyableObjectProvider.getDestroyableObjects().get(i)
+													.get(j).getObjectYPosition()
+													+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+															.getHeigth()
+									& upShootsProvider.getShootsList().get(x)
+											.getYposition() >= destroyableObjectProvider.getDestroyableObjects().get(i)
+													.get(j).getObjectYPosition()) {
+								destroyableObjectProvider.getDestroyableObjects().get(i).remove(j);
+								temp.add(upShootsProvider.getShootsList().get(x));
+								initScore++;
+								scoreCounter.setText(Integer.toString(initScore));
+							}
+						}
+					}
+
+				}
+			}
+			for (IShoot t : temp) {
+				upShootsProvider.getShootsList().remove(t);
+			}
+		}
+	}
+
+	private void downShootsDestoyedObjectsManager() {
+
+		List<IShoot> temp = new ArrayList<IShoot>();
+
+		for (int x = 0; x < downShootsProvider.shootsList.size(); x++) {
+
+			if (destroyableObjectProvider.getDestroyableObjects().size() > 0) {
+
+				for (int i = 0; i < destroyableObjectProvider.getDestroyableObjects().size(); i++) {
+					for (int j = 0; j < destroyableObjectProvider.getDestroyableObjects().get(i).size(); j++) {
+
+						if (downShootsProvider.getShootsList().get(x)
+								.getXposition() >= destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+										.getObjectXPosition()
+										- (destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getWidth())
+								& downShootsProvider.getShootsList().get(x).getXposition() <= destroyableObjectProvider
+										.getDestroyableObjects().get(i).get(j).getObjectXPosition()
+										+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getWidth()
+								& downShootsProvider.getShootsList().get(x).getXposition() >= destroyableObjectProvider
+										.getDestroyableObjects().get(i).get(j).getObjectXPosition()) {
+
+							if (downShootsProvider.getShootsList().get(x).getYposition() >= destroyableObjectProvider
+									.getDestroyableObjects().get(i).get(j).getObjectYPosition()
+									- (destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getHeigth())
+									& downShootsProvider.getShootsList().get(x)
+											.getYposition() <= destroyableObjectProvider.getDestroyableObjects().get(i)
+													.get(j).getObjectYPosition()
+													+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j)
+															.getHeigth()
+									& downShootsProvider.getShootsList().get(x)
+											.getYposition() >= destroyableObjectProvider.getDestroyableObjects().get(i)
+													.get(j).getObjectYPosition()) {
+								destroyableObjectProvider.getDestroyableObjects().get(i).remove(j);
+								temp.add(downShootsProvider.getShootsList().get(x));
+								initScore++;
+								scoreCounter.setText(Integer.toString(initScore));
+							}
+						}
+					}
+
+				}
+			}
+			for (IShoot t : temp) {
+				downShootsProvider.getShootsList().remove(t);
+			}
+		}
+	}
+
+	private void destroyTankOnTouch() {
+
+		if (destroyableObjectProvider.getDestroyableObjects().size() > 0) {
+
+			for (int i = 0; i < destroyableObjectProvider.getDestroyableObjects().size(); i++) {
+				for (int j = 0; j < destroyableObjectProvider.getDestroyableObjects().get(i).size(); j++) {
+
+					if (myTank.getTankStartXposition() >= destroyableObjectProvider.getDestroyableObjects().get(i)
+							.get(j).getObjectXPosition()
+							- (destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getWidth())
+							& myTank.getTankStartXposition() <= destroyableObjectProvider.getDestroyableObjects().get(i)
+									.get(j).getObjectXPosition()
+									+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getWidth()
+							& myTank.getTankStartXposition() >= destroyableObjectProvider.getDestroyableObjects().get(i)
+									.get(j).getObjectXPosition()) {
+
+						if (myTank.getTankStartYposition() >= destroyableObjectProvider.getDestroyableObjects().get(i)
+								.get(j).getObjectYPosition()
+								- (destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getHeigth())
+								& myTank.getTankStartYposition() <= destroyableObjectProvider.getDestroyableObjects()
+										.get(i).get(j).getObjectYPosition()
+										+ destroyableObjectProvider.getDestroyableObjects().get(i).get(j).getHeigth()
+								& myTank.getTankStartYposition() >= destroyableObjectProvider.getDestroyableObjects()
+										.get(i).get(j).getObjectYPosition()) {
+							gameOver = true;
+
+						}
+					}
+				}
+
+			}
+
+		}
 	}
 
 }

@@ -13,6 +13,8 @@ public class MineImg implements IDestroyable {
 	private BufferedImage image;
 	private int objectXPositon;
 	private int objectYPosition;
+	private int heigth=60;
+	private int width=60;
 
 	public MineImg() {
 		try {
@@ -83,6 +85,13 @@ public class MineImg implements IDestroyable {
 		
 	}
 
+	public int getHeigth() {
+		return heigth;
+	}
+
+	public int getWidth() {
+		return width;
+	}
 	@Override
 	public void mediumLVL() {
 		

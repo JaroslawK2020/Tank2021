@@ -50,4 +50,10 @@ public class ShootUp implements IShoot{
 	public void move() {
 		Yposition -= 60;
 	}
+
+	@Override
+	public void setRemove() {
+		this.remove = true;
+		
+	}
 }

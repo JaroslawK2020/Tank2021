@@ -14,6 +14,7 @@ public class ReactorsProvider {
 
 	private List<IDestroyable> reactorsList = new ArrayList<IDestroyable>();
 
+
 	public ReactorsProvider(int lvl) {
 		if(lvl == 1)
 			easyLVL();
@@ -60,5 +61,4 @@ public class ReactorsProvider {
 		this.toRange = 15;
 	}
 	
-
 }

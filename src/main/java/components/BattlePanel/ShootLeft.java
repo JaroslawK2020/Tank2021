@@ -14,7 +14,6 @@ public class ShootLeft implements IShoot {
 	int height = 10;
 	int width = 40;
 	boolean remove = false;
-
 	boolean isVisible = false;
 
 	public ShootLeft(MyTank myTank) {
@@ -49,5 +48,10 @@ public class ShootLeft implements IShoot {
 
 	public void move() {
 		Xposition -= 60;
+	}
+
+	@Override
+	public void setRemove() {
+		this.remove = true;
 	}
 }

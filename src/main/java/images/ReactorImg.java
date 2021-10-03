@@ -12,7 +12,9 @@ public class ReactorImg implements IDestroyable {
 	private BufferedImage image;
 	private int objectXPositon;
 	private int objectYPosition;
-
+	private int heigth=100;
+	private int width=100;
+	
 	public ReactorImg() {
 		try {
 			image = ImageIO.read(new File("src//images//reactor.png"));
@@ -81,6 +83,14 @@ public class ReactorImg implements IDestroyable {
 		objectYPosition = drawDestroyableObjectPositionY();
 	}
 
+	public int getHeigth() {
+		return heigth;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+	
 	@Override
 	public void mediumLVL() {
 
