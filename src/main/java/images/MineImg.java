@@ -87,4 +87,24 @@ public class MineImg implements IDestroyable {
 		
 	}
 
+	@Override
+	public void mediumLVL() {
+		
+	}
+
+	@Override
+	public void hardLVL() {
+		
+	}
+
+	@Override
+	public void expertLVL() {
+		
+	}
+
+	@Override
+	public void madnessLVL() {
+		
+	}
+
 }

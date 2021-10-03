@@ -5,22 +5,28 @@ import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 import images.IDestroyable;
+import images.MineImg;
 import images.ReactorImg;
 
 public class ReactorsProvider {
+	private int fromRange;
+	private int toRange;
 
 	private List<IDestroyable> reactorsList = new ArrayList<IDestroyable>();
 
-	public ReactorsProvider() {
-		reactorsList.add(new ReactorImg());
-		reactorsList.add(new ReactorImg());
-		reactorsList.add(new ReactorImg());
-		reactorsList.add(new ReactorImg());
-		reactorsList.add(new ReactorImg());
-		reactorsList.add(new ReactorImg());
-		reactorsList.add(new ReactorImg());
-		reactorsList.add(new ReactorImg());
-		reactorsList.add(new ReactorImg());
+	public ReactorsProvider(int lvl) {
+		if(lvl == 1)
+			easyLVL();
+		else if(lvl == 2)
+			mediumLVL();
+		else if(lvl == 3)
+			hardLVL();
+		else if(lvl == 4)
+			expertLVL();
+		else if(lvl == 5)
+			madnessLVL();
+		for(int i = 0; i < (int)((Math.random() * (toRange - fromRange) + fromRange)); i++) 
+			reactorsList.add(new ReactorImg());	
 
 	}
 
@@ -28,25 +34,31 @@ public class ReactorsProvider {
 		return reactorsList;
 	}
 	
-	private int returnScreenWidth() {
-		Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-		return (int) size.getWidth();
-	}
-
-	private int returnScreenHeight() {
-		Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-		return (int) size.getHeight();
+	private void easyLVL() {
+		this.fromRange = 1;
+		this.toRange = 3;
 	}
 	
-	public int drawDestroyableObjectPositionX() {
-		final int LOWER_RANGE = 20;
-		final int UPPER_RANGE = returnScreenWidth() - 200;
-		int drawNum = (int)(Math.random() * (UPPER_RANGE - LOWER_RANGE) + LOWER_RANGE);
-		if(drawNum % 100 == 0)
-			return drawNum;
-		else 
-			drawDestroyableObjectPositionX();
-		return drawNum;
+	
+	private void mediumLVL() {
+		this.fromRange = 3;
+		this.toRange = 6;
 	}
+	
+	private void hardLVL() {
+		this.fromRange = 6;
+		this.toRange = 9;
+	}
+	
+	private void expertLVL() {
+		this.fromRange = 9;
+		this.toRange = 12;
+	}
+	
+	private void madnessLVL() {
+		this.fromRange = 12;
+		this.toRange = 15;
+	}
+	
 
 }

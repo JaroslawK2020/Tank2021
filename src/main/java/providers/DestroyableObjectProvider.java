@@ -12,10 +12,9 @@ import images.ReactorImg;
 public class DestroyableObjectProvider {
 	private List<List<IDestroyable>> destroyableObjectsList = new ArrayList<List<IDestroyable>>();
 	
-	
-	public DestroyableObjectProvider() {
-		destroyableObjectsList.add(new MinesProvider().getMinesList());
-		destroyableObjectsList.add(new ReactorsProvider().getReactorsList());
+	public DestroyableObjectProvider(int lvl) {
+		destroyableObjectsList.add(new MinesProvider(lvl).getMinesList());
+		destroyableObjectsList.add(new ReactorsProvider(lvl).getReactorsList());
 		setUpObjectPosition();
 	}
 	
@@ -31,4 +30,5 @@ public class DestroyableObjectProvider {
 	public List<List<IDestroyable>> getDestroyableObjects() {
 		return destroyableObjectsList;
 	}
+	
 }

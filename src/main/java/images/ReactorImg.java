@@ -84,4 +84,24 @@ public class ReactorImg implements IDestroyable {
 	public void setObjectYPosition() {
 		objectYPosition = drawDestroyableObjectPositionY();
 	}
+
+	@Override
+	public void mediumLVL() {
+
+	}
+
+	@Override
+	public void hardLVL() {
+
+	}
+
+	@Override
+	public void expertLVL() {
+	
+	}
+
+	@Override
+	public void madnessLVL() {
+	
+	}
 }
