@@ -21,7 +21,7 @@ public class EndBattlePanel extends BasicPanel {
 
 	public EndBattlePanel(MyFrame mainFrame, MyFrame choosePlayerFrame, MyFrame exitBattleFrame, MyFrame battleFrame,
 			ChoosePlayerPanel choosePlayerPanel, MyTank myTank, TanksListProvider tanksListProvider, String nickname,
-			int selectedMap, int initScore) {
+			int selectedMap, int initScore, int lvl) {
 
 		this.choosePlayerPanel = choosePlayerPanel;
 		this.myTank = myTank;
@@ -31,7 +31,7 @@ public class EndBattlePanel extends BasicPanel {
 
 		QuitButton quitButton = new QuitButton(mainFrame, choosePlayerFrame, exitBattleFrame, battleFrame, nickname, initScore);
 		PlayAgainButton playAgainButton = new PlayAgainButton(mainFrame, exitBattleFrame, choosePlayerFrame,
-				battleFrame, choosePlayerPanel, tanksListProvider, nickname, selectedMap);
+				battleFrame, choosePlayerPanel, tanksListProvider, nickname, selectedMap, lvl);
 
 		add(quitButton);
 		add(playAgainButton);
@@ -91,12 +91,12 @@ public class EndBattlePanel extends BasicPanel {
 
 		public PlayAgainButton(MyFrame mainFrame, MyFrame exitBattleFrame, MyFrame choosePlayerFrame,
 				MyFrame battleFrame, ChoosePlayerPanel choosePlayerPanel, TanksListProvider tanksListProvider,
-				String nickname, int selectedMap) {
+				String nickname, int selectedMap, int lvl) {
 			super(EStrings.PLAY_AGAIN.text);
 			setBounds((int) calculateWidth(35), (int) calculateHeight(38), getWidth(), getHeight());
 
 			StartBattle startBattle = new StartBattle(mainFrame, choosePlayerFrame, choosePlayerPanel,
-					tanksListProvider);
+					tanksListProvider, lvl);
 
 			addActionListener(new ActionListener() {
 
@@ -107,7 +107,7 @@ public class EndBattlePanel extends BasicPanel {
 					exitBattleFrame.dispose();
 
 					startBattle.navigateToBattlePanel(mainFrame, choosePlayerPanel,
-							tanksListProvider, nickname, selectedMap);
+							tanksListProvider, nickname, selectedMap, lvl);
 
 				}
 			});

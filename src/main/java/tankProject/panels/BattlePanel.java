@@ -12,7 +12,6 @@ import java.util.List;
 
 import javax.swing.Timer;
 
-
 import components.BattlePanel.EscKeyService;
 import components.BattlePanel.ExitLabel;
 import components.BattlePanel.IShoot;
@@ -52,7 +51,7 @@ public class BattlePanel extends BasicPanel {
 	private DestroyableObjectProvider destroyableObjectProvider;
 	private boolean gameOver = false;
 	private int shootDirection = 0;
-	private int LVL = 5; ///////////////// set default lvl to 1 min 1 max 5
+	private int LVL;
 	private int initScore = 0;
 	ScoreCounter scoreCounter = new ScoreCounter("0", this);
 	private int delay = 100;
@@ -60,11 +59,12 @@ public class BattlePanel extends BasicPanel {
 	Timer timer;
 
 	public BattlePanel(MyFrame battleFrame, MyFrame mainFrame, ChoosePlayerPanel choosePlayerPanel,
-			TanksListProvider tanksListProvider, String nickname, int selectedMap) {
+			TanksListProvider tanksListProvider, String nickname, int selectedMap, int lvl) {
 		this.selectedMap = selectedMap;
 		this.battleFrame = battleFrame;
 		this.mainFrame = mainFrame;
 		this.choosePlayerPanel = choosePlayerPanel;
+		this.LVL = lvl;
 		this.destroyableObjectProvider = new DestroyableObjectProvider(LVL);// setup lvl
 		startPlatform = new StartPlatform();
 		ScoreLabel scoreLabel = new ScoreLabel(this);
@@ -100,6 +100,15 @@ public class BattlePanel extends BasicPanel {
 				} else {
 					destroyTank(tanksListProvider, nickname);
 				}
+				if (destroyableObjectProvider.getDestroyableObjects().get(0).size() == 0
+						&& destroyableObjectProvider.getDestroyableObjects().get(1).size() == 0) {
+
+					myTank.setAlive(true);
+					gameOver = false;
+					ESC_KeyAction(tanksListProvider, nickname, initScore, LVL);
+
+				}
+
 			}
 		};
 		timer = new Timer(delay, taskPerformer);
@@ -119,7 +128,7 @@ public class BattlePanel extends BasicPanel {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
-					ESC_KeyAction(tanksListProvider, nickname, initScore);
+					ESC_KeyAction(tanksListProvider, nickname, initScore, LVL);
 			}
 
 			@Override
@@ -199,7 +208,7 @@ public class BattlePanel extends BasicPanel {
 		gameOver = false;
 		timer.stop();
 		escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel, myTank,
-				tanksListProvider, nickname, selectedMap, initScore);
+				tanksListProvider, nickname, selectedMap, initScore, LVL);
 	}
 
 	public void changeShootDirection(int index) {
@@ -260,9 +269,9 @@ public class BattlePanel extends BasicPanel {
 			myTank.setTankStartXposition(returnScreenWidth() - myTank.getWidth());
 	}
 
-	public void ESC_KeyAction(TanksListProvider tanksListProvider, String nickname, int initScore) {
+	public void ESC_KeyAction(TanksListProvider tanksListProvider, String nickname, int initScore, int LVL) {
 		escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel, myTank,
-				tanksListProvider, nickname, selectedMap, initScore);
+				tanksListProvider, nickname, selectedMap, initScore, LVL);
 	}
 
 	public void shootsManager() {

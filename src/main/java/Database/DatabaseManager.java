@@ -30,7 +30,7 @@ public class DatabaseManager {
 			players.setNickname(nickname);
 			players.setTankId(tankId);
 			players.setScores(0);
-			players.setLvl(0);
+			players.setLvl(1);
 
 			session.save(players);
 			session.getTransaction().commit();
@@ -131,13 +131,12 @@ public class DatabaseManager {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.getCurrentSession();
 
-			 session.beginTransaction();
-			//Transaction transaction = session.beginTransaction();
+			Transaction transaction = session.beginTransaction();
 
-			String hql = "update players set scores =1 where  nickname = '" + nickname + "'";
+			String hql = "update Players set scores ="+scores+" where  nickname = '" + nickname + "'";
 			Query query = session.createQuery(hql);
 			query.executeUpdate();
-			//transaction.commit();
+			transaction.commit();
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -18,7 +18,8 @@ public class PlayersList extends JList {
 	private Font fontFamily = new Font("Arial", Font.BOLD, 30);
 
 	public PlayersList(ListModel dataModel, ChoosePlayerPanel choosePlayerPanel, NickNameLabel nickNameLabel,
-			ScoresLabel scoresLabel, LevelLabel levelLabel, TanksListProvider tanksListProvider, StartBattle startBattle) {
+			ScoresLabel scoresLabel, LevelLabel levelLabel, TanksListProvider tanksListProvider,
+			StartBattle startBattle) {
 		super(dataModel);
 		setBounds((int) choosePlayerPanel.calculateWidth(3), (int) choosePlayerPanel.calculateHeight(5),
 				(int) choosePlayerPanel.calculateWidth(30), (int) choosePlayerPanel.calculateHeight(80));
@@ -35,7 +36,9 @@ public class PlayersList extends JList {
 				nickNameLabel.chooseNickname((String) getSelectedValue());
 				scoresLabel.chooseScores(choosePlayerPanel, (String) getSelectedValue());
 				levelLabel.chooseLvl(choosePlayerPanel, (String) getSelectedValue());
-				choosePlayerPanel.mainImage = tanksListProvider.getTankByUser(choosePlayerPanel, (String) getSelectedValue());
+				choosePlayerPanel.mainImage = tanksListProvider.getTankByUser(choosePlayerPanel,
+						(String) getSelectedValue());
+				choosePlayerPanel.setLV(choosePlayerPanel.databaseManager.getLvl((String) getSelectedValue()));
 				startBattle.setNickname((String) getSelectedValue());
 				choosePlayerPanel.repaint();
 			}

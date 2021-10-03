@@ -8,18 +8,18 @@ import tankProject.panels.EndBattlePanel;
 public class EscKeyService {
 
 	public EscKeyService(MyFrame battleFrame, MyFrame mainFrame, MyFrame choosePlayerFrame,
-			ChoosePlayerPanel choosePlayerPanel, MyTank myTank, TanksListProvider tanksListProvider, String nickname, int selectedMap, int initScore) {
+			ChoosePlayerPanel choosePlayerPanel, MyTank myTank, TanksListProvider tanksListProvider, String nickname, int selectedMap, int initScore, int LVL) {
 
 		launchEndBattlePanel(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel, myTank, tanksListProvider,
-				nickname, selectedMap, initScore);
+				nickname, selectedMap, initScore, LVL);
 
 	}
 
 	private void launchEndBattlePanel(MyFrame battleFrame, MyFrame mainFrame, MyFrame choosePlayerFrame,
-			ChoosePlayerPanel choosePlayerPanel, MyTank myTank, TanksListProvider tanksListProvider, String nickname, int selectedMap, int initScore) {
+			ChoosePlayerPanel choosePlayerPanel, MyTank myTank, TanksListProvider tanksListProvider, String nickname, int selectedMap, int initScore, int LVL) {
 		MyFrame exitBattleFrame = new MyFrame();
 		EndBattlePanel endBattlePanel = new EndBattlePanel(mainFrame, choosePlayerFrame, exitBattleFrame, battleFrame,
-				choosePlayerPanel, myTank, tanksListProvider, nickname, selectedMap, initScore);
+				choosePlayerPanel, myTank, tanksListProvider, nickname, selectedMap, initScore, LVL);
 		
 		exitBattleFrame.add(endBattlePanel);
 		exitBattleFrame.settupFrame();
