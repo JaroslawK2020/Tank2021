@@ -58,12 +58,14 @@ public class BattlePanel extends BasicPanel {
 	Timer timer;
 	private int level = 0;
 	private WinBattle winBattle;
+	private int lvl;
 	
 	public BattlePanel(MyFrame battleFrame, MyFrame mainFrame, ChoosePlayerPanel choosePlayerPanel,
 			TanksListProvider tanksListProvider, String nickname, int selectedMap, int lvl) {
 		this.selectedMap = selectedMap;
 		this.battleFrame = battleFrame;
 		this.mainFrame = mainFrame;
+		this.lvl = lvl;
 		this.level = choosePlayerPanel.databaseManager.getLvl(nickname);
 		this.choosePlayerPanel = choosePlayerPanel;
 		this.destroyableObjectProvider = new DestroyableObjectProvider(lvl);
