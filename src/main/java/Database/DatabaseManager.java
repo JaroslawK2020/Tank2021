@@ -143,5 +143,21 @@ public class DatabaseManager {
 			e.printStackTrace();
 		}
 	}
+	
+	public void setNewLvl(String nickname, int newLvl) {
+		try {
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.getCurrentSession();
 
+			Transaction transaction = session.beginTransaction();
+
+			String hql = "update Players set lvl ="+newLvl+" where  nickname = '" + nickname + "'";
+			Query query = session.createQuery(hql);
+			query.executeUpdate();
+			transaction.commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -69,7 +69,6 @@ public class BattlePanel extends BasicPanel {
 		ExitLabel exitLabel = new ExitLabel(this);
 		myTank = new MyTank(choosePlayerPanel.mainImage, ((int) this.calculateWidth(3)),
 				((int) this.calculateHeight(98)));
-		System.out.println("battlePanel LVL: " + lvl);
 		BufferedImage tankRight = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 0);
 		BufferedImage tankLeft = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 1);
 		BufferedImage tankDown = tanksListProvider.getTankByUserForMove(choosePlayerPanel, nickname, 2);
@@ -98,14 +97,13 @@ public class BattlePanel extends BasicPanel {
 				} else {
 					destroyTank(tanksListProvider, nickname);
 				}
-//				if (destroyableObjectProvider.getDestroyableObjects().get(0).size() == 0
-//						&& destroyableObjectProvider.getDestroyableObjects().get(1).size() == 0) {
-//
-//					myTank.setAlive(true);
-//					gameOver = false;
-//					ESC_KeyAction(tanksListProvider, nickname, initScore, LVL);
-//
-//				}
+				if (destroyableObjectProvider.getDestroyableObjects().get(0).size() == 0
+						&& destroyableObjectProvider.getDestroyableObjects().get(1).size() == 0) {
+					myTank.setAlive(true);
+					gameOver = false;
+					ESC_KeyAction(tanksListProvider, nickname, initScore, lvl);
+					timer.stop();
+				}
 
 			}
 		};
@@ -115,7 +113,12 @@ public class BattlePanel extends BasicPanel {
 		add(scoreCounter);
 		add(scoreLabel);
 		add(exitLabel);
-
+//
+//		System.out.println("BP nickname "+nickname);
+//		System.out.println("BP lvl"+ lvl);
+		
+		
+		
 		battleFrame.addKeyListener(new KeyListener() {
 
 			@Override
