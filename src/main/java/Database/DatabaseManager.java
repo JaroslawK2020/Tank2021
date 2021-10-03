@@ -33,7 +33,7 @@ public class DatabaseManager {
 
 			session.save(players);
 			session.getTransaction().commit();
-			// should session be closed?
+			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -48,8 +48,9 @@ public class DatabaseManager {
 
 			String hql = "FROM Players WHERE nickname ='" + nickname + "'";
 			Query query = session.createQuery(hql);
-			return query.getResultList().size();
-
+			int res = (int) query.getResultList().size();
+			session.close();
+			return res;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -65,8 +66,10 @@ public class DatabaseManager {
 
 			String hql = "SELECT scores FROM Players WHERE nickname ='" + nickname + "'";
 			Query query = session.createQuery(hql);
-			return (int) query.getResultList().get(0);
-			} catch (Exception e) {
+			int res = (int) query.getResultList().get(0);
+			session.close();
+			return res;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
@@ -81,13 +84,13 @@ public class DatabaseManager {
 
 			String hql = "SELECT lvl FROM Players WHERE nickname ='" + nickname + "'";
 			Query query = session.createQuery(hql);
-			
-			return (int) query.getResultList().get(0);
-			
+			int res = (int) query.getResultList().get(0);
+			session.close();
+			return res;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return 0;
 	}
 
@@ -100,10 +103,9 @@ public class DatabaseManager {
 
 			String hql = "SELECT nickname FROM Players";
 			Query query = session.createQuery(hql);
-
-			return query.getResultList();
-
-			// should session be closed?
+			List res = query.getResultList();
+			session.close();
+			return res;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -119,8 +121,9 @@ public class DatabaseManager {
 
 			String hql = "SELECT tankId FROM Players WHERE nickname ='" + nickname + "'";
 			Query query = session.createQuery(hql);
-			return (int) query.getResultList().get(0);
-			// should session be closed?
+			int res = (int) query.getResultList().get(0);
+			session.close();
+			return res;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -134,16 +137,16 @@ public class DatabaseManager {
 
 			Transaction transaction = session.beginTransaction();
 
-			String hql = "update Players set scores ="+scores+" where  nickname = '" + nickname + "'";
+			String hql = "update Players set scores =" + scores + " where  nickname = '" + nickname + "'";
 			Query query = session.createQuery(hql);
 			query.executeUpdate();
 			transaction.commit();
-
+			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void setNewLvl(String nickname, int newLvl) {
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -151,11 +154,11 @@ public class DatabaseManager {
 
 			Transaction transaction = session.beginTransaction();
 
-			String hql = "update Players set lvl ="+newLvl+" where  nickname = '" + nickname + "'";
+			String hql = "update Players set lvl =" + newLvl + " where  nickname = '" + nickname + "'";
 			Query query = session.createQuery(hql);
 			query.executeUpdate();
 			transaction.commit();
-
+			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

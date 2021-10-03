@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import components.BattlePanel.MyTank;
+import components.ChoosePlayerComponents.MyLabel;
 import components.ChoosePlayerComponents.StartBattle;
 import components.CreateNewPlayerComponent.CreateButton;
 import images.Explosion;
@@ -16,8 +17,8 @@ import tankProject.Frame.MyFrame;
 
 public class EndBattlePanel extends BasicPanel {
 
-private ChoosePlayerPanel choosePlayerPanel;
-private MyTank myTank;
+	private ChoosePlayerPanel choosePlayerPanel;
+	private MyTank myTank;
 
 	public EndBattlePanel(MyFrame mainFrame, MyFrame choosePlayerFrame, MyFrame exitBattleFrame, MyFrame battleFrame,
 			ChoosePlayerPanel choosePlayerPanel, MyTank myTank, TanksListProvider tanksListProvider, String nickname,
@@ -32,8 +33,13 @@ private MyTank myTank;
 		PlayAgainButton playAgainButton = new PlayAgainButton(mainFrame, exitBattleFrame, choosePlayerFrame,
 				battleFrame, choosePlayerPanel, tanksListProvider, nickname, selectedMap);
 
+		MyLabel lvl = new MyLabel();
+		lvl.setText("Lvl " + Integer.toString(LVL));
+		lvl.setBounds((int) calculateWidth(5), (int) calculateHeight(7), (int) choosePlayerPanel.calculateWidth(50), (int) choosePlayerPanel.calculateHeight(30));
+		
 		add(quitButton);
 		add(playAgainButton);
+		add(lvl);
 	}
 
 	@Override
@@ -70,7 +76,7 @@ private MyTank myTank;
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					int updateValue = initScore + choosePlayerPanel.databaseManager.getUserScores(nickname);
-					int newLvl = LVL + 1;
+					int newLvl = LVL;
 
 					choosePlayerPanel.databaseManager.setNewScores(nickname, updateValue);
 					choosePlayerPanel.databaseManager.setNewLvl(nickname, newLvl);
@@ -103,14 +109,13 @@ private MyTank myTank;
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					
+
 					startBattle.navigateToBattlePanel(mainFrame, choosePlayerPanel, tanksListProvider, nickname,
 							selectedMap, choosePlayerPanel.lvl);
-					
+
 					battleFrame.dispose();
 					exitBattleFrame.dispose();
 
-				
 				}
 			});
 		}

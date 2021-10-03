@@ -10,8 +10,8 @@ import images.MineImg;
 
 public class MinesProvider {
 	private List<IDestroyable> minesList = new ArrayList<IDestroyable>();
-	private int fromRange = 3;
-	private int toRange = 5;
+	private int fromRange = 1;
+	private int toRange = 2;
 
 	public MinesProvider(int lvl) {
 
@@ -23,10 +23,6 @@ public class MinesProvider {
 		return minesList;
 	}
 
-	private void madnessLVL() {
-		this.fromRange = 30;
-		this.toRange = 40;
-	}
 }
 
 

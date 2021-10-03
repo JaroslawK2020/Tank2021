@@ -18,6 +18,7 @@ import components.BattlePanel.IShoot;
 import components.BattlePanel.MyTank;
 import components.BattlePanel.ScoreCounter;
 import components.BattlePanel.ScoreLabel;
+import components.BattlePanel.WinBattle;
 import images.MineImg;
 import images.ReactorImg;
 import images.StartPlatform;
@@ -50,18 +51,20 @@ public class BattlePanel extends BasicPanel {
 	private DestroyableObjectProvider destroyableObjectProvider;
 	private boolean gameOver = false;
 	private int shootDirection = 0;
-	private int lvl;
 	private int initScore = 0;
 	ScoreCounter scoreCounter = new ScoreCounter("0", this);
 	private int delay = 100;
 	ActionListener taskPerformer;
 	Timer timer;
-
+	private int level = 0;
+	private WinBattle winBattle;
+	
 	public BattlePanel(MyFrame battleFrame, MyFrame mainFrame, ChoosePlayerPanel choosePlayerPanel,
 			TanksListProvider tanksListProvider, String nickname, int selectedMap, int lvl) {
 		this.selectedMap = selectedMap;
 		this.battleFrame = battleFrame;
 		this.mainFrame = mainFrame;
+		this.level = choosePlayerPanel.databaseManager.getLvl(nickname);
 		this.choosePlayerPanel = choosePlayerPanel;
 		this.destroyableObjectProvider = new DestroyableObjectProvider(lvl);
 		startPlatform = new StartPlatform();
@@ -101,7 +104,7 @@ public class BattlePanel extends BasicPanel {
 						&& destroyableObjectProvider.getDestroyableObjects().get(1).size() == 0) {
 					myTank.setAlive(true);
 					gameOver = false;
-					ESC_KeyAction(tanksListProvider, nickname, initScore, lvl);
+					winBattle(tanksListProvider, nickname, initScore, lvl);
 					timer.stop();
 				}
 
@@ -113,9 +116,6 @@ public class BattlePanel extends BasicPanel {
 		add(scoreCounter);
 		add(scoreLabel);
 		add(exitLabel);
-//
-//		System.out.println("BP nickname "+nickname);
-//		System.out.println("BP lvl"+ lvl);
 		
 		
 		
@@ -274,6 +274,12 @@ public class BattlePanel extends BasicPanel {
 		escKeyService = new EscKeyService(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel, myTank,
 				tanksListProvider, nickname, selectedMap, initScore, LVL);
 	}
+	
+	public void winBattle(TanksListProvider tanksListProvider, String nickname, int initScore, int LVL) {
+		winBattle = new WinBattle(battleFrame, mainFrame, choosePlayerFrame, choosePlayerPanel, myTank,
+				tanksListProvider, nickname, selectedMap, initScore);
+	}
+	
 
 	public void shootsManager() {
 		if (leftShootsProvider.getShootsList().size() > 0) {
